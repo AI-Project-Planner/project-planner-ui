@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  build_and_test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages: #If you are using Yarn change this to Yarn
+          pkg-manager: npm
+      - run:
+          name: Run tests
+          command: npm test # If you are using Yarn, change this to Yarn - Hence if you are testing your project with Cypress you need to add a new run for that depends on how you've defined that script in your project. 
+      - run : 
+          name : Run build
+          command: npm run build #If you are using Yarn change this to Yarn
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
