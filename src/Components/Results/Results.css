@@ -1,0 +1,17 @@
+.results-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary-collab-container {
+  display: flex;
+}
+
+.design-features-container {
+  display: flex;
+}
+
+.video-interaction-container {
+  display: flex;
+}
