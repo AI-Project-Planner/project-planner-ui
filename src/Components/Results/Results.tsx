@@ -7,11 +7,17 @@ const Results = () => {
       <h1>Your Project: </h1>
       <div className='summary-collab-container'>
         <div className='summary'>
-          <h2>Summary</h2>
-          <p>summary txt here</p>
+          <div className='summary-header'>
+            <h2>Summary</h2>
+          </div>
+          <div className='summary-text'>
+            <p>summary txt here</p>
+          </div>
         </div>
-        <div className='collab-and-buttons'>
-          <h2>Collaborators: </h2>
+        <div className='collab-buttons'>
+          <div className='collab'>
+            <h2>Collaborators: </h2>
+          </div>
           <button>Save Plan</button>
           <button>Create Another</button>
         </div>

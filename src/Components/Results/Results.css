@@ -6,12 +6,52 @@
 
 .summary-collab-container {
   display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #DBD5D5;
+  width: 35vw;
+  height: 4.5vh;
+  border-radius: 15px;
+  margin-bottom: 11px;
+}
+
+.summary-text {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.collab-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.collab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #DBD5D5;
+  width: 14vw;
+  height: 4.5vh;
+  border-radius: 15px;
 }
 
 .design-features-container {
   display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
 }
 
 .video-interaction-container {
   display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
 }
