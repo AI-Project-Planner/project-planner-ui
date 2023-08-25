@@ -3,7 +3,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
-import Home from '../Home/Home';
+import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
 
 
@@ -22,15 +22,17 @@ const App = () => {
   return (
     <div className='app'>
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
-        <main>
+        <>
           <header className='app-header'>
             <Link className='app-logo' to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
-          <Routes>
-            <Route path='/' element={<Home />} />
-          </Routes>
-        </main>
+          <main>
+            <Routes>
+              <Route path='/' element={<Home smallScreen={smallScreen} />} />
+            </Routes>
+          </main>
+        </>
       }
     </div>
   );

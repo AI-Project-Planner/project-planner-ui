@@ -1,4 +1,4 @@
-main {
+main, header {
   animation: fadeIn 0.5s ease-in;
 }
 
@@ -11,4 +11,11 @@ main {
 
 .app-logo img {
   width: 500px;
+  max-width: 80vw;
+}
+
+main {
+  width: 100vw;
+  max-height: 88vh;
+  overflow-y: auto;
 }
