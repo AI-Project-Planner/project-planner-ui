@@ -27,3 +27,12 @@ button, a {
   background-color: #00000000;
   border: none;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

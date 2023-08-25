@@ -4,7 +4,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 60vh
+  height: 60vh;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .menu-link button {

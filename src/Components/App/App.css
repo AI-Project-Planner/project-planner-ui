@@ -1,3 +1,7 @@
+main {
+  animation: fadeIn 0.5s ease-in;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
