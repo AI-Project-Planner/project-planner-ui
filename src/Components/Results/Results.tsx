@@ -49,8 +49,12 @@ const Results = () => {
           </div>
         </div>
         <div className='features'>
-          <h3>Features</h3>
-          <p>List of features here</p>
+          <div className='feat-inter-header'>
+            <h3>Features</h3>
+          </div>
+          <div className='feat-inter-text'>
+            <p>List of features here</p>
+          </div>
         </div>
       </div>
       <div className='video-interaction-container'>
@@ -59,8 +63,12 @@ const Results = () => {
           <p>thumbnail for video</p>
         </div>
         <div className='interaction'>
-          <h3>Example Interaction</h3>
-          <p>List of features here</p>
+          <div className='feat-inter-header'>
+            <h3>Example Interaction</h3>
+          </div>
+          <div className='feat-inter-text'>
+            <p>List of features here</p>
+          </div>
         </div>
       </div>
     </section>

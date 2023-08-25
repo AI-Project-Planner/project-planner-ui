@@ -50,7 +50,7 @@
   justify-content: space-evenly;
 }
 
-.design {
+.design, .video {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -91,8 +91,29 @@
   border-radius: 3px;
 }
 
+.feat-inter-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #DBD5D5;
+  height: 4.5vh;
+  width: 30vw;
+}
+
+.feat-inter-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee4e1;
+  height: 40vh;
+}
+
 .video-interaction-container {
   display: flex;
   width: 100vw;
   justify-content: space-evenly;
+}
+
+.video {
+ align-items: center;
 }
