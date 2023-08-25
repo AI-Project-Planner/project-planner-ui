@@ -18,8 +18,8 @@ const Results = () => {
           <div className='collab'>
             <h2>Collaborators: </h2>
           </div>
-          <button>Save Plan</button>
-          <button>Create Another</button>
+          <button className='save-create-button'>Save Plan</button>
+          <button className='save-create-button'>Create Another</button>
         </div>
       </div>
       <div className='design-features-container'>

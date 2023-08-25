@@ -18,7 +18,7 @@
   background-color: #DBD5D5;
   width: 35vw;
   height: 4.5vh;
-  border-radius: 15px;
+  border-radius: 10px;
   margin-bottom: 11px;
 }
 
@@ -44,7 +44,20 @@
   background-color: #DBD5D5;
   width: 14vw;
   height: 4.5vh;
-  border-radius: 15px;
+  border-radius: 10px;
+}
+
+.save-create-button {
+  background-color: #eee4e1;
+  border: none;
+  width: 14vw;
+  height: 4.5vh;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.save-create-button:hover {
+  border: 2px solid #af0f0f;
 }
 
 .design-features-container {
