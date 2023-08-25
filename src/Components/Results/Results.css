@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .summary-collab-container {
@@ -31,7 +32,9 @@
 .collab-buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
+  width: 30vw;
 }
 
 .collab {
