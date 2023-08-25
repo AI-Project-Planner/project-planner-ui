@@ -14,17 +14,19 @@ const App = () => {
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
   
   useEffect(() => {
+    changeScreenSize()
     window.addEventListener('resize', changeScreenSize)
+    return () => window.removeEventListener('resize', changeScreenSize)
   }, []);
   
   return (
     <div className='app'>
-      <header className='app-header'>
-        <Link to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
-        <NavBar/>
-      </header>
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
         <main>
+          <header className='app-header'>
+            <Link to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
+            <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
+          </header>
           <Routes>
             <Route path='/' element={<Home />} />
           </Routes>

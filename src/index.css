@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+*, button{
+  font-family: 'Montserrat', sans-serif;
+}
+
+button, a {
+  color: black; 
+  text-decoration: none;
+}
