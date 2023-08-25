@@ -24,25 +24,28 @@ const Results = () => {
       </div>
       <div className='design-features-container'>
         <div className='design'>
-          <h3>Design</h3>
-          <h2>Color Paletter</h2>
-          <div className='color-1'>
-            <p>hex code</p>
+          <div className='palette-header'>
+            <h2>Color Palette</h2>
           </div>
-          <div className='color-2'>
-            <p>hex code</p>
-          </div>
-          <div className='color-3'>
-            <p>hex code</p>
-          </div>
-          <div className='color-4'>
-            <p>hex code</p>
-          </div>
-          <div className='color-5'>
-            <p>hex code</p>
-          </div>
-          <div className='color-6'>
-            <p>hex code</p>
+          <div className='palette-container'>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
+            <div className='color'>
+              <p className='hex-code'>hex code</p>
+            </div>
           </div>
         </div>
         <div className='features'>
