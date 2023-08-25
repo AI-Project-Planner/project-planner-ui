@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -10,6 +10,7 @@ import logo from '../../images/logo.png';
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
+  const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
   
@@ -18,6 +19,13 @@ const App = () => {
     window.addEventListener('resize', changeScreenSize)
     return () => window.removeEventListener('resize', changeScreenSize)
   }, []);
+
+  useEffect(() => {
+    const ombreBackLocaion = location === '/' || location === 'form'
+    ombreBackLocaion && !menuOpen && smallScreen
+      ? document.querySelector('body')?.classList.add('ombre')
+      : document.querySelector('body')?.classList.remove('ombre')
+  }, [smallScreen, menuOpen, location])
   
   return (
     <div className='app'>

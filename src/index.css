@@ -8,6 +8,11 @@ body {
   background-color: #FAF4EE;
 }
 
+.ombre {
+  background: linear-gradient(#FAF4EE, #ffffff);
+  background-repeat: no-repeat;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
