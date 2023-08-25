@@ -10,7 +10,7 @@ import logo from '../../images/logo.png';
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
-  const changeScreenSize = () => window.innerWidth < 900 ? setSmallScreen(true) : setSmallScreen(false);
+  const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
   
   useEffect(() => {
@@ -24,7 +24,7 @@ const App = () => {
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
         <main>
           <header className='app-header'>
-            <Link to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
+            <Link className='app-logo' to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
           <Routes>

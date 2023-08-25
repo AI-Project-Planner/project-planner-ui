@@ -7,10 +7,15 @@
   height: 60vh
 }
 
-.menu-link {
+.menu-link button {
   font-size: 25px;
-  height: 80px;
-  width: 60%;
+  width: 250px;
   text-align: center;
   border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.menu-nav button {
+  align-self: flex-end;
+  margin: 10px;
 }
