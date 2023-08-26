@@ -166,6 +166,14 @@ const FormPage = () => {
       setSearchTerm("");
       setCurrentQuestion(prev => prev + 1);
     } else {
+      const formData: FormData = {
+        stack, 
+        technologies,
+        timeFrame: `${timeframe.amount} ${timeframe.type}`,
+        collaborators: numPeople
+      }
+      console.log(formData)
+      }
   }
 
   const prevQuestion = () => {
