@@ -5,6 +5,7 @@ import phone from '../../images/phone.png';
 import pancake from '../../images/pancake.png';
 import web from '../../images/web.png';
 import plus from '../../images/add.png';
+import { postNewForm } from '../../apiCalls';
 
 interface Indexable {
   [key: string]: any;
@@ -202,7 +203,10 @@ const FormPage = () => {
       timeFrame: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
     }
-    console.log(formData)
+    
+    postNewForm(formData).then(data => {
+      console.log(data)
+    })
   }
 
   const nextQuestion = () => {
