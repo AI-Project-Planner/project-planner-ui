@@ -143,7 +143,16 @@ const FormPage = () => {
         </section>
       )
     }
-
+    if (currentQuestion === 4) {
+      return (
+        <section className='form-search-container'>
+          <div className='form-tech-input-container'>
+            <input onChange={(e) => selectNumPeople(e)} className='form-input number-input' type='number' min='1' value={numPeople}/>
+          </div>
+        </section>
+      )
+    }
+  }
 
 
   const inputErrors = () => {
