@@ -167,6 +167,14 @@
 .form-tech-text {
   font-size: 1.5rem;
 }
+
+.form-error {
+  margin: 0;
+  color: #AF0F0F;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
 .hidden {
   display: none;
 }
