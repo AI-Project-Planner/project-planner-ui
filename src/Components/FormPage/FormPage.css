@@ -71,6 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -87,7 +88,7 @@
   border-radius: 24px;
   border: 2px solid #DBD5D5;
   font-size: 1.6rem;
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 
 .number-input {
@@ -147,17 +148,19 @@
 
 .form-tech-stack-chosen {
   width: 40%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  padding-right: 50px;
+  /* padding-right: 50px; */
 }
 
 .form-tech-stack-chosen-single {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 .form-active-focus {
@@ -166,6 +169,7 @@
 
 .form-tech-text {
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .form-error {
@@ -173,8 +177,78 @@
   color: #AF0F0F;
   font-size: 2rem;
   font-weight: 400;
+  text-align: center;
 }
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 850px) {
+  .form-backdrop {
+    width: 100%;
+    height: 80%;
+    position: fixed;
+    bottom: 0;
+    border-radius: 30px 30px 0 0;
+  }
+
+  .form-question {
+    font-size: 1.8rem;
+    padding: 0 20px;
+    margin-top: 10px;
+  }
+  
+  .form-type-icon-container {
+    width: 28%;
+    margin: 15px;
+  }
+
+  .form-type-text {
+    font-size: 1.2rem;
+  }
+
+  .form-button {
+    width: 80%;
+  }
+
+  .form-question-container {
+    flex-direction: column;
+  }
+
+  .form-icon-container {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .form-icon {
+    height: 40px;
+  }
+
+  .form-tech-input-container {
+    width: 100%;
+  }
+
+  .form-input {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .form-dropdown {
+    width: 64%;
+    margin-right: 43px;
+  }
+
+  .form-tech-stack-chosen-single {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  .number-input {
+    margin: 2px;
+  }
+
+  .form-error {
+    font-size: 1.4rem;
+  }
 }

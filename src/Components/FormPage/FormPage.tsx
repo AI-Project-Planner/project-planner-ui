@@ -134,8 +134,8 @@ const FormPage = () => {
                 document.getElementById('dropdown')?.classList.add('hidden');
               }} className='form-tech-stack'>{tech}</p>)}
             </div>
+            <p className='form-tech-text'>{technologies.length > 0 ? 'Technologies chosen:' : 'Please add technologies'}</p>
             <div className='form-tech-stack-chosen'>
-              <p className='form-tech-text'>{technologies.length > 0 ? 'Technologies chosen:' : 'Please add technologies'}</p>
               {technologies.map((tech) => <div key={tech} className='form-tech-stack-chosen-single'>{tech}</div>)}
             </div>
           </section>
