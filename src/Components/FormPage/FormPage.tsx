@@ -11,9 +11,21 @@ interface Indexable {
 }
 
 type TechStacks = Indexable & {
-  fe: string[],
-  be: string[],
-  fs: string[]
+  frontend: string[],
+  backend: string[],
+  fullstack: string[]
+}
+
+interface TimeFrame {
+  amount: number,
+  type: string
+}
+
+interface FormData {
+  stack: string,
+  technologies: string[],
+  timeFrame: string,
+  collaborators: number
 }
 
 const FormPage = () => {
@@ -22,7 +34,7 @@ const FormPage = () => {
   const [stack, setStack] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [technologies, setTechnologies] = useState<string[]>([]);
-  const [timeframe, setTimeframe] = useState<string>("");
+  const [timeframe, setTimeframe] = useState<TimeFrame>({amount: 0, type: "days"});
   const [numPeople, setNumPeople] = useState<number>(0);
 
   const questions: Record<number, string> = {
@@ -38,9 +50,9 @@ const FormPage = () => {
   }
 
   const techStacks: TechStacks = {
-    fe: ['react', 'typescript', 'javascript', 'vue', 'angular'],
-    be: ['ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise'],
-    fs: ['react', 'typescript', 'javascript', 'vue', 'angular', 'ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise']
+    frontend: ['react', 'typescript', 'javascript', 'vue', 'angular'],
+    backend: ['ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise'],
+    fullstack: ['react', 'typescript', 'javascript', 'vue', 'angular', 'ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise']
   }
 
   const searchTechnologies = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,25 +60,43 @@ const FormPage = () => {
   }
 
   const addTechnology = () => {
-    if(searchTerm) {
-      setTechnologies(prev=> [...prev, searchTerm ])
+    const alreadySaved = technologies.find(tech => tech === searchTerm);
+    if(searchTerm && !alreadySaved) {
+      setTechnologies(prev=> [...prev, searchTerm ]);
     }
   }
+
+  const selectTime = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const name = (e.target as HTMLInputElement).name;
+    const value = (e.target as HTMLInputElement).value;
+    setTimeframe(prev => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
+
+  const selectNumPeople = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = (e.target as HTMLInputElement).value;
+    setNumPeople(parseInt(value))
+  }
+
 
   const questionInputs = () => {
     if (currentQuestion === 1) {
       return (
         <section onClick={(e) => chooseStack(e)} className='form-type-container'>
           <div  className='form-type-icon-container'>
-            <img id="fe" className='form-type-icon' alt='icon for frontend type' src={phone}/>
+            <img id="frontend" className='form-type-icon' alt='icon for frontend type' src={phone}/>
             <p className='form-type-text'>Front End</p>
           </div>
           <div className='form-type-icon-container'>
-            <img id="be" className='form-type-icon' alt='icon for backend type' src={web}/>
+            <img id="backend" className='form-type-icon' alt='icon for backend type' src={web}/>
             <p className='form-type-text'>Back End</p>
           </div>
           <div className='form-type-icon-container'>
-            <img id="fs" className='form-type-icon' alt='icon for fullstack type' src={pancake}/>
+            <img id="fullstack" className='form-type-icon' alt='icon for fullstack type' src={pancake}/>
             <p className='form-type-text'>Full Stack</p>
           </div>
         </section>
@@ -75,7 +105,7 @@ const FormPage = () => {
 
     if (currentQuestion === 2) {
       const searchedName = searchTerm.toLowerCase();
-      console.log(searchedName)
+
       const filteredTech = techStacks[stack].filter((tech: string) => {
         return tech.toLowerCase().includes(searchedName);
       });
@@ -93,12 +123,28 @@ const FormPage = () => {
               }} className='form-tech-stack'>{tech}</p>)}
           </div>
           <div className='form-tech-stack-chosen'>
-            {technologies.map((tech) => <div className='form-tech-stack-chosen-single'>{tech}</div>)}
+            {technologies.map((tech) => <div key={tech} className='form-tech-stack-chosen-single'>{tech}</div>)}
           </div>
         </section>
       )
     }
-  }
+
+    if (currentQuestion === 3) {
+      return (
+        <section className='form-search-container'>
+          <div className='form-tech-input-container'>
+            <input onChange={(e) => selectTime(e)} name='amount'className='form-input number-input' type='number' min='1' value={timeframe.amount}/>
+            <select onChange={(e) => selectTime(e)} name='type' className='form-input number-input' value={timeframe.type}>
+              <option value='day'>Days</option>
+              <option value='week'>Weeks</option>
+              <option value='month'>Months</option>
+            </select>
+          </div>
+        </section>
+      )
+    }
+
+
 
   const inputErrors = () => {
     if (!stack) {
@@ -111,8 +157,6 @@ const FormPage = () => {
       setSearchTerm("");
       setCurrentQuestion(prev => prev + 1);
     } else {
-      //submit form
-    }
   }
 
   const prevQuestion = () => {

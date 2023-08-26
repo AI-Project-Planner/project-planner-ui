@@ -33,6 +33,7 @@
   text-align: center;
   font-size: 3rem;
   flex-grow:1;
+  margin-bottom: 10px;
 }
 
 .form-input-container {
@@ -87,6 +88,12 @@
   border: 2px solid #DBD5D5;
   font-size: 1.6rem;
   padding-left: 10px;
+}
+
+.number-input {
+  width: 40%;
+  margin: 20px;
+  text-align: center;
 }
 
 .form-tech-input-container {
