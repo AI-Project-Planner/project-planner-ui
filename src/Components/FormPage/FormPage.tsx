@@ -53,7 +53,6 @@ const FormPage = () => {
   const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const id = (e.target as HTMLInputElement).id;
     setStack(id);
-    console.log(stack)
   }
 
   const searchTechnologies = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,10 +83,10 @@ const FormPage = () => {
   }
 
   const setActiveFocus = () => {
-    const allStacks = ['frontend', 'backend', 'fullstack']
-    const filteredStacks = allStacks.filter(stacks => stacks !== stack)
-    
-    document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus')
+    const allStacks = ['frontend', 'backend', 'fullstack'];
+    const filteredStacks = allStacks.filter(stacks => stacks !== stack);
+
+    document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus');
     filteredStacks.forEach(stacks => document.querySelector(`.${stacks}-div`)?.classList.remove('form-active-focus'));
   }
 
@@ -134,6 +133,7 @@ const FormPage = () => {
               }} className='form-tech-stack'>{tech}</p>)}
           </div>
           <div className='form-tech-stack-chosen'>
+            <p className='form-tech-text'>{technologies.length > 0 ? 'Technologies chosen:' : 'Please add technologies'}</p>
             {technologies.map((tech) => <div key={tech} className='form-tech-stack-chosen-single'>{tech}</div>)}
           </div>
         </section>

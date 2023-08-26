@@ -135,6 +135,8 @@
   border: 2px solid #EEE4E1;
   border-radius: 24px;
   width: 30%;
+  height: 60%;
+  overflow: auto;
   font-size: 1.6rem;
 }
 
@@ -149,6 +151,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-right: 50px;
 }
 
 .form-tech-stack-chosen-single {
@@ -161,6 +164,9 @@
   border: 5px solid #efaf9b;
 }
 
+.form-tech-text {
+  font-size: 1.5rem;
+}
 .hidden {
   display: none;
 }
