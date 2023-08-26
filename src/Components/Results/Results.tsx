@@ -1,17 +1,26 @@
 import './Results.css';
 
-const Results = () => {
+interface ResultsProps {
+  obj: any
+}
+
+const Results = ({obj}: ResultsProps) => {
+  const split:string[] = obj.attributes.features.split('\n')
+  const features = split.map(feature => {
+    return (<p>&#x2022;{feature}</p>)
+  })
+
 
   return (
     <section className='results-page'>
-      <h1>Your Project: </h1>
+      <h1>Your Project: {obj.attributes.name}</h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
             <h2>Summary</h2>
           </div>
           <div className='summary-text'>
-            <p>summary txt here</p>
+            <p>{obj.attributes.description}</p>
           </div>
         </div>
         <div className='collab-buttons'>
@@ -53,7 +62,7 @@ const Results = () => {
             <h3>Features</h3>
           </div>
           <div className='feat-inter-text'>
-            <p>List of features here</p>
+            {features}
           </div>
         </div>
       </div>
