@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FormPage.css';
 import arrow from '../../images/arrow.png';
 import phone from '../../images/phone.png';
@@ -44,15 +44,16 @@ const FormPage = () => {
     4: "How Many Collaborators Will There Be?"
   }
 
-  const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    const id = (e.target as HTMLInputElement).id;
-    setStack(id);
-  }
-
   const techStacks: TechStacks = {
     frontend: ['react', 'typescript', 'javascript', 'vue', 'angular'],
     backend: ['ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise'],
     fullstack: ['react', 'typescript', 'javascript', 'vue', 'angular', 'ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise']
+  }
+
+  const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const id = (e.target as HTMLInputElement).id;
+    setStack(id);
+    console.log(stack)
   }
 
   const searchTechnologies = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,25 +80,36 @@ const FormPage = () => {
 
   const selectNumPeople = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = (e.target as HTMLInputElement).value;
-    setNumPeople(parseInt(value))
+    setNumPeople(parseInt(value));
   }
 
+  const setActiveFocus = () => {
+    const allStacks = ['frontend', 'backend', 'fullstack']
+    const filteredStacks = allStacks.filter(stacks => stacks !== stack)
+    
+    document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus')
+    filteredStacks.forEach(stacks => document.querySelector(`.${stacks}-div`)?.classList.remove('form-active-focus'));
+  }
+
+  useEffect(() => {
+    setActiveFocus()
+  },[stack])
 
   const questionInputs = () => {
     if (currentQuestion === 1) {
       return (
-        <section onClick={(e) => chooseStack(e)} className='form-type-container'>
-          <div  className='form-type-icon-container'>
-            <img id="frontend" className='form-type-icon' alt='icon for frontend type' src={phone}/>
-            <p className='form-type-text'>Front End</p>
+        <section onClick={(e) => {chooseStack(e)}} className='form-type-container'>
+          <div className='frontend frontend-div form-type-icon-container'>
+            <img id="frontend" className='frontend form-type-icon' alt='icon for frontend type' src={phone}/>
+            <p className='frontend form-type-text'>Front End</p>
           </div>
-          <div className='form-type-icon-container'>
-            <img id="backend" className='form-type-icon' alt='icon for backend type' src={web}/>
-            <p className='form-type-text'>Back End</p>
+          <div className='backend backend-div form-type-icon-container'>
+            <img id="backend" className='backend form-type-icon' alt='icon for backend type' src={web}/>
+            <p className='backend form-type-text'>Back End</p>
           </div>
-          <div className='form-type-icon-container'>
-            <img id="fullstack" className='form-type-icon' alt='icon for fullstack type' src={pancake}/>
-            <p className='form-type-text'>Full Stack</p>
+          <div className='fullstack fullstack-div form-type-icon-container'>
+            <img id="fullstack" className='fullstack form-type-icon' alt='icon for fullstack type' src={pancake}/>
+            <p className='fullstack form-type-text'>Full Stack</p>
           </div>
         </section>
       )
@@ -105,7 +117,6 @@ const FormPage = () => {
 
     if (currentQuestion === 2) {
       const searchedName = searchTerm.toLowerCase();
-
       const filteredTech = techStacks[stack].filter((tech: string) => {
         return tech.toLowerCase().includes(searchedName);
       });
@@ -143,6 +154,7 @@ const FormPage = () => {
         </section>
       )
     }
+
     if (currentQuestion === 4) {
       return (
         <section className='form-search-container'>
@@ -161,19 +173,23 @@ const FormPage = () => {
     }
   }
 
+  const submitFormData = () => {
+    const formData: FormData = {
+      stack, 
+      technologies,
+      timeFrame: `${timeframe.amount} ${timeframe.type}`,
+      collaborators: numPeople
+    }
+    console.log(formData)
+  }
+
   const nextQuestion = () => {
     if (currentQuestion < 4) {
       setSearchTerm("");
       setCurrentQuestion(prev => prev + 1);
     } else {
-      const formData: FormData = {
-        stack, 
-        technologies,
-        timeFrame: `${timeframe.amount} ${timeframe.type}`,
-        collaborators: numPeople
-      }
-      console.log(formData)
-      }
+      submitFormData();
+    }
   }
 
   const prevQuestion = () => {

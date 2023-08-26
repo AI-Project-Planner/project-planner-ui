@@ -155,7 +155,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.form-active-focus {
+  border: 5px solid #efaf9b;
 }
 
 .hidden {
