@@ -67,10 +67,27 @@ const FormPage = () => {
   }
 
   const addTechnology = () => {
-    const alreadySaved = technologies.find(tech => tech === searchTerm);
-    if(searchTerm && !alreadySaved) {
+    setError({error: false, message: ""})
+
+    const feFrameworks: string[] = ['react', 'vue', 'angular'];
+
+    const alreadySaved = (data: string[]) => data.find(tech => tech === searchTerm);
+
+    const feFrameworkChosen = technologies.filter(tech => feFrameworks.includes(tech));
+
+    if (feFrameworks.includes(searchTerm) && feFrameworkChosen.length === 1) {
+      return setError({error: true, message: "You can only choose 1 FE Framework!"})
+    }
+
+    if(searchTerm && !alreadySaved(technologies) && technologies.length < 5 && feFrameworkChosen.length <= 1) {
       setTechnologies(prev=> [...prev, searchTerm ]);
     }
+
+    if (technologies.length === 5) {
+      setError({error: true, message: "You can only choose up to 5 technologies!"})
+    }
+
+    setSearchTerm("");
   }
 
   const selectTime = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -246,6 +263,7 @@ const FormPage = () => {
   }
 
   const prevQuestion = () => {
+    setError({error: false, message: ""})
     setCurrentQuestion(prev => prev - 1);
   }
 
