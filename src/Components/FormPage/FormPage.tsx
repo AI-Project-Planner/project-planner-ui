@@ -1,42 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './FormPage.css';
 import arrow from '../../images/arrow.png';
-import phone from '../../images/phone.png';
-import pancake from '../../images/pancake.png';
-import web from '../../images/web.png';
-import plus from '../../images/add.png';
 import { postNewForm } from '../../apiCalls';
 import Question1 from './Questions/Question1';
 import Question2 from './Questions/Question2';
 import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
-
-interface Indexable {
-  [key: string]: any;
-}
-
-type TechStacks = Indexable & {
-  frontend: string[],
-  backend: string[],
-  fullstack: string[]
-}
-
-interface TimeFrame {
-  amount: number,
-  type: string
-}
-
-interface ErrorMsg {
-  error: boolean,
-  message: string
-}
-
-interface FormData {
-  stack: string,
-  technologies: string[],
-  timeFrame: string,
-  collaborators: number
-}
+import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from './FormPageTypes'
 
 const FormPage = () => {
 
@@ -61,6 +31,20 @@ const FormPage = () => {
     fullstack: ['react', 'typescript', 'javascript', 'vue', 'angular', 'ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise']
   }
 
+  const questionComponents: QuestionComponents = {
+    1: <Question1 chooseStack={(e) => chooseStack(e)} />,
+    2: <Question2 setTechnologies={setTechnologies} searchTerm={searchTerm} techStacks={techStacks} setError={setError} stack={stack} setSearchTerm={setSearchTerm} technologies={technologies}/>,
+    3: <Question3 setTimeframe={setTimeframe} timeframe={timeframe}/>,
+    4: <Question4 numPeople={numPeople} setNumPeople={setNumPeople}/>
+  }
+
+  const errorConditions: ErrorConditions = {
+    1: [!stack, "Please select stack!"],
+    2: [technologies.length < 1, "Please add technologies!"],
+    3: [timeframe.amount < 1, "Please select aount of time!"],
+    4: [numPeople < 1, "Please select number of collaborators!"]
+  }
+
   const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     const id = (e.target as HTMLInputElement).id;
     setStack(id);
@@ -74,22 +58,15 @@ const FormPage = () => {
   }
 
   const questionInputs = () => {
-    if (currentQuestion === 1) {
-      return <Question1 chooseStack={(e) => chooseStack(e)} />
-    }
-
-    if (currentQuestion === 2) {
-      return <Question2 setTechnologies={setTechnologies} searchTerm={searchTerm} techStacks={techStacks} setError={setError} stack={stack} setSearchTerm={setSearchTerm} technologies={technologies}/>
-    }
-
-    if (currentQuestion === 3) {
-      return <Question3 setTimeframe={setTimeframe} timeframe={timeframe}/>
-    }
-
-    if (currentQuestion === 4) {
-      return <Question4 numPeople={numPeople} setNumPeople={setNumPeople}/>
+    return questionComponents[currentQuestion]
   }
-}
+
+  const inputErrors = () => {
+    if (errorConditions[currentQuestion][0]) {
+      setError({ error: true, message: errorConditions[currentQuestion][1]})
+      return true;
+    }
+  } 
 
   const submitFormData = () => {
     const formData: FormData = {
@@ -105,40 +82,17 @@ const FormPage = () => {
   }
 
   const nextQuestion = () => {
-
-    if (currentQuestion === 1) {
-      if(!stack) {
-        return setError({error: true, message: "Please select stack!"})
+      if(!inputErrors()) {
+      if (currentQuestion < 4) {
+        setError({ error: false, message: "" })
+        setSearchTerm("");
+        setCurrentQuestion(prev => prev + 1);
+      } else {
+        submitFormData();
       }
-    } 
-
-    if (currentQuestion === 2) {
-      if(technologies.length < 1) {
-        return setError({error: true, message: "Please add technologies!"})
-      }
-    } 
-
-    if (currentQuestion === 3) {
-      if(timeframe.amount < 1) {
-        return setError({error: true, message: "Please select amount of time!"})
-      }
-    } 
-
-    if (currentQuestion === 4) {
-      if(numPeople < 1) {
-        return setError({error: true, message: "Please select number of collaborators!"})
-      }
-    }
-
-    if (currentQuestion < 4) {
-      setError({error: false, message: ""})
-      setSearchTerm("");
-      setCurrentQuestion(prev => prev + 1);
-    } else {
-      submitFormData();
     }
   }
-
+ 
   const prevQuestion = () => {
     setError({error: false, message: ""})
     setCurrentQuestion(prev => prev - 1);
