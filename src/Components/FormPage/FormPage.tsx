@@ -6,6 +6,10 @@ import pancake from '../../images/pancake.png';
 import web from '../../images/web.png';
 import plus from '../../images/add.png';
 import { postNewForm } from '../../apiCalls';
+import Question1 from './Questions/Question1';
+import Question2 from './Questions/Question2';
+import Question3 from './Questions/Question3';
+import Question4 from './Questions/Question4';
 
 interface Indexable {
   [key: string]: any;
@@ -57,53 +61,9 @@ const FormPage = () => {
     fullstack: ['react', 'typescript', 'javascript', 'vue', 'angular', 'ruby/rails', 'postgresql', 'node', 'sidekiq', 'devise']
   }
 
-  const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     const id = (e.target as HTMLInputElement).id;
     setStack(id);
-  }
-
-  const searchTechnologies = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  }
-
-  const addTechnology = () => {
-    setError({error: false, message: ""})
-
-    const feFrameworks: string[] = ['react', 'vue', 'angular'];
-
-    const alreadySaved = (data: string[]) => data.find(tech => tech === searchTerm);
-
-    const feFrameworkChosen = technologies.filter(tech => feFrameworks.includes(tech));
-
-    if (feFrameworks.includes(searchTerm) && feFrameworkChosen.length === 1) {
-      return setError({error: true, message: "You can only choose 1 FE Framework!"})
-    }
-
-    if(searchTerm && !alreadySaved(technologies) && technologies.length < 5 && feFrameworkChosen.length <= 1) {
-      setTechnologies(prev=> [...prev, searchTerm ]);
-    }
-
-    if (technologies.length === 5) {
-      setError({error: true, message: "You can only choose up to 5 technologies!"})
-    }
-
-    setSearchTerm("");
-  }
-
-  const selectTime = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    const name = (e.target as HTMLInputElement).name;
-    const value = (e.target as HTMLInputElement).value;
-    setTimeframe(prev => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
-  }
-
-  const selectNumPeople = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = (e.target as HTMLInputElement).value;
-    setNumPeople(parseInt(value));
   }
 
   const setActiveFocus = () => {
@@ -115,103 +75,21 @@ const FormPage = () => {
 
   const questionInputs = () => {
     if (currentQuestion === 1) {
-      return (
-        <section onClick={(e) => {chooseStack(e)}} className='form-type-container'>
-          <div className='frontend frontend-div form-type-icon-container'>
-            <img id="frontend" className='frontend form-type-icon' alt='icon for frontend type' src={phone}/>
-            <p className='frontend form-type-text'>Front End</p>
-          </div>
-          <div className='backend backend-div form-type-icon-container'>
-            <img id="backend" className='backend form-type-icon' alt='icon for backend type' src={web}/>
-            <p className='backend form-type-text'>Back End</p>
-          </div>
-          <div className='fullstack fullstack-div form-type-icon-container'>
-            <img id="fullstack" className='fullstack form-type-icon' alt='icon for fullstack type' src={pancake}/>
-            <p className='fullstack form-type-text'>Full Stack</p>
-          </div>
-        </section>
-      )
+      return <Question1 chooseStack={(e) => chooseStack(e)} />
     }
 
     if (currentQuestion === 2) {
-        const searchedName = searchTerm.toLowerCase();
-        const filteredTech = techStacks[stack].filter((tech: string) => {
-          return tech.toLowerCase().includes(searchedName);
-        });
-
-        return (
-          <section className='form-search-container'>
-            <div className='form-tech-input-container'>
-              <input className='form-input' type='text' placeholder='ADD TECHNOLOGY' onChange={e => searchTechnologies(e)} onFocus={() => document.getElementById('dropdown')?.classList.remove('hidden')} value={searchTerm} />
-              <img src={plus} alt='plus icon to add technology' className='form-icon' onClick={addTechnology} />
-            </div>
-            <div id='dropdown' className='form-dropdown hidden'>
-              {filteredTech.map((tech: string) => <p key={tech} onClick={() => {
-                setSearchTerm(`${tech}`);
-                document.getElementById('dropdown')?.classList.add('hidden');
-              }} className='form-tech-stack'>{tech}</p>)}
-            </div>
-            <p className='form-tech-text'>{technologies.length > 0 ? 'Technologies chosen:' : 'Please add technologies'}</p>
-            <div className='form-tech-stack-chosen'>
-              {technologies.map((tech) => <div key={tech} className='form-tech-stack-chosen-single'>{tech}</div>)}
-            </div>
-          </section>
-        )
+      return <Question2 setTechnologies={setTechnologies} searchTerm={searchTerm} techStacks={techStacks} setError={setError} stack={stack} setSearchTerm={setSearchTerm} technologies={technologies}/>
     }
 
     if (currentQuestion === 3) {
-      return (
-        <section className='form-search-container'>
-          <div className='form-tech-input-container'>
-            <input onChange={(e) => selectTime(e)} name='amount' className='form-input number-input' type='number' min='1' value={timeframe.amount} />
-            <select onChange={(e) => selectTime(e)} name='type' className='form-input number-input' value={timeframe.type}>
-              <option value='day'>Days</option>
-              <option value='week'>Weeks</option>
-              <option value='month'>Months</option>
-            </select>
-          </div>
-        </section>
-      )
+      return <Question3 setTimeframe={setTimeframe} timeframe={timeframe}/>
     }
 
     if (currentQuestion === 4) {
-      return (
-        <section className='form-search-container'>
-          <div className='form-tech-input-container'>
-            <input onChange={(e) => selectNumPeople(e)} className='form-input number-input' type='number' min='1' value={numPeople}/>
-          </div>
-        </section>
-      )
-    }
+      return <Question4 numPeople={numPeople} setNumPeople={setNumPeople}/>
   }
-
-  // const checkInputErrors = () => {
-  //   if (currentQuestion === 1) {
-  //     if(!stack) {
-  //       return setError({error: true, message: "Please select stack!"})
-  //     }
-  //   } else 
-
-  //   if (currentQuestion === 2) {
-  //     if(technologies.length < 1) {
-  //       return setError({error: true, message: "Please add technologies!"})
-  //     }
-  //   } else
-
-  //   if (currentQuestion === 3) {
-  //     if(timeframe.amount < 1) {
-  //       return setError({error: true, message: "Please select amount of time!"})
-  //     }
-  //   } else
-
-  //   if (currentQuestion === 4) {
-  //     if(numPeople < 1) {
-  //       return setError({error: true, message: "Please select number of collaborators!"})
-  //     }
-  //   } else {
-  //     return false
-  //   }
-  // }
+}
 
   const submitFormData = () => {
     const formData: FormData = {
@@ -220,14 +98,13 @@ const FormPage = () => {
       timeFrame: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
     }
-    
+    console.log(formData)
     postNewForm(formData).then(data => {
       console.log(data)
     })
   }
 
   const nextQuestion = () => {
-    // checkInputErrors();
 
     if (currentQuestion === 1) {
       if(!stack) {
