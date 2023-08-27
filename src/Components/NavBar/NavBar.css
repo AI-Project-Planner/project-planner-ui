@@ -10,3 +10,9 @@
 .navBar button {
   margin-right: 5%;
 }
+
+@media screen and (max-width: 1170px) {
+  .navBar button img {
+    max-width: 20vw;
+  }
+}
