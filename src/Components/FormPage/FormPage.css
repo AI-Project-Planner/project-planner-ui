@@ -138,7 +138,7 @@
   background-color: white;
   border-radius: 24px;
   width: 30%;
-  height: 40%;
+  height: 20%;
   overflow: auto;
   font-size: 1.6rem;
   z-index: 99999;
@@ -245,6 +245,7 @@
 
   .form-dropdown {
     width: 64%;
+    height: 40%;
     margin-right: 43px;
   }
 
