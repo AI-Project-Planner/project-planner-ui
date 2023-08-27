@@ -9,7 +9,6 @@ function App() {
 
       <Routes>
         <Route path="/form" element={<FormPage />} />
-          {/* <Route path=":1" element={<></>}></Route> */}
       </Routes>
     </div>
   );

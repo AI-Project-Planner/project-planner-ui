@@ -1,20 +1,6 @@
 import React from 'react';
 import plus from '../../../images/add.png';
-
-interface Indexable {
-  [key: string]: any;
-}
-
-type TechStacks = Indexable & {
-  frontend: string[],
-  backend: string[],
-  fullstack: string[]
-}
-
-interface ErrorMsg {
-  error: boolean,
-  message: string
-}
+import { TechStacks, ErrorMsg } from '../FormPageTypes';
 
 interface Question2Props {
   searchTerm: string,

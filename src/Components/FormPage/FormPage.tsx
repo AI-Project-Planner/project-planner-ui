@@ -6,10 +6,9 @@ import Question1 from './Questions/Question1';
 import Question2 from './Questions/Question2';
 import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
-import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from './FormPageTypes'
+import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from './FormPageTypes';
 
 const FormPage = () => {
-
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [stack, setStack] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");

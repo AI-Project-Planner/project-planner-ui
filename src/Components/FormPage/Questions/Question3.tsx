@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface TimeFrame {
-  amount: number,
-  type: string
-}
+import { TimeFrame } from '../FormPageTypes';
 
 interface Question3Props {
   setTimeframe: React.Dispatch<React.SetStateAction<TimeFrame>>,
