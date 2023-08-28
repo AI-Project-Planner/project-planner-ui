@@ -45,8 +45,8 @@ const FormPage = () => {
   }
 
   const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    const id = (e.target as HTMLInputElement).id;
-    setStack(id);
+    const className = (e.target as HTMLInputElement).classList[0];
+    setStack(className);
   }
 
   const setActiveFocus = () => {
