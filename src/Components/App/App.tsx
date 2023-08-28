@@ -5,8 +5,6 @@ import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
 import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
-import Loader from '../Loader/Loader';
-
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,7 +37,6 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<Home smallScreen={smallScreen} />} />
-              <Route path='/temp-path' element={<Loader />} />
             </Routes>
           </main>
         </>
