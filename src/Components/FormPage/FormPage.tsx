@@ -31,7 +31,7 @@ const FormPage = () => {
   }
 
   const questionComponents: QuestionComponents = {
-    1: <Question1 chooseStack={(e) => chooseStack(e)} />,
+    1: <Question1 currentStack={stack} chooseStack={(e) => chooseStack(e)} />,
     2: <Question2 setTechnologies={setTechnologies} searchTerm={searchTerm} techStacks={techStacks} setError={setError} stack={stack} setSearchTerm={setSearchTerm} technologies={technologies}/>,
     3: <Question3 setTimeframe={setTimeframe} timeframe={timeframe}/>,
     4: <Question4 numPeople={numPeople} setNumPeople={setNumPeople}/>
@@ -43,18 +43,20 @@ const FormPage = () => {
     3: [timeframe.amount < 1, "Please select aount of time!"],
     4: [numPeople < 1, "Please select number of collaborators!"]
   }
+  useEffect(() => {
+    console.log('stack', stack)
+  }, [stack, currentQuestion])
 
-  const chooseStack = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    const className = (e.target as HTMLInputElement).classList[0];
-    setStack(className);
+  const chooseStack = (stack: string): void => {
+    setStack(stack);
   }
 
-  const setActiveFocus = () => {
-    const filteredStacks = Object.keys(techStacks).filter(stacks => stacks !== stack);
+  // const setActiveFocus = () => {
+  //   const filteredStacks = Object.keys(techStacks).filter(stacks => stacks !== stack);
 
-    document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus');
-    filteredStacks.forEach(stacks => document.querySelector(`.${stacks}-div`)?.classList.remove('form-active-focus'));
-  }
+  //   document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus');
+  //   filteredStacks.forEach(stacks => document.querySelector(`.${stacks}-div`)?.classList.remove('form-active-focus'));
+  // }
 
   const questionInputs = () => {
     return questionComponents[currentQuestion]
@@ -97,9 +99,9 @@ const FormPage = () => {
     setCurrentQuestion(prev => prev - 1);
   }
 
-  useEffect(() => {
-    setActiveFocus();
-  },[stack, currentQuestion])
+  // useEffect(() => {
+  //   setActiveFocus();
+  // },[stack, currentQuestion])
 
   useEffect(() => {
     setTechnologies([]);

@@ -4,25 +4,24 @@ import pancake from '../../../images/pancake.png';
 import web from '../../../images/web.png';
 
 interface Question1Props {
-  chooseStack: (e:  React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  chooseStack: (stack: string) => void;
+  currentStack: string
 }
 
-const Question1: React.FC<Question1Props> = ({ chooseStack }) => {
-
+const Question1: React.FC<Question1Props> = ({ chooseStack, currentStack}) => {
+  const stacks = [{ type: 'frontend', name: 'Front End', img: phone}, {type: 'backend', name: 'Back End', img: web}, {type: 'fullstack', name: 'Full Stack', img: pancake}]
+  const stackElements = stacks.map(stack => {
+    return (
+      <div onClick={() => chooseStack(stack.type)} key={stack.type}  className={`${stack.type} form-type-icon-container ${currentStack === stack.type ? 'form-active-focus' : ''}`}>
+        <img className={`${stack.type} form-type-icon`} alt={`icon for ${stack.type} type`} src={stack.img}/>
+        <p className={`${stack.type} form-type-text`}>{stack.name}</p>
+      </div>
+    )
+  })
+  
   return (
-    <section onClick={(e) => {chooseStack(e)}} className='form-type-container'>
-      <div className='frontend frontend-div form-type-icon-container'>
-        <img id="frontend" className='frontend form-type-icon' alt='icon for frontend type' src={phone}/>
-        <p className='frontend form-type-text'>Front End</p>
-      </div>
-      <div className='backend backend-div form-type-icon-container'>
-        <img id="backend" className='backend form-type-icon' alt='icon for backend type' src={web}/>
-        <p className='backend form-type-text'>Back End</p>
-      </div>
-      <div className='fullstack fullstack-div form-type-icon-container'>
-        <img id="fullstack" className='fullstack form-type-icon' alt='icon for fullstack type' src={pancake}/>
-        <p className='fullstack form-type-text'>Full Stack</p>
-      </div>
+    <section className='form-type-container'>
+      {stackElements}
     </section>
   )
 }
