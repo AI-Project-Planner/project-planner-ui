@@ -129,7 +129,6 @@
   width: 30vw;
   overflow-y: auto;
   border-radius: 0 0 3px 3px;
-
 }
 
 .feature {
@@ -167,6 +166,16 @@
     display: flex;
     flex-direction: column;
     width: auto;
+    gap: 20px;
+  }
+
+  .color {
+    height: 10vh;
+    width: 20vw;
+  }
+
+  .hex-code {
+    font-size: 14px;
   }
 
   .video-interaction-container{
@@ -175,7 +184,7 @@
     width: auto;
   }
 
-  .summary-header, .summary-text-container, .collab, .save-create-button {
-    width: 80vw;
+  .summary-header, .summary-text-container, .collab, .save-create-button, .palette-header, .design, .feat-inter-header, .feat-inter-text {
+    width: 90vw;
   }
 }
