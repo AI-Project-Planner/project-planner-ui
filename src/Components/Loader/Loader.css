@@ -1,0 +1,32 @@
+.loader {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
+}
+
+.first-loading-statement {
+  font-size: 35px;
+  text-align: center;
+  animation: fadeOut 0.5s ease-out 2s; 
+}
+
+.second-loading-statement {
+  font-size: 35px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in; 
+}
+
+.progress-bar {
+  width: 250px;
+}
+
+@media screen and (max-width: 500px) {
+  .first-loading-statement, .second-loading-statement {
+    font-size: 25px;
+  }
+  .progress-bar {
+    width: 200px
+  }
+}

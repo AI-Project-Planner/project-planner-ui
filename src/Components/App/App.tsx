@@ -6,7 +6,6 @@ import Menu from '../Menu/Menu';
 import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
 
-
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
