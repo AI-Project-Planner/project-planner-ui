@@ -16,6 +16,12 @@ const Results = ({obj}: ResultsProps) => {
     return (<p className='feature'>&#x2022;{interaction}</p>)
   })
 
+  const hexCodes = splitDataString(obj.attributes.colors).map(color => {
+    return (
+      <div className='color' style={{backgroundColor: `${color}`}}>
+        <p className='hex-code'>{color}</p>
+      </div>)})
+
 
   return (
     <section className='results-page'>
@@ -25,8 +31,8 @@ const Results = ({obj}: ResultsProps) => {
           <div className='summary-header'>
             <h2>Summary</h2>
           </div>
-          <div className='summary-text'>
-            <p>{obj.attributes.description}</p>
+          <div className='summary-text-container'>
+            <p className='summary-text'>{obj.attributes.description}</p>
           </div>
         </div>
         <div className='collab-buttons'>
@@ -43,24 +49,7 @@ const Results = ({obj}: ResultsProps) => {
             <h2>Color Palette</h2>
           </div>
           <div className='palette-container'>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
-            <div className='color'>
-              <p className='hex-code'>hex code</p>
-            </div>
+            {hexCodes}
           </div>
         </div>
         <div className='features'>

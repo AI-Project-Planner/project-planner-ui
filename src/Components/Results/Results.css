@@ -61,7 +61,7 @@
 }
 
 .save-create-button:hover {
-  border: 2px solid #af0f0f;
+  border: 3px solid #efaf9b;
 }
 
 .design-features-container {
@@ -95,7 +95,6 @@
 }
 
 .color {
-  background-color: red;
   height: 12vh;
   width: 8vw;
   border-radius: 8px;
