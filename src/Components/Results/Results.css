@@ -74,7 +74,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border: 2px solid black;
+  border: 1px solid black;
+  border-radius: 3px;
   height: 45vh;
   width: 35vw;
 }
@@ -117,6 +118,7 @@
   background-color: #DBD5D5;
   height: 4.5vh;
   width: 30vw;
+  border-radius: 3px 3px 0 0;
 }
 
 .feat-inter-text {
@@ -126,6 +128,8 @@
   height: 40vh;
   width: 30vw;
   overflow-y: auto;
+  border-radius: 0 0 3px 3px;
+
 }
 
 .feature {
