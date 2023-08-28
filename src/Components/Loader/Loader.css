@@ -1,0 +1,7 @@
+.first-loading-statement {
+  animation: fadeOut 0.5s ease-out 2s; 
+}
+
+.second-loading-statement {
+  animation: fadeIn 0.5s ease-in; 
+}

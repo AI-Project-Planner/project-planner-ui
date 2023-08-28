@@ -34,6 +34,10 @@ button, a {
   border: none;
 }
 
+.hidden {
+  display: none;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0%;
@@ -42,3 +46,23 @@ button, a {
     opacity: 100%;
   }
 }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
+
+@keyframes noOpacity {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
