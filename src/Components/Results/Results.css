@@ -146,3 +146,36 @@
 .video {
  align-items: center;
 }
+
+@media screen and (max-width: 1170px) {
+  .summary-collab-container {
+    display: flex;
+    flex-direction: column-reverse;
+    width: auto;
+    gap: 20px;
+  }
+
+  .collab-buttons{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 20px;
+
+  }
+
+  .design-features-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .video-interaction-container{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .summary-header, .summary-text-container, .collab, .save-create-button {
+    width: 80vw;
+  }
+}
