@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
     id: string,
     type: string,
     attributes: {
@@ -9,7 +9,7 @@ type Project = {
     interactions: string,
     colors: string,
     timeline: string,
-    saved: boolean,
-    user_id: number
+    saved: string,
+    user_id: string
     }
 }

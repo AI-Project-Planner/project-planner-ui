@@ -12,7 +12,7 @@ const apiCall = (userID: string, endpoint: string, optionsObj: options | {}, ) =
     if(data.message && data.message.includes('Error')) {
       throw new Error(`${data.message} -- Please try again`)
     }
-    return data;
+    return data.data;
   }
 }
 
