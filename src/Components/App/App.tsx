@@ -20,8 +20,8 @@ const App = () => {
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
-  const getAllProjects: () => Promise<Project[]> = apiCall('1', 'projects', {});
-  const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved === 'true'));
+  const getAllProjects: () => Promise<Project[]> = apiCall(1, 'projects', {});
+  const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved));
 
   useEffect(() => {
     changeScreenSize()

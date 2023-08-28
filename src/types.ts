@@ -9,7 +9,7 @@ export type Project = {
     interactions: string,
     colors: string,
     timeline: string,
-    saved: string,
-    user_id: string
+    saved: boolean,
+    user_id: number
     }
 }
