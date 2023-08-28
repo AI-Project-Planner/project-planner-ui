@@ -7,18 +7,21 @@ import HomePage from '../HomePage/HomePage';
 import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { apiCall } from '../../apiCalls';
+import { Project } from '../../types';
 
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [savedProjects, setSavedProjects] = useState<Project[]>([]);
   const [appError, setAppError] = useState<Error | null>(null)
 
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
   const getAllProjects: () => Promise<Project[]> = apiCall('1', 'projects', {});
+  const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved === 'true'));
 
   useEffect(() => {
     changeScreenSize()
@@ -55,7 +58,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/saved' element={<SavedPage allProjects={allProjects} />} />
+              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
             </Routes>
           </main>
         </>
