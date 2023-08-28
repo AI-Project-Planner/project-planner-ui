@@ -1,10 +1,15 @@
+import { useState } from 'react';
 import './Results.css';
 
 interface ResultsProps {
   obj: any
+  updateCurrentResult: Function
 }
 
 const Results = ({obj}: ResultsProps) => {
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState(null)
+
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
