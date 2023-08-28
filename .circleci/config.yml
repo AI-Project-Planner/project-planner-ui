@@ -6,4 +6,4 @@ workflows:
   build:
     jobs:
       - cypress/run: 
-          command: npx cypress run --headless --component 
+          command: npx cypress run --headless 
