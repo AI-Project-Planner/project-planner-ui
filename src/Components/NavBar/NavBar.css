@@ -1,0 +1,18 @@
+.navBar a {
+  margin: 20px;
+  font-size: 23px;
+}
+
+.navBar a.active {
+  border-bottom: 1px solid black;
+}
+
+.navBar button {
+  margin-right: 5%;
+}
+
+@media screen and (max-width: 1170px) {
+  .navBar button img {
+    max-width: 20vw;
+  }
+}

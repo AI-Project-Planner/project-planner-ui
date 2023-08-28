@@ -6,9 +6,16 @@ import Question1 from './Questions/Question1';
 import Question2 from './Questions/Question2';
 import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
-import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from './FormPageTypes';
+import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from '../../Types/FormPageTypes';
+import { PostData } from '../../Types/ResultsTypes';
 
-const FormPage = () => {
+interface FormPageProps {
+  updateCurrentResult: (result: PostData) => void,
+  updateFormData: (formData: FormData) => void
+}
+
+const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData }) => {
+
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [stack, setStack] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -43,20 +50,10 @@ const FormPage = () => {
     3: [timeframe.amount < 1, "Please select aount of time!"],
     4: [numPeople < 1, "Please select number of collaborators!"]
   }
-  useEffect(() => {
-    console.log('stack', stack)
-  }, [stack, currentQuestion])
 
   const chooseStack = (stack: string): void => {
     setStack(stack);
   }
-
-  // const setActiveFocus = () => {
-  //   const filteredStacks = Object.keys(techStacks).filter(stacks => stacks !== stack);
-
-  //   document.querySelector(`.${stack}-div`)?.classList.add('form-active-focus');
-  //   filteredStacks.forEach(stacks => document.querySelector(`.${stacks}-div`)?.classList.remove('form-active-focus'));
-  // }
 
   const questionInputs = () => {
     return questionComponents[currentQuestion]
@@ -69,7 +66,7 @@ const FormPage = () => {
     }
   } 
 
-  const submitFormData = () => {
+  const submitFormData = async () => {
     const formData: FormData = {
       stack, 
       technologies,
@@ -77,9 +74,10 @@ const FormPage = () => {
       collaborators: numPeople
     }
     console.log(formData)
-    postNewForm(formData).then(data => {
-      console.log(data)
-    })
+
+    updateFormData(formData)
+    const data = await postNewForm(formData)
+    
   }
 
   const nextQuestion = () => {
@@ -90,6 +88,7 @@ const FormPage = () => {
         setCurrentQuestion(prev => prev + 1);
       } else {
         submitFormData();
+        
       }
     }
   }
@@ -98,10 +97,6 @@ const FormPage = () => {
     setError({error: false, message: ""})
     setCurrentQuestion(prev => prev - 1);
   }
-
-  // useEffect(() => {
-  //   setActiveFocus();
-  // },[stack, currentQuestion])
 
   useEffect(() => {
     setTechnologies([]);

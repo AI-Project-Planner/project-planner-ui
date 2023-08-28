@@ -1,6 +1,6 @@
 import React from 'react';
 import plus from '../../../images/add.png';
-import { TechStacks, ErrorMsg } from '../FormPageTypes';
+import { TechStacks, ErrorMsg } from '../../../Types/FormPageTypes';
 
 interface Question2Props {
   searchTerm: string,

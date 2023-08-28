@@ -1,5 +1,6 @@
 .form-page {
-  background-image: url("../../images/background.png");
+  background: #ffffff url("../../images/background.png") center cover no-repeat;
+  /* background-repeat: none; */
   height: 100vh;
   width: 100%;
   display: flex;

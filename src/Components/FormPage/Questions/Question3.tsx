@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeFrame } from '../FormPageTypes';
+import { TimeFrame } from '../../../Types/FormPageTypes';
 
 interface Question3Props {
   setTimeframe: React.Dispatch<React.SetStateAction<TimeFrame>>,

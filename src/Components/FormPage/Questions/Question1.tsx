@@ -12,9 +12,9 @@ const Question1: React.FC<Question1Props> = ({ chooseStack, currentStack}) => {
   const stacks = [{ type: 'frontend', name: 'Front End', img: phone}, {type: 'backend', name: 'Back End', img: web}, {type: 'fullstack', name: 'Full Stack', img: pancake}]
   const stackElements = stacks.map(stack => {
     return (
-      <div onClick={() => chooseStack(stack.type)} key={stack.type}  className={`${stack.type} form-type-icon-container ${currentStack === stack.type ? 'form-active-focus' : ''}`}>
-        <img className={`${stack.type} form-type-icon`} alt={`icon for ${stack.type} type`} src={stack.img}/>
-        <p className={`${stack.type} form-type-text`}>{stack.name}</p>
+      <div onClick={() => chooseStack(stack.type)} key={stack.type}  className={`form-type-icon-container ${currentStack === stack.type ? 'form-active-focus' : ''}`}>
+        <img className={`form-type-icon`} alt={`icon for ${stack.type} type`} src={stack.img}/>
+        <p className={`form-type-text`}>{stack.name}</p>
       </div>
     )
   })
