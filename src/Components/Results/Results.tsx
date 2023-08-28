@@ -12,6 +12,10 @@ const Results = ({obj}: ResultsProps) => {
     return (<p className='feature'>&#x2022;{feature}</p>)
   })
 
+  const interactions = splitDataString(obj.attributes.interactions).map(interaction => {
+    return (<p className='feature'>&#x2022;{interaction}</p>)
+  })
+
 
   return (
     <section className='results-page'>
@@ -78,7 +82,7 @@ const Results = ({obj}: ResultsProps) => {
             <h3>Example Interaction</h3>
           </div>
           <div className='feat-inter-text'>
-            <p>List of features here</p>
+            {interactions}
           </div>
         </div>
       </div>

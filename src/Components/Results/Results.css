@@ -22,11 +22,15 @@
   margin-bottom: 11px;
 }
 
-.summary-text {
+.summary-text-container {
   display: flex;
-  justify-content: center;
   background-color: white;
   border-radius: 4px;
+  width: 35vw;
+}
+
+.summary-text {
+  margin: 20px;
 }
 
 .collab-buttons {
@@ -118,10 +122,16 @@
 
 .feat-inter-text {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   background-color: #eee4e1;
   height: 40vh;
+  width: 30vw;
+  overflow-y: auto;
+}
+
+.feature {
+  margin-left: 15px;
+  display: flex;
 }
 
 .video-interaction-container {
