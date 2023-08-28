@@ -9,7 +9,6 @@ import FormPage from '../FormPage/FormPage';
 import { PostData } from '../../Types/ResultsTypes';
 import { FormData } from '../../Types/FormPageTypes';
 
-
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
