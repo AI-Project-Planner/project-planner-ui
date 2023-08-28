@@ -5,9 +5,11 @@ interface ResultsProps {
 }
 
 const Results = ({obj}: ResultsProps) => {
-  const split:string[] = obj.attributes.features.split('\n')
-  const features = split.map(feature => {
-    return (<p>&#x2022;{feature}</p>)
+  const splitDataString = (data:string) => {
+    return data.split('\n')
+  }
+  const features =  splitDataString(obj.attributes.features).map(feature => {
+    return (<p className='feature'>&#x2022;{feature}</p>)
   })
 
 
