@@ -1,4 +1,5 @@
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+import Results from "../Results/Results";
 
 const Form = () => {
   return (
