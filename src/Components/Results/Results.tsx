@@ -62,7 +62,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
         </div>
         <div className='collab-buttons'>
           <div className='collab'>
-            <h2>Collaborators: </h2>
+            <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
           </div>
           <button className='save-create-button'>Save Plan</button>
           <button className='save-create-button' onClick={createNewProject}>Create Another</button>

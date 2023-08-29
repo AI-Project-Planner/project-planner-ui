@@ -15,29 +15,8 @@ import { FormData } from '../../Types/FormPageTypes';
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
-  const [currentResult, setCurrentResult] = useState<null | PostData>({
-    "id": "1",
-    "type": "project",
-    "attributes": {
-      "collaborators": 2,
-      "name": "TaskMaster Pro",
-      "steps": "Project Setup: Create Git repository and define project structure\nBackend Setup: Develop Express.js application, set up API routes\nDatabase Design: Design and implement database schema",
-      "description": "TaskMaster Pro is an all-inclusive task management application designed to optimize team collaboration and productivity.",
-      "features": "User registration and login\nCreate, assign, update, and track tasks\nReal-time collaboration and updates\nPriority-based task categorization",
-      "interactions": "User logs in to TaskMaster Pro account.\nDashboard displays tasks by priority: High, Medium, Low.\nUser adds a task, assigns it, and sets a due date.\nTask appears under the respective priority category.\nAssigned user starts task, status updates in real-time.\nUpon completion, task is marked as done and updates for all.",
-      "colors": "#3498DB\n#27AE60\n#F39C12\n#F0F3F4\n#333333\n#E74C3C",
-      "saved": false,
-      "tagline": "description here",
-      "timeline": "days",
-      "user_id": 1
-    }
-  });
-  const [userFormData, setUserFormData] = useState<null | PostInfo>({
-    collaborators: 2,
-    stack: 'frontend',
-    technologies: ['react'], 
-    timeFrame: '1 day'
-  })
+  const [currentResult, setCurrentResult] = useState<null | PostData>(null);
+  const [userFormData, setUserFormData] = useState<null | PostInfo>(null)
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
