@@ -52,6 +52,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Home smallScreen={smallScreen} />} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='results' />
             </Routes>
           </main>
         </>

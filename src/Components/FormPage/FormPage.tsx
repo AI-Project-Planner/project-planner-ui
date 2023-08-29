@@ -8,6 +8,8 @@ import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
 import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from '../../Types/FormPageTypes';
 import { PostData } from '../../Types/ResultsTypes';
+import Loader from '../Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 interface FormPageProps {
   updateCurrentResult: (result: PostData) => void,
@@ -22,7 +24,9 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   const [technologies, setTechnologies] = useState<string[]>([]);
   const [timeframe, setTimeframe] = useState<TimeFrame>({amount: 0, type: "days"});
   const [numPeople, setNumPeople] = useState<number>(0);
-  const [error, setError] = useState<ErrorMsg>({error: false, message: ""})
+  const [error, setError] = useState<ErrorMsg>({error: false, message: ""});
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const questions: Record<number, string> = {
     1: "Choose Your Application Type",
@@ -67,6 +71,7 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   } 
 
   const submitFormData = async () => {
+    setLoading(true)
     const formData: FormData = {
       stack, 
       technologies,
@@ -76,8 +81,15 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
     console.log(formData)
 
     updateFormData(formData)
-    const data = await postNewForm(formData)
-    
+
+    setTimeout(() => {
+     postNewForm(formData).then(data => {
+      console.log('here')
+      setLoading(false);
+      navigate('/results');
+     })
+    }, 3000)
+
   }
 
   const nextQuestion = () => {
@@ -88,7 +100,6 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
         setCurrentQuestion(prev => prev + 1);
       } else {
         submitFormData();
-        
       }
     }
   }
@@ -105,6 +116,8 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   return (
     <div className='form-page'>
       <section className='form-backdrop'>
+        {loading ?
+        <Loader /> :
         <div className='form-container'>
           <div className='form-question-container'>
             {currentQuestion !== 1 &&
@@ -117,8 +130,8 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
             {questionInputs()}
           </div>
           {error.error && <p className='form-error'>{error.message.toUpperCase()}</p>}
-          <button className='form-button' onClick={nextQuestion}>{currentQuestion < 4 ? "CONTINUE" : "SUBMIT"}</button>
-        </div>
+          {!loading  && <button className='form-button' onClick={nextQuestion}>{currentQuestion < 4 ? "CONTINUE" : "SUBMIT"}</button>}
+        </div>}
       </section>
     </div>
   )
