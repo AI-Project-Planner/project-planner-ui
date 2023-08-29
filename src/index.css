@@ -1,8 +1,14 @@
+* {
+  font-family: 'Montserrat';
+  font-size: large;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #FAF4EE;
@@ -34,6 +40,10 @@ button, a {
   border: none;
 }
 
+.hidden {
+  display: none;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0%;
@@ -42,3 +52,23 @@ button, a {
     opacity: 100%;
   }
 }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
+
+@keyframes noOpacity {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
