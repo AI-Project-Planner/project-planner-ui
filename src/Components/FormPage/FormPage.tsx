@@ -88,6 +88,9 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
       setLoading(false);
       navigate('/results');
      })
+     .catch(err => {
+      setError({error:true, message: err.message})
+     })
     }, 3000)
   }
 
