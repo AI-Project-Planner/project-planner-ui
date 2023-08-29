@@ -11,8 +11,20 @@
   margin-bottom: 30px;
 }
 
-.saved-projects-container{
-  width: 80%;
-  display: flex; 
+.saved-projects-container {
+  max-width: 80%;
+  display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.saved-projects-container::-webkit-scrollbar {
+  width: 10px; 
+}
+
+.saved-projects-container::-webkit-scrollbar-thumb {
+  background: pink;
+  border-radius: 25px;
 }

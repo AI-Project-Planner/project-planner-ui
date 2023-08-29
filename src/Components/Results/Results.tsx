@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import './Results.css';
 import { PostData } from '../../Types/ResultsTypes';
-import { postNewForm, PostInfo } from '../../apiCalls';
+import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
+import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 
 interface ResultsProps {
   currentResult: PostData | null
   updateCurrentResult: (result: PostData) => void
+  requestAllProjects: () => void
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData: PostInfo | null
 }
 
-const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) => {
+const Results = ({currentResult, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   if (!currentResult) {
     return (<div>no results</div>)
@@ -47,10 +50,32 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
     }
   }
 
+  const handleSave = async (project: Project) => {
+    const newProject = project 
+    newProject.attributes.saved = !newProject.attributes.saved
+    const patchSaved = apiCall(project.attributes.user_id, `projects/${project.id}`, {
+      method: 'PATCH', 
+      body: JSON.stringify(newProject),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    try {
+      try {
+        patchSaved()
+        requestAllProjects()
+      } catch (error) {
+        if (error instanceof Error) setAppError(error)
+      }
+    } catch (error) {
+      
+    }
+  }
+
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
-      <h1>Your Project: {currentResult.attributes.name}</h1>
+      <h1 style={{fontSize: '25px'}}>Your Project: {currentResult.attributes.name}</h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
@@ -64,7 +89,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
           <div className='collab'>
             <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
           </div>
-          <button className='save-create-button'>Save Plan</button>
+            <button className='save-create-button' onClick={() => handleSave(currentResult)}>{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>
           <button className='save-create-button' onClick={createNewProject}>Create Another</button>
         </div>
       </div>

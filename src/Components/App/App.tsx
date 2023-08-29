@@ -6,7 +6,7 @@ import Menu from '../Menu/Menu';
 import HomePage from '../HomePage/HomePage';
 import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
-import { Project } from '../../types';
+import { Project } from '../../Types/types';
 import Results from '../Results/Results';
 import { PostData } from '../../Types/ResultsTypes';
 import { constants } from 'buffer';
@@ -80,8 +80,8 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
-              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData}/>} />
+              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/>} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
             </Routes>
           </main>

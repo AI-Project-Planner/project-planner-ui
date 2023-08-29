@@ -1,4 +1,4 @@
-import { Project } from "../../../types"
+import { Project } from "../../../Types/types"
 import { Link } from "react-router-dom"
 import './SavedProject.css'
 
