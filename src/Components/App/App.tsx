@@ -6,11 +6,11 @@ import Menu from '../Menu/Menu';
 import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
 import Results from '../Results/Results';
-import Form from '../Form/Form';
 import { PostData } from '../../Types/ResultsTypes';
 import { constants } from 'buffer';
 import { PostInfo } from '../../apiCalls';
-
+import FormPage from '../FormPage/FormPage';
+import { FormData } from '../../Types/FormPageTypes';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ const App = () => {
       "user_id": 1
     }
   });
-  const [formData, setFormData] = useState<null | PostInfo>({
+  const [userFormData, setUserFormData] = useState<null | PostInfo>({
     collaborators: 2,
     stack: 'frontend',
     technologies: ['react'], 
@@ -41,9 +41,13 @@ const App = () => {
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
-  
+
   const updateCurrentResult = (result: PostData) => {
     setCurrentResult(result)
+  }
+
+  const updateFormData = (formData: FormData) => {
+    setUserFormData(formData)
   }
 
   useEffect(() => {
@@ -71,8 +75,8 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<Home smallScreen={smallScreen} />} />
-              <Route path='/new' element={<Form />} ></Route>
-              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={formData}/>} />
+              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData}/>} />
+              <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
             </Routes>
           </main>
         </>
