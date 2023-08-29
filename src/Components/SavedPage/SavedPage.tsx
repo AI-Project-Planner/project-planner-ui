@@ -1,34 +1,46 @@
 import './SavedPage.css'
 import { useEffect } from 'react'
 import { Project } from '../../types'
+import { apiCall } from '../../apiCalls'
 import SavedProject from './SavedProject/SavedProject'
 
 interface SavedPageProps {
   allProjects: Project[]
   savedProjects: Project[]
   updateSavedProjects: (projects: Project[]) => void
+  requestAllProjects: () => void
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
 }
 
-const SavedPage = ({allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
+const SavedPage = ({allProjects, savedProjects, updateSavedProjects, requestAllProjects, setAppError}: SavedPageProps) => {
   useEffect(() => {
     if (allProjects) {
-      updateSavedProjects([...allProjects, {
-        id: "3",
-        type: "project",
-        attributes: {
-          name: "Makeup 360",
-          steps: "Project Setup: Create Git repository and define project structure\nBackend Setup: Develop Express.js application, set up API routes\nDatabase Design: Design and implement database schema",
-          description: "A beauty guru planning app.",
-          features: "User registration and login\nCreate, assign, update, and track tasks\nReal-time collaboration and updates\nPriority-based task categorization",
-          interactions: "User logs in to TaskMaster Pro account.\nDashboard displays tasks by priority: High, Medium, Low.\nUser adds a task, assigns it, and sets a due date.\nTask appears under the respective priority category.\nAssigned user starts task, status updates in real-time.\nUpon completion, task is marked as done and updates for all.",
-          colors: "#E6BEAE\n#EEE4E1\n#DAA46E\n#716A63\n#F99770\n#6C3018",
-          timeline: "weeks",
-          saved: true,
-          user_id: 1
-        }
-      }])
+      updateSavedProjects(allProjects)
     }
   }, [allProjects])
+
+  const handleSave = async (project: Project) => {
+    const newProject = project 
+    newProject.attributes.saved = !newProject.attributes.saved
+    const patchSaved = apiCall(project.attributes.user_id, `projects/${project.id}`, {
+      method: 'PATCH', 
+      body: JSON.stringify(newProject),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    try {
+      try {
+        patchSaved()
+        requestAllProjects()
+      } catch (error) {
+        if (error instanceof Error) setAppError(error)
+      }
+    } catch (error) {
+      
+    }
+  }
+  const saveButtons = allProjects.map(project => <button onClick={() => handleSave(project)} key={project.id}>{project.attributes.saved ? 'unsave' : 'save'} {project.attributes.name} {project.id}</button>)
 
   const savedProjectEls = savedProjects.map(project => <SavedProject key={project.id} project={project} />)
   return (
@@ -37,6 +49,7 @@ const SavedPage = ({allProjects, savedProjects, updateSavedProjects}: SavedPageP
       <section className='saved-projects-container'>
         {savedProjectEls}
       </section>
+      {saveButtons}
     </section>
   )
 }

@@ -16,18 +16,17 @@ const App = () => {
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [savedProjects, setSavedProjects] = useState<Project[]>([]);
   const [appError, setAppError] = useState<Error | null>(null)
+  const [requestNeeded, setRequestNeeded] = useState(false);
 
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
   const getAllProjects: () => Promise<Project[]> = apiCall(1, 'projects', {});
   const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved));
+  const requestAllProjects = () => setRequestNeeded(prev => !prev)
 
   useEffect(() => {
-    changeScreenSize()
-    window.addEventListener('resize', changeScreenSize)
-
-    const apiCall = async () => {
+    const apiRequest = async () => {
       try {
         setAllProjects(await getAllProjects())
       } catch (error) {
@@ -35,7 +34,14 @@ const App = () => {
       }
     }
 
-    apiCall()
+    apiRequest()
+
+    return () => setAppError(null)
+  }, [requestNeeded])
+
+  useEffect(() => {
+    changeScreenSize()
+    window.addEventListener('resize', changeScreenSize)
 
     return () => window.removeEventListener('resize', changeScreenSize)
   }, []);
@@ -58,7 +64,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
             </Routes>
           </main>
         </>
