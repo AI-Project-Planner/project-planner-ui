@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Results.css';
 import { PostData } from '../../Types/ResultsTypes';
-import { PostInfo } from '../../apiCalls';
+import { postNewForm, PostInfo } from '../../apiCalls';
 import Loader from '../Loader/Loader';
 
 interface ResultsProps {
@@ -33,6 +33,19 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
         <p className='hex-code'>{color}</p>
       </div>)})
 
+  const createNewProject = async() => {
+    if (formData) {
+      setLoading(true)
+      try {
+        const newResult = await postNewForm(formData)
+        updateCurrentResult(newResult)
+        setLoading(false)
+      } catch(error) {
+        console.log(error)
+        setLoading(false)
+      }
+    }
+  }
 
   return (<>
     {loading ? <Loader /> :
@@ -52,7 +65,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
             <h2>Collaborators: </h2>
           </div>
           <button className='save-create-button'>Save Plan</button>
-          <button className='save-create-button'>Create Another</button>
+          <button className='save-create-button' onClick={createNewProject}>Create Another</button>
         </div>
       </div>
       <div className='design-features-container'>
