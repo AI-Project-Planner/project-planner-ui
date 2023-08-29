@@ -1,4 +1,4 @@
-interface PostInfo {
+export interface PostInfo {
   collaborators: number,
   stack: string,
   technologies: string[], 

@@ -5,16 +5,18 @@ import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
 import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
-import FormPage from '../FormPage/FormPage';
+import Results from '../Results/Results';
 import { PostData } from '../../Types/ResultsTypes';
+import { constants } from 'buffer';
+import { PostInfo } from '../../apiCalls';
+import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | PostData>(null);
-  const [userFormData, setUserFormData] = useState<null | FormData>(null);
-
+  const [userFormData, setUserFormData] = useState<null | PostInfo>(null)
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
@@ -26,7 +28,7 @@ const App = () => {
   const updateFormData = (formData: FormData) => {
     setUserFormData(formData)
   }
-  
+
   useEffect(() => {
     changeScreenSize()
     window.addEventListener('resize', changeScreenSize)
@@ -39,6 +41,7 @@ const App = () => {
       ? document.querySelector('body')?.classList.add('ombre')
       : document.querySelector('body')?.classList.remove('ombre')
   }, [smallScreen, menuOpen, location])
+
   
   return (
     <div className='app'>
@@ -51,8 +54,8 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<Home smallScreen={smallScreen} />} />
+              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData}/>} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
-              <Route path='results' />
             </Routes>
           </main>
         </>
