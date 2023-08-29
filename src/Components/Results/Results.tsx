@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Results.css';
 import { PostData } from '../../Types/ResultsTypes';
 import { PostInfo } from '../../apiCalls';
+import Loader from '../Loader/Loader';
 
 interface ResultsProps {
   currentResult: PostData | null
@@ -33,7 +34,8 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
       </div>)})
 
 
-  return (
+  return (<>
+    {loading ? <Loader /> :
     <section className='results-page'>
       <h1>Your Project: {currentResult.attributes.name}</h1>
       <div className='summary-collab-container'>
@@ -85,8 +87,8 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
           </div>
         </div>
       </div>
-    </section>
-  )
+    </section>}
+  </>)
 }
 
 export default Results
