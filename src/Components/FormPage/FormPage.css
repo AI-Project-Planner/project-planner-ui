@@ -91,6 +91,10 @@
   font-size: 1.6rem;
 }
 
+select.form-input {
+  height: 56px;
+}
+
 .number-input {
   width: 40%;
   margin: 20px;
@@ -101,7 +105,7 @@
   height: auto;
   width: 40%;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 
