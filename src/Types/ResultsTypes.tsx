@@ -1,4 +1,4 @@
-interface Attributes {
+export interface Attributes {
   collaborators: number,
   colors: string,
   description: string,
