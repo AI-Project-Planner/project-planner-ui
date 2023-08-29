@@ -19,6 +19,7 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
   const [loading, setLoading] = useState(false)
   const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
   const [badRoute, setBadRoute] = useState(false)
+  const [projectToSave, setProjectToSave] = useState<Project | null>(null)
   const location = useLocation().pathname
   const { projectID } = useParams()
   
@@ -31,7 +32,34 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
         setBadRoute(true)
       }
     }
-   }, [])
+  }, [allProjects])
+  
+  useEffect(() => { 
+
+    if (projectToSave) {
+      const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
+        method: 'PATCH', 
+        body: JSON.stringify(projectToSave),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const callAPI = async () => {
+        setLoading(true)
+        try {
+          await patchSaved()
+          requestAllProjects()
+          setLoading(false)
+        } catch (error) {
+          if (error instanceof Error) setAppError(error)
+          setLoading(false)
+        }
+      }
+      callAPI()
+    }
+
+    return () => setAppError(null)
+  }, [projectToSave])
 
 
   if (badRoute) {
@@ -49,16 +77,16 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
     return data.split('\n')
   }
   const features =  splitDataString(projectToDisplay.attributes.features).map(feature => {
-    return (<p className='feature'>&#x2022;{feature}</p>)
+    return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
   })
 
   const interactions = splitDataString(projectToDisplay.attributes.interactions).map(interaction => {
-    return (<p className='feature'>&#x2022;{interaction}</p>)
+    return (<p key={interaction} className='feature'>&#x2022;{interaction}</p>)
   })
 
   const hexCodes = splitDataString(projectToDisplay.attributes.colors).map(color => {
     return (
-      <div className='color' style={{backgroundColor: `${color}`}}>
+      <div key={color} className='color' style={{backgroundColor: `${color}`}}>
         <p className='hex-code'>{color}</p>
       </div>)})
 
@@ -76,27 +104,14 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
     }
   }
 
-  const handleSave = async (project: Project | null) => {
+  const handleSave = (project: Project | null) => {
+    console.log('clicked')
     if (project) {
+    console.log('clicked in if')
+
       const newProject = { ...project }
       newProject.attributes.saved = !newProject.attributes.saved
-      const patchSaved = apiCall(project.attributes.user_id, `projects/${project.id}`, {
-        method: 'PATCH', 
-        body: JSON.stringify(newProject),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      try {
-        try {
-          patchSaved()
-          requestAllProjects()
-        } catch (error) {
-          if (error instanceof Error) setAppError(error)
-        }
-      } catch (error) {
-        
-      }
+      setProjectToSave(newProject)
     }
   }
 
@@ -117,7 +132,7 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
           <div className='collab'>
             <h2>Collaborators: {projectToDisplay.attributes.collaborators}</h2>
           </div>
-            <button className='save-create-button' onClick={() => handleSave(currentResult)}>{projectToDisplay.attributes.saved ? 'Unsave' : 'Save'} Plan</button>
+            <button className='save-create-button' onClick={() => handleSave(projectToDisplay)}>{projectToDisplay.attributes.saved ? 'Unsave' : 'Save'} Plan</button>
             {location.includes('saved')
               ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
               : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
