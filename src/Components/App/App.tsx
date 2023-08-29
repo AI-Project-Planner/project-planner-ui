@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -79,9 +79,10 @@ const App = () => {
           <main>
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
-              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/>} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/>} />
+              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/saved/:projectID' element={<Results currentResult={null} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
             </Routes>
           </main>
         </>
