@@ -5,6 +5,7 @@ import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
+import loadingSpinner from '../../images/loadingSpinner.gif'
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -17,6 +18,7 @@ interface ResultsProps {
 
 const Results = ({currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
+  const [saveLoading, setSaveLoading] = useState(false)
   const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
   const [badRoute, setBadRoute] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
@@ -35,7 +37,6 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
   }, [allProjects])
   
   useEffect(() => { 
-
     if (projectToSave) {
       const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
         method: 'PATCH', 
@@ -45,14 +46,14 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
         }
       })
       const callAPI = async () => {
-        setLoading(true)
+        setSaveLoading(true)
         try {
           await patchSaved()
           requestAllProjects()
-          setLoading(false)
+          setSaveLoading(false)
         } catch (error) {
           if (error instanceof Error) setAppError(error)
-          setLoading(false)
+          setSaveLoading(false)
         }
       }
       callAPI()
@@ -60,7 +61,6 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
 
     return () => setAppError(null)
   }, [projectToSave])
-
 
   if (badRoute) {
     return (
@@ -109,7 +109,7 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
     if (project) {
     console.log('clicked in if')
 
-      const newProject = { ...project }
+      const newProject = JSON.parse(JSON.stringify(project))
       newProject.attributes.saved = !newProject.attributes.saved
       setProjectToSave(newProject)
     }
@@ -132,7 +132,7 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
           <div className='collab'>
             <h2>Collaborators: {projectToDisplay.attributes.collaborators}</h2>
           </div>
-            <button className='save-create-button' onClick={() => handleSave(projectToDisplay)}>{projectToDisplay.attributes.saved ? 'Unsave' : 'Save'} Plan</button>
+            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(projectToDisplay)} >{projectToDisplay.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
             {location.includes('saved')
               ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
               : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
