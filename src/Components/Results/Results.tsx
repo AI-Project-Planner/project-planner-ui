@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import './Results.css';
-import { PostData } from '../../Types/ResultsTypes';
 import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 
 interface ResultsProps {
-  currentResult: PostData | null
-  updateCurrentResult: (result: PostData) => void
+  currentResult: Project | null
+  updateCurrentResult: (result: Project) => void
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData: PostInfo | null

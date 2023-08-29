@@ -8,7 +8,6 @@ import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { Project } from '../../Types/types';
 import Results from '../Results/Results';
-import { PostData } from '../../Types/ResultsTypes';
 import { constants } from 'buffer';
 import { PostInfo, apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
@@ -21,7 +20,7 @@ const App = () => {
   const [savedProjects, setSavedProjects] = useState<Project[]>([]);
   const [appError, setAppError] = useState<Error | null>(null)
   const [requestNeeded, setRequestNeeded] = useState(false);
-  const [currentResult, setCurrentResult] = useState<null | PostData>(null);
+  const [currentResult, setCurrentResult] = useState<null | Project>(null);
   const [userFormData, setUserFormData] = useState<null | PostInfo>(null)
 
   const location = useLocation().pathname
@@ -46,7 +45,7 @@ const App = () => {
   }, [requestNeeded])
 
 
-  const updateCurrentResult = (result: PostData) => {
+  const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
   }
 
