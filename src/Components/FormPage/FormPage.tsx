@@ -71,25 +71,24 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   } 
 
   const submitFormData = async () => {
-    setLoading(true)
+    setLoading(true);
     const formData: FormData = {
       stack, 
       technologies,
       timeFrame: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
-    }
-    console.log(formData)
+    };
 
-    updateFormData(formData)
+    updateFormData(formData);
 
     setTimeout(() => {
      postNewForm(formData).then(data => {
-      console.log('here')
+      console.log(data)
+      updateCurrentResult(data);
       setLoading(false);
       navigate('/results');
      })
     }, 3000)
-
   }
 
   const nextQuestion = () => {
