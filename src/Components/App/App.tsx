@@ -40,6 +40,7 @@ const App = () => {
       : document.querySelector('body')?.classList.remove('ombre')
   }, [smallScreen, menuOpen, location])
   
+
   return (
     <div className='app'>
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
@@ -48,7 +49,7 @@ const App = () => {
             <Link className='app-logo' to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
-          <main>
+          <main className={location === '/form' ? 'form-height' : ''}>
             <Routes>
               <Route path='/' element={<Home smallScreen={smallScreen} />} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
