@@ -1,27 +1,32 @@
 import { useState } from 'react';
 import './Results.css';
+import { PostData } from '../../Types/ResultsTypes';
+import { PostInfo } from '../../apiCalls';
 
 interface ResultsProps {
-  obj: any
-  updateCurrentResult: Function
+  currentResult: PostData | null
+  updateCurrentResult: (result: PostData) => void
+  formData: PostInfo | null
 }
 
-const Results = ({obj}: ResultsProps) => {
+const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState(null)
+  if (!currentResult) {
+    return (<div>no results</div>)
+  }
 
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
-  const features =  splitDataString(obj.attributes.features).map(feature => {
+  const features =  splitDataString(currentResult.attributes.features).map(feature => {
     return (<p className='feature'>&#x2022;{feature}</p>)
   })
 
-  const interactions = splitDataString(obj.attributes.interactions).map(interaction => {
+  const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {
     return (<p className='feature'>&#x2022;{interaction}</p>)
   })
 
-  const hexCodes = splitDataString(obj.attributes.colors).map(color => {
+  const hexCodes = splitDataString(currentResult.attributes.colors).map(color => {
     return (
       <div className='color' style={{backgroundColor: `${color}`}}>
         <p className='hex-code'>{color}</p>
@@ -30,14 +35,14 @@ const Results = ({obj}: ResultsProps) => {
 
   return (
     <section className='results-page'>
-      <h1>Your Project: {obj.attributes.name}</h1>
+      <h1>Your Project: {currentResult.attributes.name}</h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
             <h2>Summary</h2>
           </div>
           <div className='summary-text-container'>
-            <p className='summary-text'>{obj.attributes.description}</p>
+            <p className='summary-text'>{currentResult.attributes.description}</p>
           </div>
         </div>
         <div className='collab-buttons'>
