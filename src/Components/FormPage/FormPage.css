@@ -2,10 +2,11 @@
   background-image: url("../../images/background.png");
   background-repeat: none;
   background-size: cover;
-  height: 100vh;
+  height: 88vh;
   width: 100%;
   display: flex;
   justify-content: center;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .form-backdrop {
@@ -91,6 +92,10 @@
   font-size: 1.6rem;
 }
 
+select.form-input {
+  height: 56px;
+}
+
 .number-input {
   width: 40%;
   margin: 20px;
@@ -101,7 +106,7 @@
   height: auto;
   width: 40%;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 

@@ -1,35 +1,66 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import './Results.css';
-import { PostData } from '../../Types/ResultsTypes';
-import { postNewForm, PostInfo } from '../../apiCalls';
+import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
+import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import arrow from '../../images/arrow.png'
+import loadingSpinner from '../../images/loadingSpinner.gif'
 
 interface ResultsProps {
-  currentResult: PostData | null
-  updateCurrentResult: (result: PostData) => void
-  formData: PostInfo | null
+  allProjects?: Project[]
+  currentResult: Project
+  updateCurrentResult?: (result: Project) => void
+  requestAllProjects: () => void
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
+  formData?: PostInfo | null
+  onSavedPage?: boolean
 }
 
-const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
-  if (!currentResult) {
-    return (<div>no results</div>)
-  }
+  const [saveLoading, setSaveLoading] = useState(false)
+  const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  
+  useEffect(() => { 
+    if (projectToSave) {
+      const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
+        method: 'PATCH', 
+        body: JSON.stringify(projectToSave),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const callAPI = async () => {
+        setSaveLoading(true)
+        try {
+          await patchSaved()
+          requestAllProjects()
+          setSaveLoading(false)
+        } catch (error) {
+          if (error instanceof Error) setAppError(error)
+          setSaveLoading(false)
+        }
+      }
+      callAPI()
+    }
 
+    return () => setAppError(null)
+  }, [projectToSave])
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
-    return (<p className='feature'>&#x2022;{feature}</p>)
+    return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
   })
 
   const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {
-    return (<p className='feature'>&#x2022;{interaction}</p>)
+    return (<p key={interaction} className='feature'>&#x2022;{interaction}</p>)
   })
 
   const hexCodes = splitDataString(currentResult.attributes.colors).map(color => {
     return (
-      <div className='color' style={{backgroundColor: `${color}`}}>
+      <div key={color} className='color' style={{backgroundColor: `${color}`}}>
         <p className='hex-code'>{color}</p>
       </div>)})
 
@@ -38,7 +69,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
       setLoading(true)
       try {
         const newResult = await postNewForm(formData)
-        updateCurrentResult(newResult)
+        if (updateCurrentResult) updateCurrentResult(newResult)
         setLoading(false)
       } catch(error) {
         console.log(error)
@@ -47,10 +78,21 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
     }
   }
 
+  const handleSave = (project: Project | null) => {
+    console.log('clicked')
+    if (project) {
+    console.log('clicked in if')
+
+      const newProject = JSON.parse(JSON.stringify(project))
+      newProject.attributes.saved = !newProject.attributes.saved
+      setProjectToSave(newProject)
+    }
+  }
+
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
-      <h1>Your Project: {currentResult.attributes.name}</h1>
+      <h1 style={{fontSize: '25px'}}>Your Project: {currentResult.attributes.name}</h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
@@ -64,8 +106,10 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
           <div className='collab'>
             <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
           </div>
-          <button className='save-create-button'>Save Plan</button>
-          <button className='save-create-button' onClick={createNewProject}>Create Another</button>
+            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
+            {onSavedPage
+              ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
+              : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
         </div>
       </div>
       <div className='design-features-container'>
