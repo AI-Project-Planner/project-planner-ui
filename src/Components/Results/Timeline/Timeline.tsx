@@ -12,7 +12,7 @@ const Timeline = ({ steps, timeframe }: TimelineProps) => {
 
   const timelineItems = steps.map((step, i) => ({
     title: `${timeframe.replaceAll('s', '')} ${i+1}`,
-    cardDetailedText: `${step}`,
+    cardDetailedText: [step],
   }))
 
   const theme =  {
@@ -27,11 +27,11 @@ const Timeline = ({ steps, timeframe }: TimelineProps) => {
       <h2 className='summary-header'>Project Timeline</h2>
       <Chrono
         theme={theme}
-        fontSizes={{ cardText: '20px', title: '18px' }}
+        fontSizes={{ cardText: '20px', title: '20px' }}
         slideShow={true}
         items={timelineItems}
         mode="HORIZONTAL"
-        classNames={{cardText: 'card-text', card: 'timeline-card'}}
+        classNames={{ cardText: 'my-card-text', card: 'timeline-card' }}
       />
     </div>
   )

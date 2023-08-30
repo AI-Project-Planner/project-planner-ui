@@ -12,12 +12,20 @@
   padding: 0;
 }
 
-.card-text {
+.my-card-text {
   text-align: center;
+  /* height: 100%;
+  margin: auto; */
+}
+/* .ixHIV.show-less {
   margin: auto;
 }
 
-.bGAMeM {
-  font-size: 20px;
-}
+#timeline-card-c9f83109a4e3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%; 
+} */
+
   
