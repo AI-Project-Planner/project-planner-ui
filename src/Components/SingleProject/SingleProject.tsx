@@ -2,6 +2,7 @@ import Results from "../Results/Results"
 import { useState, useEffect } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { Project } from "../../Types/types"
+import Empty from "../Empty/Empty"
 
 interface SingleProjectProps {
   allProjects: Project[]
@@ -23,7 +24,7 @@ const SingleProject = ({allProjects, requestAllProjects, setAppError}: SinglePro
   }, [allProjects, location, projectID])
 
 
-  return projectToDisplay ? <Results onSavedPage={location.includes('saved')} currentResult={projectToDisplay} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <div style={{animation: 'fadeIn 0.5s ease-in'}}>Oops! We couldn't find the page you are looking for</div>
+  return projectToDisplay ? <Results onSavedPage={location.includes('saved')} currentResult={projectToDisplay} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <Empty />
 }
 
 export default SingleProject
