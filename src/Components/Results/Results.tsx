@@ -6,6 +6,7 @@ import Loader from '../Loader/Loader';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
+import Timeline from './Timeline/Timeline';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -158,8 +159,10 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             {interactions}
           </div>
         </div>
-      </div>
-    </section>}
+        </div>
+        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} />
+      </section>
+    }
   </>)
 }
 

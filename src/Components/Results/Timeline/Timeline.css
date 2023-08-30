@@ -1,0 +1,23 @@
+.timeline {
+  width: 100vw;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gnbPOC.horizontal {
+  justify-content: center;
+  width: 100vw;
+  padding: 0;
+}
+
+.card-text {
+  text-align: center;
+  margin: auto;
+}
+
+.bGAMeM {
+  font-size: 20px;
+}
+  
