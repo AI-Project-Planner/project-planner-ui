@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
   height: 88vh;
+  background-image: url('../../images/clouds.png');
+  background-repeat: none;
+  background-size: cover;
 }
 
 .saved-page-title {

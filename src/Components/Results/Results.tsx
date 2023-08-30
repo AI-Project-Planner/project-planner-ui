@@ -9,32 +9,33 @@ import loadingSpinner from '../../images/loadingSpinner.gif'
 
 interface ResultsProps {
   allProjects?: Project[]
-  currentResult: Project | null 
+  currentResult: Project
   updateCurrentResult?: (result: Project) => void
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData?: PostInfo | null
+  onSavedPage?: boolean
 }
 
-const Results = ({currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
-  const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
-  const [badRoute, setBadRoute] = useState(false)
+  // const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
+  // const [badRoute, setBadRoute] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
-  const location = useLocation().pathname
-  const { projectID } = useParams()
+  // const location = useLocation().pathname
+  // const { projectID } = useParams()
   
-  useEffect(() => {
-    if (location.includes('saved')) {
-      const projectInParams = allProjects?.find(project => project.id === projectID)  
-      if (projectInParams) {
-        setProjectToDisplay(projectInParams)
-      } else {
-        setBadRoute(true)
-      }
-    }
-  }, [allProjects])
+  // useEffect(() => {
+  //   if (location.includes('saved')) {
+  //     const projectInParams = allProjects?.find(project => project.id === projectID)  
+  //     if (projectInParams) {
+  //       setProjectToDisplay(projectInParams)
+  //     } else {
+  //       setBadRoute(true)
+  //     }
+  //   }
+  // }, [allProjects])
   
   useEffect(() => { 
     if (projectToSave) {
@@ -61,30 +62,18 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
 
     return () => setAppError(null)
   }, [projectToSave])
-
-  if (badRoute) {
-    return (
-      <div>Oops! We couldn't find the page you are looking for</div>
-    )
-  }
-
-  if (!projectToDisplay) {
-    
-    return (<div>no results</div>)
-  }
-
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
-  const features =  splitDataString(projectToDisplay.attributes.features).map(feature => {
+  const features =  splitDataString(currentResult.attributes.features).map(feature => {
     return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
   })
 
-  const interactions = splitDataString(projectToDisplay.attributes.interactions).map(interaction => {
+  const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {
     return (<p key={interaction} className='feature'>&#x2022;{interaction}</p>)
   })
 
-  const hexCodes = splitDataString(projectToDisplay.attributes.colors).map(color => {
+  const hexCodes = splitDataString(currentResult.attributes.colors).map(color => {
     return (
       <div key={color} className='color' style={{backgroundColor: `${color}`}}>
         <p className='hex-code'>{color}</p>
@@ -118,22 +107,22 @@ const Results = ({currentResult, allProjects, formData, updateCurrentResult, req
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
-      <h1 style={{fontSize: '25px'}}>Your Project: {projectToDisplay.attributes.name}</h1>
+      <h1 style={{fontSize: '25px'}}>Your Project: {currentResult.attributes.name}</h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
             <h2>Summary</h2>
           </div>
           <div className='summary-text-container'>
-            <p className='summary-text'>{projectToDisplay.attributes.description}</p>
+            <p className='summary-text'>{currentResult.attributes.description}</p>
           </div>
         </div>
         <div className='collab-buttons'>
           <div className='collab'>
-            <h2>Collaborators: {projectToDisplay.attributes.collaborators}</h2>
+            <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
           </div>
-            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(projectToDisplay)} >{projectToDisplay.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
-            {location.includes('saved')
+            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
+            {onSavedPage
               ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
               : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
         </div>

@@ -12,6 +12,7 @@ import { constants } from 'buffer';
 import { PostInfo, apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
+import SingleProject from '../SingleProject/SingleProject';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,9 +81,9 @@ const App = () => {
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
               <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
-              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/>} />
+              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
-              <Route path='/saved/:projectID' element={<Results currentResult={null} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
             </Routes>
           </main>
         </>
