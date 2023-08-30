@@ -6,7 +6,7 @@ main, header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  max-width: 100vw;
 }
 
 .app-logo img {

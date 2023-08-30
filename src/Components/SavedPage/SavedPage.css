@@ -1,0 +1,34 @@
+.saved-page {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  height: 88vh;
+  background-image: url('../../images/clouds.png');
+  background-repeat: none;
+  background-size: cover;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.saved-page-title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.saved-projects-container {
+  max-width: 80%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.saved-projects-container::-webkit-scrollbar {
+  width: 10px; 
+}
+
+.saved-projects-container::-webkit-scrollbar-thumb {
+  background: pink;
+  border-radius: 25px;
+}
