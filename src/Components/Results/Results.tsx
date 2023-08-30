@@ -29,6 +29,13 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
     'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
   }
 
+  const videos = formData?.technologies.map(tech => {
+    return (
+    <div>
+      <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
+    </div>)
+  })
+
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
@@ -101,8 +108,8 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
       </div>
       <div className='video-interaction-container'>
         <div className='video'>
-          <h3>YouTube Video will go here</h3>
-          <p>thumbnail for video</p>
+          <h3>Videos Based On Your Technologies</h3>
+          {videos}
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>

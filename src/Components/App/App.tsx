@@ -7,7 +7,6 @@ import Home from '../HomePage/HomePage';
 import logo from '../../images/logo.png';
 import Results from '../Results/Results';
 import { PostData } from '../../Types/ResultsTypes';
-import { constants } from 'buffer';
 import { PostInfo } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
