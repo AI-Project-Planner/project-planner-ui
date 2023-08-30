@@ -1,0 +1,34 @@
+.empty-page {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.empty-page h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.empty-page img {
+  width: 400px;
+  max-width: 90vw;
+}
+
+.empty-page a {
+  background-color: #eee4e1;
+  width: 200px; 
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+
+.empty-page a:hover {
+  box-shadow: inset 1px 1px 10px #bf8a7a;
+}
