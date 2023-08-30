@@ -20,22 +20,7 @@ interface ResultsProps {
 const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
-  // const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
-  // const [badRoute, setBadRoute] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
-  // const location = useLocation().pathname
-  // const { projectID } = useParams()
-  
-  // useEffect(() => {
-  //   if (location.includes('saved')) {
-  //     const projectInParams = allProjects?.find(project => project.id === projectID)  
-  //     if (projectInParams) {
-  //       setProjectToDisplay(projectInParams)
-  //     } else {
-  //       setBadRoute(true)
-  //     }
-  //   }
-  // }, [allProjects])
   
   useEffect(() => { 
     if (projectToSave) {
