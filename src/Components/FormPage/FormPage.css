@@ -6,6 +6,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .form-backdrop {

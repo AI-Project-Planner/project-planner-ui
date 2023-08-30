@@ -6,6 +6,7 @@
   background-image: url('../../images/clouds.png');
   background-repeat: none;
   background-size: cover;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .saved-page-title {
