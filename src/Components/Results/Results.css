@@ -6,6 +6,17 @@
   animation: fadeIn 0.5s ease-in;
 }
 
+.project-title {
+  font-size: 25px;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.project-title-name {
+  font-size: 25px;
+  font-weight: 700;
+}
+
 .summary-collab-container {
   display: flex;
   width: 100vw;
@@ -106,7 +117,33 @@
   width: 35vw;
 }
 
+.design {
+  position: relative;
+  margin-top: 10px;
+}
+
+.design-header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.design-header-background {
+  position: absolute;
+  top: -16px;
+  margin: 0;
+  padding: 5px 40px;
+  background-color: #FAF4EE;
+}
+
+.design-header {
+  margin: 0;
+}
+
 .palette-header {
+  position: absolute;
+  top: 22px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

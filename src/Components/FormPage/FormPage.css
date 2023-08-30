@@ -1,6 +1,6 @@
 .form-page {
   background-image: url("../../images/background.png");
-  background-repeat: none;
+  background-repeat: no-repeat;
   background-size: cover;
   height: 88vh;
   width: 100%;
@@ -10,11 +10,11 @@
 }
 
 .form-backdrop {
-  height: 60%;
-  width: 80%;
+  height: 70%;
+  width: 65%;
   background-color: white;
   border-radius: 30px;
-  margin-top: 150px;
+  margin-top: 80px;
 }
 
 .form-container {
@@ -34,8 +34,8 @@
 
 .form-question {
   text-align: center;
-  font-size: 3rem;
-  flex-grow:1;
+  font-size: 2rem;
+  flex-grow: 1;
   margin-bottom: 10px;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .form-icon {
-  height: 60px;
+  height: 50px;
 }
 
 .form-search-container {
@@ -86,10 +86,14 @@
 
 .form-input, .form-tech-stack-chosen-single {
   width: 60%;
-  height: 50px;
+  height: 40px;
   border-radius: 24px;
   border: 2px solid #DBD5D5;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+}
+
+.form-input {
+  padding-left: 15px;
 }
 
 select.form-input {
@@ -117,12 +121,12 @@ select.form-input {
   justify-content: center;
   border: 5px solid #EEE4E1;
   border-radius: 24px;
-  width: 200px;
+  width: 175px;
   padding: 5px;
 }
 
 .form-type-icon {
-  width: 80%;
+  width: 60%;
 }
 
 .form-type-text {
@@ -139,10 +143,10 @@ select.form-input {
   display: flex;
   flex-direction: column;
   border: 2px solid #EEE4E1;
-  margin-top: 56px;
+  margin-top: 46px;
   background-color: white;
   border-radius: 24px;
-  width: 30%;
+  width: 25%;
   height: 20%;
   overflow: auto;
   font-size: 1.6rem;
@@ -187,7 +191,7 @@ select.form-input {
 .form-error {
   margin: 0;
   color: #AF0F0F;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 400;
   text-align: center;
 }

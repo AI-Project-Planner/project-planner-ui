@@ -92,7 +92,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
-      <h1 style={{fontSize: '25px'}}>Your Project: {currentResult.attributes.name}</h1>
+      <h1 className='project-title'>Your Project: <span className='project-title-name'>{currentResult.attributes.name}</span></h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
@@ -114,6 +114,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       </div>
       <div className='design-features-container'>
         <div className='design'>
+          <div className='design-header-container'>
+            <div className='design-header-background'>
+              <h2 className='design-header'>Design</h2>
+            </div>
+          </div>
           <div className='palette-header'>
             <h2>Color Palette</h2>
           </div>
