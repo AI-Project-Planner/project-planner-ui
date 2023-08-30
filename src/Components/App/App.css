@@ -24,3 +24,7 @@ main {
 .form-height {
   max-height: 100vh;
 }
+
+.app-error {
+  text-align: center;
+}

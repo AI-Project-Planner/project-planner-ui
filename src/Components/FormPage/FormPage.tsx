@@ -13,10 +13,11 @@ import { Project } from '../../Types/types';
 
 interface FormPageProps {
   updateCurrentResult: (result: Project) => void,
-  updateFormData: (formData: FormData) => void
+  updateFormData: (formData: FormData) => void,
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
 }
 
-const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData }) => {
+const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, updateFormData }) => {
 
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [stack, setStack] = useState<string>("");
@@ -89,7 +90,7 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
       navigate('/results');
      })
      .catch(err => {
-      setError({error:true, message: err.message})
+      setAppError(err)
      })
     }, 3000)
   }
@@ -115,6 +116,10 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
     setTechnologies([]);
   },[stack])
 
+  useEffect(() => {
+    setAppError(null)
+  },[])
+  
   return (
     <div className='form-page'>
       <section className='form-backdrop'>

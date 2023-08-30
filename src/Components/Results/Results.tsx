@@ -40,7 +40,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         } catch (error) {
           if (error instanceof Error) setAppError(error)
           setSaveLoading(false)
-        }
+        } 
       }
       callAPI()
     }
