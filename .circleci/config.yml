@@ -8,3 +8,4 @@ workflows:
       - cypress/run: 
           start-command: 'npm run start'
           cypress-command: npx cypress run --headless 
+      - build
