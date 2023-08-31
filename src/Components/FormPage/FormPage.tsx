@@ -10,6 +10,7 @@ import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, Fo
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { Project } from '../../Types/types';
+import form from '../../images/form.png';
 
 interface FormPageProps {
   updateCurrentResult: (result: Project) => void,
@@ -119,9 +120,15 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   useEffect(() => {
     setAppError(null)
   },[])
-  
+
   return (
     <div className='form-page'>
+      {window.innerWidth >= 850 && <section className='form-left'>
+        <img className='form-logo' src={form} alt='pencil logo for form' />
+        <div className='form-left-question'>
+          
+        </div>
+      </section>}
       <section className='form-backdrop'>
         {loading ?
         <Loader /> :
@@ -131,7 +138,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
               <div className='form-icon-container'>
                 <img className='form-icon' src={arrow} alt='back button' onClick={prevQuestion} />
               </div>}
-            <p className='form-question'>{questions[currentQuestion]}</p>
+              <p className='form-question'>{`${currentQuestion}. ${questions[currentQuestion]}`}</p>
           </div>
           <div className='form-input-container'>
             {questionInputs()}

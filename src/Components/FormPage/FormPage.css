@@ -5,16 +5,36 @@
   height: 88vh;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   animation: fadeIn 0.5s ease-in;
+}
+
+.form-left {
+  display: flex;  
+  flex-direction: column;
+  align-items: center;
+  margin-top: 130px;
+} 
+
+.form-left-question {
+  background-color: white;
+  padding: 0 20px;
+  border-radius: 30px;
+  width: 70%;
 }
 
 .form-backdrop {
   height: 70%;
-  width: 65%;
+  width: 50%;
   background-color: white;
   border-radius: 30px;
-  margin-top: 80px;
+  margin: 80px 80px 0 0;
+}
+
+.form-logo {
+  height: 450px;
+  object-fit: contain;
+  padding-left: 20px;
 }
 
 .form-container {
@@ -34,9 +54,9 @@
 
 .form-question {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
   flex-grow: 1;
-  margin-bottom: 10px;
+  margin: 40px 20px 0 20px;
 }
 
 .form-input-container {
@@ -46,7 +66,7 @@
 }
 
 .form-button {
-  background-color: #EEE4E1;
+  background-color: #FBDFEA;
   width: 25%;
   height: 50px;
   border: none;
@@ -135,7 +155,7 @@ select.form-input {
 }
 
 .form-type-icon-container:hover{
-  border: 5px solid #efaf9b;
+  border: 5px solid #FFBCD7;
   cursor: pointer;
 }
 
@@ -179,7 +199,7 @@ select.form-input {
 }
 
 .form-active-focus {
-  border: 5px solid #efaf9b;
+  border: 5px solid #FFBCD7;
 }
 
 .form-tech-text {
@@ -207,6 +227,7 @@ select.form-input {
     position: fixed;
     bottom: 0;
     border-radius: 30px 30px 0 0;
+    margin: 0 0 20px 0;
   }
 
   .form-question {
@@ -270,4 +291,6 @@ select.form-input {
     font-size: 1.4rem;
     padding: 0 15px;
   }
+
+
 }
