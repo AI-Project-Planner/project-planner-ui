@@ -9,7 +9,7 @@ type options = {
 type PostInfo = {
   collaborators: number,
   stack: string,
-  technologies: string[], 
+  technologies: string, 
   timeFrame: string
 }
 

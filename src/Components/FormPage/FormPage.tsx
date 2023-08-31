@@ -76,7 +76,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
     setLoading(true);
     const formData: FormData = {
       stack, 
-      technologies,
+      technologies: technologies.join(', '),
       timeFrame: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
     };

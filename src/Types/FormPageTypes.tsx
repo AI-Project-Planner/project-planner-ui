@@ -34,7 +34,7 @@ export interface ErrorMsg {
 
 export interface FormData {
   stack: string,
-  technologies: string[],
+  technologies: string,
   timeFrame: string,
   collaborators: number
 }
