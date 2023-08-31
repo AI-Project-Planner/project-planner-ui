@@ -25,7 +25,14 @@ describe('saved projects spec', () => {
       cy.wait(`@unSavedProj${i === projects.length - 1 ? 'ects' : '1'}`).then((interception) => { 
         cy.get('button').contains('Save Plan').should('be.visible')
         cy.get('a').contains('Return to Saved').click()
-        i === projects.length - 1 ?  cy.get('.saved-project').should('have.length', 0) :  cy.get('.saved-project').should('have.length', projects.length - 1)
+        if (i === projects.length - 1) {
+          cy.get('.saved-project').should('have.length', 0) 
+            .get('p').contains('No saved projects yet! Generate a project and save it to view it here!')
+            .get('a[href="/form"]').contains('Generate a new plan').click()
+            .url().should('eq', 'http://localhost:3000/form')
+        } else {
+          cy.get('.saved-project').should('have.length', projects.length - 1)
+        }
       }
       )
     })
