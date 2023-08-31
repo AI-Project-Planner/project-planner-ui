@@ -3,17 +3,30 @@ import './Timeline.css'
 
 interface TimelineProps {
   steps: string[],
-  timeframe: string
+  timeframe: string,
+  timeframeAmt: number
 }
 
-const Timeline = ({ steps, timeframe }: TimelineProps) => {
-  console.log('steps', steps)
-  console.log('timeframe', timeframe)
+const Timeline = ({ steps, timeframe, timeframeAmt}: TimelineProps) => {
+  const stepsPerSlide = Math.round(timeframeAmt/ steps.length)
+  console.log('stepsPerSlide', stepsPerSlide)
 
-  const timelineItems = steps.map((step, i) => ({
-    title: `${timeframe.replaceAll('s', '')} ${i+1}`,
-    cardDetailedText: [step],
-  }))
+  const timelineArray = []
+
+    for (let i = 0; i < timeframeAmt; i += stepsPerSlide) {
+      const slice = steps.slice(i, i + stepsPerSlide);
+      timelineArray.push(slice);
+    }
+
+
+  const timelineItems = steps.map((step, i) => {
+    // console.log('step', step.map(piece => <p>{piece}</p>))
+    return {
+      // title: `${timeframe.replaceAll('s', '')} ${i + 1}`,
+      title: `Step ${i + 1}`,
+      cardDetailedText: step,
+    }
+  })
 
   const theme =  {
     primary: '#BBA9A9',

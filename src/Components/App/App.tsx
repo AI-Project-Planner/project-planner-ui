@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -8,6 +8,7 @@ import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { Project } from '../../Types/types';
 import Results from '../Results/Results';
+import { constants } from 'buffer';
 import { PostInfo, apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
@@ -45,6 +46,13 @@ const App = () => {
     return () => setAppError(null)
   }, [requestNeeded])
 
+  // useEffect(() => {
+  //   if (allProjects) {
+  //     updateSavedProjects(allProjects)
+  //   }
+  // }, [allProjects])
+
+
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
   }
@@ -78,7 +86,6 @@ const App = () => {
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
           <main className={location === '/form' ? 'form-height' : ''}>
-            {appError && <p></p>}
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
               <Route path='/form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />

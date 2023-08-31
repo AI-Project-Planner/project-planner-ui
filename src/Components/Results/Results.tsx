@@ -111,8 +111,9 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             {onSavedPage
               ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
               : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+          </div>
         </div>
-      </div>
+        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} />
       <div className='design-features-container'>
         <div className='design'>
           <div className='design-header-container'>
@@ -150,7 +151,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
           </div>
         </div>
         </div>
-        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} />
+        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
       </section>
     }
   </>)
