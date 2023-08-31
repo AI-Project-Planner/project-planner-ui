@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -8,11 +8,11 @@ import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { Project } from '../../Types/types';
 import Results from '../Results/Results';
-import { constants } from 'buffer';
 import { PostInfo, apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
+import Empty from '../Empty/Empty';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +22,7 @@ const App = () => {
   const [appError, setAppError] = useState<Error | null>(null)
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
-  const [userFormData, setUserFormData] = useState<null | PostInfo>(null)
+  const [userFormData, setUserFormData] = useState<null | PostInfo>(null);
 
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
@@ -44,7 +44,6 @@ const App = () => {
 
     return () => setAppError(null)
   }, [requestNeeded])
-
 
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
@@ -69,6 +68,7 @@ const App = () => {
   }, [smallScreen, menuOpen, location])
 
   
+
   return (
     <div className='app'>
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
@@ -77,13 +77,15 @@ const App = () => {
             <Link className='app-logo' to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
-          <main>
+          <main className={location === '/form' ? 'form-height' : ''}>
+            {appError && <p></p>}
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
               <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
             </Routes>
           </main>
         </>

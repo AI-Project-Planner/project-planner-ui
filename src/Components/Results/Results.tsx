@@ -3,7 +3,7 @@ import './Results.css';
 import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
 import Timeline from './Timeline/Timeline';
@@ -21,22 +21,7 @@ interface ResultsProps {
 const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
-  // const [projectToDisplay, setProjectToDisplay] = useState(currentResult)
-  // const [badRoute, setBadRoute] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
-  // const location = useLocation().pathname
-  // const { projectID } = useParams()
-  
-  // useEffect(() => {
-  //   if (location.includes('saved')) {
-  //     const projectInParams = allProjects?.find(project => project.id === projectID)  
-  //     if (projectInParams) {
-  //       setProjectToDisplay(projectInParams)
-  //     } else {
-  //       setBadRoute(true)
-  //     }
-  //   }
-  // }, [allProjects])
   
   useEffect(() => { 
     if (projectToSave) {
@@ -108,7 +93,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
-      <h1 style={{fontSize: '25px'}}>Your Project: {currentResult.attributes.name}</h1>
+      <h1 className='project-title'>Your Project: <span className='project-title-name'>{currentResult.attributes.name}</span></h1>
       <div className='summary-collab-container'>
         <div className='summary'>
           <div className='summary-header'>
@@ -130,6 +115,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       </div>
       <div className='design-features-container'>
         <div className='design'>
+          <div className='design-header-container'>
+            <div className='design-header-background'>
+              <h2 className='design-header'>Design</h2>
+            </div>
+          </div>
           <div className='palette-header'>
             <h2>Color Palette</h2>
           </div>

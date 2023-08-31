@@ -32,3 +32,23 @@
   background: pink;
   border-radius: 25px;
 }
+
+.empty-saved {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.empty-saved a {
+  background-color: #EEE4E1;
+  width: 250px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+  margin-top: 30px;
+}
