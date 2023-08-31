@@ -53,6 +53,11 @@
   width: 310px;
   max-width: 75%;
   height: 50px;
+  border: 3px solid #EEE4E1
+}
+
+.popup-button:hover {
+  border: 3px solid #FFBCD7;
 }
 
 @media screen and (max-width: 1620px) {
