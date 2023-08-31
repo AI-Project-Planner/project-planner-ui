@@ -210,9 +210,9 @@
  align-items: center;
 }
 
-.individual-video {
-  max-height: 60vh;
-  width: 100%;
+iframe {
+  height: 450px;
+  min-width: 550px;
 }
 
 @media screen and (max-width: 1170px) {
