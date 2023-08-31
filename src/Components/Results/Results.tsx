@@ -47,9 +47,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
 
     return () => setAppError(null)
   }, [projectToSave])
+
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
+
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
     return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
   })
@@ -73,6 +75,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         setLoading(false)
       } catch(error) {
         console.log(error)
+        if (error instanceof Error) setAppError(error)
         setLoading(false)
       }
     }
