@@ -1,5 +1,4 @@
 describe('error handling spec', () => {
-
   beforeEach(() => { 
     cy.stubSingleFetch('users/1/projects', "savedProjects", 200)
   })

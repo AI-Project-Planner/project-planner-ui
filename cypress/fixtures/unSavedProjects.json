@@ -15,7 +15,7 @@
         "timeline_int": 4,
         "tagline": "Browse the most stunning makeup looks",
         "collaborators": 2,
-        "saved": true,
+        "saved": false,
         "user_id": 1
 			}
     },
@@ -33,7 +33,7 @@
 		    "timeline_int": 1,
         "tagline": "Organize your closet",
         "collaborators": 2,
-				"saved": true,
+				"saved": false,
 				"user_id": 1
 			}
 		}

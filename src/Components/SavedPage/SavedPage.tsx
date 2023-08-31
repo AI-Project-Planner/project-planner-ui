@@ -10,11 +10,11 @@ interface SavedPageProps {
 }
 
 const SavedPage = ({allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
-  useEffect(() => {
-    if (allProjects) {
-      updateSavedProjects(allProjects)
-    }
-  }, [allProjects])
+  // useEffect(() => {
+  //   if (allProjects) {
+  //     updateSavedProjects(allProjects)
+  //   }
+  // }, [allProjects])
 
   const savedProjectEls = savedProjects.map(project => <SavedProject key={project.id} project={project} />)
   
