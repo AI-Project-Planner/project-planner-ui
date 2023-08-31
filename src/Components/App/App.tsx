@@ -46,13 +46,6 @@ const App = () => {
     return () => setAppError(null)
   }, [requestNeeded])
 
-  useEffect(() => {
-    if (allProjects) {
-      updateSavedProjects(allProjects)
-    }
-  }, [allProjects])
-
-
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
   }
