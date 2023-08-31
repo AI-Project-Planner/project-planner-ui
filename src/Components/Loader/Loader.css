@@ -20,6 +20,7 @@
 
 .progress-bar {
   width: 250px;
+  border-radius: 25px;
 }
 
 @media screen and (max-width: 500px) {

@@ -7,12 +7,12 @@ import Question2 from './Questions/Question2';
 import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
 import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData} from '../../Types/FormPageTypes';
-import { PostData } from '../../Types/ResultsTypes';
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
+import { Project } from '../../Types/types';
 
 interface FormPageProps {
-  updateCurrentResult: (result: PostData) => void,
+  updateCurrentResult: (result: Project) => void,
   updateFormData: (formData: FormData) => void
 }
 
@@ -87,6 +87,9 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
       updateCurrentResult(data);
       setLoading(false);
       navigate('/results');
+     })
+     .catch(err => {
+      setError({error:true, message: err.message})
      })
     }, 3000)
   }

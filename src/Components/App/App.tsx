@@ -3,24 +3,49 @@ import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
-import Home from '../HomePage/HomePage';
+import HomePage from '../HomePage/HomePage';
+import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
+import { Project } from '../../Types/types';
 import Results from '../Results/Results';
-import { PostData } from '../../Types/ResultsTypes';
-import { PostInfo } from '../../apiCalls';
+import { PostInfo, apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
+import SingleProject from '../SingleProject/SingleProject';
+import Empty from '../Empty/Empty';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
-  const [currentResult, setCurrentResult] = useState<null | PostData>(null);
-  const [userFormData, setUserFormData] = useState<null | PostInfo>(null)
+  const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [savedProjects, setSavedProjects] = useState<Project[]>([]);
+  const [appError, setAppError] = useState<Error | null>(null)
+  const [requestNeeded, setRequestNeeded] = useState(false);
+  const [currentResult, setCurrentResult] = useState<null | Project>(null);
+  const [userFormData, setUserFormData] = useState<null | PostInfo>(null);
+
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
   const openOrCloseMenu = () => setMenuOpen(prev => !prev);
+  const getAllProjects: () => Promise<Project[]> = apiCall(1, 'projects', {});
+  const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved));
+  const requestAllProjects = () => setRequestNeeded(prev => !prev)
 
-  const updateCurrentResult = (result: PostData) => {
+  useEffect(() => {
+    const apiRequest = async () => {
+      try {
+        setAllProjects(await getAllProjects())
+      } catch (error) {
+        if (error instanceof Error) setAppError(error)
+      }
+    }
+
+    apiRequest()
+
+    return () => setAppError(null)
+  }, [requestNeeded])
+
+  const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
   }
 
@@ -31,6 +56,7 @@ const App = () => {
   useEffect(() => {
     changeScreenSize()
     window.addEventListener('resize', changeScreenSize)
+
     return () => window.removeEventListener('resize', changeScreenSize)
   }, []);
 
@@ -42,6 +68,7 @@ const App = () => {
   }, [smallScreen, menuOpen, location])
 
   
+
   return (
     <div className='app'>
       {menuOpen ? <Menu openOrCloseMenu={openOrCloseMenu} /> :
@@ -50,11 +77,15 @@ const App = () => {
             <Link className='app-logo' to='/'><img src={logo} alt='project planner ai generator logo and home page button'/></Link>
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
-          <main>
+          <main className={location === '/form' ? 'form-height' : ''}>
+            {appError && <p></p>}
             <Routes>
-              <Route path='/' element={<Home smallScreen={smallScreen} />} />
-              <Route path='/results' element={<Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData}/>} />
-              <Route path='form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
+              <Route path='/form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
+              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
             </Routes>
           </main>
         </>

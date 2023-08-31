@@ -6,7 +6,7 @@ main, header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  max-width: 100vw;
 }
 
 .app-logo img {
@@ -18,4 +18,9 @@ main {
   width: 100vw;
   max-height: 88vh;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.form-height {
+  max-height: 100vh;
 }
