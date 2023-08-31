@@ -258,4 +258,9 @@ iframe {
   .summary-header, .summary-text-container, .collab, .save-create-button, .palette-header, .design, .feat-inter-header, .feat-inter-text, .video, .save-create-div {
     width: 90vw;
   }
+
+  iframe {
+    height: 350px;
+    max-width: 90vw;
+  }
 }
