@@ -6,4 +6,6 @@ workflows:
   build:
     jobs:
       - cypress/run: 
-          command: 'npm run start && npx cypress run --headless'
+          start: 'npm run start'
+          command: 'npx cypress run --headless'
+          
