@@ -147,6 +147,11 @@
  align-items: center;
 }
 
+.individual-video {
+  max-height: 60vh;
+  width: 100%;
+}
+
 @media screen and (max-width: 1170px) {
   .summary-collab-container {
     display: flex;
