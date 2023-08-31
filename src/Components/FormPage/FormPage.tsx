@@ -138,7 +138,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
               <div className='form-icon-container'>
                 <img className='form-icon' src={arrow} alt='back button' onClick={prevQuestion} />
               </div>}
-              <p className='form-question'>{`${currentQuestion}. ${questions[currentQuestion]}`}</p>
+              <p className='form-question'>{questions[currentQuestion]}</p>
           </div>
           <div className='form-input-container'>
             {questionInputs()}
