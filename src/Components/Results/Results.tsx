@@ -3,6 +3,7 @@ import './Results.css';
 import { PostData, TechVideoLinks } from '../../Types/ResultsTypes';
 import { postNewForm, PostInfo } from '../../apiCalls';
 import Loader from '../Loader/Loader';
+import DemoCarousel from './DemoCarousel';
 
 interface ResultsProps {
   currentResult: PostData | null
@@ -31,7 +32,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
 
   const videos = formData?.technologies.map(tech => {
     return (
-    <div>
+    <div className='individual-video'>
       <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
     </div>)
   })
@@ -108,8 +109,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
       </div>
       <div className='video-interaction-container'>
         <div className='video'>
-          <h3>Videos Based On Your Technologies</h3>
-          {videos}
+          <h3>Logos will go here</h3>
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
@@ -120,6 +120,7 @@ const Results = ({currentResult, formData, updateCurrentResult}: ResultsProps) =
           </div>
         </div>
       </div>
+      <DemoCarousel videos={videos} />
     </section>}
   </>)
 }
