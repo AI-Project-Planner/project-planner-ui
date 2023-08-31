@@ -3,7 +3,7 @@ import './Results.css';
 import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
 
