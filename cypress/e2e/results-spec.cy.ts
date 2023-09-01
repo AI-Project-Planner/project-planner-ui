@@ -28,5 +28,7 @@ describe('results spec', () => {
   it('should show a helpful message and route to form if the user goes to results before submitting a form', () => {
     cy.visit('http://localhost:3000/results')
     .get('h2').contains('Just like the void of space, there\'s nothing to see here!')
+    .get('a')['last']().contains('To Form').click()
+    .url().should('eq', 'http://localhost:3000/form')
   })
 })
