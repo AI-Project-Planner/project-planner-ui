@@ -3,7 +3,7 @@ describe('User can fill out form to generate a new plan ', () => {
     return cy.visit('http://localhost:3000/form')
       .intercept(
         "GET",
-        "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
+        "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects",
         {
           statusCode: 200,
           fixture: 'savedProjects'
@@ -34,7 +34,7 @@ describe('User can fill out form to generate a new plan ', () => {
       .get('.form-input').type('2')
       .intercept(
         "POST",
-        "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/",
+        "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/",
         {
           statusCode: 200,
           fixture: 'form'

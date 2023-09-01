@@ -1,5 +1,5 @@
 import { Project } from "../../../Types/types"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import './SavedProject.css'
 import { useEffect } from "react"
 
@@ -8,10 +8,12 @@ const SavedProject = ({ project }: { project: Project }) => {
     return (<div key={`${project.id}${color}`} className='mini-palette-color' style={{backgroundColor: `${color}`}}></div>)
   })
 
-  const wordsInDescription = project.attributes.tagline.split(' ')
+  const wordsInDescription = project.attributes.tagline.split(' ');
+
+  const location = useLocation().pathname;
 
   return (
-    <Link to={`/saved/${project.id}`}>
+    <Link to={location === '/saved' ? `/saved/${project.id}` : `/history/${project.id}`}>
       <section className='saved-project'>
         <section className='saved-project-details'>
           <h2 className='saved-project-title'>{project.attributes.name}</h2>

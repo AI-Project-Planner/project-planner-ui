@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -15,6 +15,7 @@ import SingleProject from '../SingleProject/SingleProject';
 import Empty from '../Empty/Empty';
 import NoResults from '../NoResults/NoResults';
 import Tutorial from '../Tutorial/Tutorial';
+import ProjectsAll from '../ProjectsAll/ProjectsAll';
 import React from 'react';
 
 const App = () => {
@@ -47,6 +48,14 @@ const App = () => {
 
     return () => setAppError(null)
   }, [requestNeeded])
+
+  useEffect(() => {
+    if (allProjects) {
+      console.log('allProjects', allProjects)
+      updateSavedProjects(allProjects)
+    }
+  }, [allProjects])
+
 
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)
@@ -85,6 +94,8 @@ const App = () => {
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
               <Route path='/tutorial' element={<Tutorial />}/>
+              <Route path='/history' element={<ProjectsAll allProjects={allProjects}/>} />
+              <Route path='/history/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
