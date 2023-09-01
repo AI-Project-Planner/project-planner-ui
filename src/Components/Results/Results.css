@@ -57,8 +57,14 @@
   display: flex;
   background-color: white;
   border-radius: 4px;
-  width: 85%;
+  /* width: 85%; */
+  width: 80%;
   text-align: center;
+  justify-content: flex-start;
+}
+
+.summary-text-wrapper {
+  width: 80%;
 }
 
 .summary-text {
@@ -262,7 +268,7 @@
   }
 }
 
-@media screen and (max-width: 1170px) {
+@media screen and (max-width: 1210px) {
   .summary-collab-container {
     display: flex;
     flex-direction: column-reverse;
@@ -307,8 +313,8 @@
   .summary {
     width: 95vw
   }
-
-  .summary-header, .summary-text-container {
+  /* .summary-text-container */
+  .summary-header {
     width: 82%;
     margin-left: 20px;
   }
@@ -335,7 +341,7 @@
   }
 } 
 
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 700px) {
 
   .summary {
     display: flex; 

@@ -9,6 +9,17 @@
   animation: fadeIn 0.5s ease-in;
 }
 
+.history-page {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  height: 88vh;
+  background-image: url('../../images/blueClouds.png');
+  background-repeat: none;
+  background-size: cover;
+  animation: fadeIn 0.5s ease-in;
+}
+
 .saved-page-title {
   text-align: center;
   font-size: 30px;

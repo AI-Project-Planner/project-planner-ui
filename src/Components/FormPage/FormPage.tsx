@@ -86,6 +86,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
      postNewForm(formData).then(data => {
       console.log(data)
       updateCurrentResult(data.data);
+      // updateCurrentResult(data);
       setLoading(false);
       navigate('/results');
      })

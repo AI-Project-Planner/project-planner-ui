@@ -23,12 +23,18 @@ const Question2: React.FC<Question2Props> = ({ searchTerm, techStacks, stack, se
 
     const feFrameworks: string[] = ['react', 'vue', 'angular'];
 
+    const checkTech = techStacks[stack].includes(searchTerm);
+
     const alreadySaved = (data: string[]) => data.find(tech => tech === searchTerm);
 
     const feFrameworkChosen = technologies.filter(tech => feFrameworks.includes(tech));
 
     if (feFrameworks.includes(searchTerm) && feFrameworkChosen.length === 1) {
       return setError({ error: true, message: "You can only choose 1 FE Framework!" })
+    }
+
+    if(!checkTech) {
+      return setError({ error: true, message: `${searchTerm} is not a Technology you can choose! Sorry!` })
     }
 
     if (technologies.length === 5) {

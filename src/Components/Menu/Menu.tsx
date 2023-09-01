@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import close from '../../images/close.png';
 import "./Menu.css"
 
@@ -14,6 +13,7 @@ const Menu = ({ openOrCloseMenu }: MenuProps) => {
       <Link className='menu-link' to='/'><button className='clear-bg-btn' onClick={openOrCloseMenu}>Home</button></Link>
       <Link className='menu-link' to='/form'><button className='clear-bg-btn' onClick={openOrCloseMenu}>New Project</button></Link>
       <Link className='menu-link' to='/saved'><button className='clear-bg-btn' onClick={openOrCloseMenu}>Saved Projects</button></Link>
+      <Link className='menu-link' to='/history'><button className='clear-bg-btn' onClick={openOrCloseMenu}>All Projects</button></Link>
     </nav>
   )
 }
