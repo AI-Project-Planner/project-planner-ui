@@ -31,7 +31,18 @@
 }
 
 .light {
-  max-width: 400px;
+  max-width: 375px;
+}
+
+.project-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.project-info {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px 40px;
 }
 
 .popup {
@@ -39,6 +50,8 @@
   border-radius: 25px;
   width: 30%;
   max-height: 65vh;
+  display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
@@ -49,7 +62,7 @@
 
 .popup-button {
   width: 75%;
-  background-color: #EEE4E1;
+  background-color: #FBDFEA;
   border-radius: 10px;
   height: 50px;
   font-size: 20px;
@@ -59,11 +72,11 @@
   justify-content: center;
   border: none;
   text-align: center;
-  margin: auto;
+  margin: 20px;
   width: 310px;
   max-width: 75%;
   height: 50px;
-  border: 3px solid #EEE4E1
+  border: 3px solid #FBDFEA
 }
 
 .popup-button:hover {
