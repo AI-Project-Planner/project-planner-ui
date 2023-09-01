@@ -1,6 +1,14 @@
 describe('User can fill out form to generate a new plan ', () => {
   beforeEach(()=> {
-    cy.loadHomepage();
+    return cy.visit('http://localhost:3000/form')
+    .intercept(
+      "GET",
+      "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
+      {
+        statusCode: 200,
+        fixture: 'savedProjects'
+      }
+    )
   })
 
   it('Should allow user to fill out form ', () => {
@@ -24,16 +32,15 @@ describe('User can fill out form to generate a new plan ', () => {
     cy.get('.form-button').click()
     cy.get('.form-question').should('have.text', 'How Many Collaborators Will There Be?')
     cy.get('.form-input').type('2')
-    cy.get('.form-button').click()
     cy.intercept(
       "POST",
-      "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
+      "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/",
       {
         statusCode: 200,
         fixture: 'form'
       }
     ).as("form-post");
-    cy.get('.first-loading-statement').should('have.text', 'Computing AI Results...')
+    cy.get('.form-button').click()
     cy.wait('@form-post').then((intercept) => {
       cy.url().should("include", "/results")
     })

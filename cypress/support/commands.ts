@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 Cypress.Commands.add('loadHomepage', () => {
-  return cy.visit('http://localhost:3000/form')
+  return cy.visit('http://localhost:3000/')
   .intercept(
     "GET",
     "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
