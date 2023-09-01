@@ -6,6 +6,16 @@
   height: 88vh;
 }
 
+.homepage-title {
+  font-family: 'Petit Formal Script', cursive;
+  margin-bottom: 0;
+}
+
+.title-img {
+  width: 80%;
+  margin-top: 0;
+}
+
 .home section {
   display: flex;
   flex-direction: column;
@@ -21,7 +31,7 @@
 }
 
 .light {
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .popup {
