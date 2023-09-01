@@ -9,7 +9,9 @@ const Question4: React.FC<Question4Props> = ({setNumPeople, numPeople}) => {
 
   const selectNumPeople = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = (e.target as HTMLInputElement).value;
-    setNumPeople(parseInt(value));
+    if(value) {
+     setNumPeople(parseInt(value))
+    };
   }
 
   return (
