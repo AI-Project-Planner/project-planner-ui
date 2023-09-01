@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 80vh;
   width: 100vw;
 }
 
@@ -19,6 +19,10 @@
   font-size: 20px;
 }
 
-a:hover {
+.no-results-container h2 {
+  font-size: 25px;
+}
+
+.no-results-container a:hover {
   box-shadow: inset 1px 1px 10px #bf8a7a;
 }
