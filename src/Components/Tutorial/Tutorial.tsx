@@ -2,7 +2,7 @@ import React from 'react'
 
 const Tutorial = () => {
   return (
-    <div>Tutorial</div>
+    <div>This Page is Under Construction!</div>
   )
 }
 
