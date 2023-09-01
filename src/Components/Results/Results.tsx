@@ -64,15 +64,13 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
   }
 
-  console.log(formData?.technologies)
-
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
 
   const videos = formData!.technologies.split(', ').map(tech => {
     return (
-    <div className='individual-video'>
+    <div className='individual-video' key={techVideoLinks[tech]}>
       <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
     </div>)
   })
