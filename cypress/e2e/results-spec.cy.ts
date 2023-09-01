@@ -25,6 +25,20 @@ describe('results spec', () => {
     .get('.carousel-root')
   })
 
+  it.only('should regenerate a new results page based on the form data', () => {
+    cy.completeForm()
+    cy.get('.form-button').click()
+    .get('.project-title').contains('Makeup 360')
+    cy.intercept('POST', 'https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/', {
+      status: 200,
+      fixture: 'unSaved2'
+    }).as('createNew')
+    .get('.save-create-button')['last']().click()
+    cy.wait(['@createNew']).then((intercept) => {
+      
+    })
+  })
+
   it('should show a helpful message and route to form if the user goes to results before submitting a form', () => {
     cy.visit('http://localhost:3000/results')
     .get('h2').contains('Just like the void of space, there\'s nothing to see here!')
