@@ -72,7 +72,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     return data.split('\n')
   }
 
-  const videos = formData!.technologies.split(', ').map(tech => {
+  const videos = currentResult.attributes.technologies.split(', ').map(tech => {
     return (
     <div className='individual-video' key={techVideoLinks[tech]}>
       <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
