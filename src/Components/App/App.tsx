@@ -13,6 +13,7 @@ import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
 import Empty from '../Empty/Empty';
+import Tutorial from '../Tutorial/Tutorial';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,6 +82,7 @@ const App = () => {
             {appError && <p className='app-error'>An error occured, please try again later!</p>}
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
+              <Route path='/tutorial' element={<Tutorial />}/>
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
