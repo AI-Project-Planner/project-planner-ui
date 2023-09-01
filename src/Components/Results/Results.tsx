@@ -54,7 +54,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     return data.split('\n')
   }
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
-    return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
+    return (<p key={feature} className='feature underlined'>&#x2022;{feature}</p>)
   })
 
   const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {

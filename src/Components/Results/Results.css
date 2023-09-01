@@ -187,8 +187,8 @@
 }
 
 .color {
-  height: 12vh;
-  width: 8vw;
+  height: 120px;
+  width: 120px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -226,6 +226,20 @@
   margin-left: 15px;
   margin-right: 15px;
   display: flex;
+}
+
+.underlined {
+  padding-bottom: 5px;
+  border-bottom: 2px solid #fbdfea;
+}
+
+.feat-inter-text::-webkit-scrollbar {
+  width: 10px;
+}
+
+.feat-inter-text::-webkit-scrollbar-thumb {
+  background: #fbdfea;
+  border-radius: 25px;
 }
 
 .video-interaction-container {
@@ -343,5 +357,12 @@
   .results-sticker {
     height: 200px;
     justify-self: center;
+  }
+}
+
+@media screen and (max-width: 417px) {
+  .color {
+    width: 85px;
+    height: 85px;
   }
 }
