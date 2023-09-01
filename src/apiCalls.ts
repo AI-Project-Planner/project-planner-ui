@@ -1,16 +1,11 @@
+import { FormData } from "./Types/FormPageTypes"
+
 type options = {
   method: string,
   body: string,
   headers: {
     'Content-Type': string
   }
-}
-
-type PostInfo = {
-  collaborators: number,
-  stack: string,
-  technologies: string[], 
-  timeFrame: string
 }
 
 const apiCall = (userID: number, endpoint: string, optionsObj: options | {},) => {
@@ -24,21 +19,23 @@ const apiCall = (userID: number, endpoint: string, optionsObj: options | {},) =>
   }
 }
 
-const postNewForm = async (info: PostInfo) => {
-  let response = await fetch(`https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects`, {
+const postNewForm = async (info: FormData) => {
+  let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/`, {
+    // let response = await fetch(`https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/`, {
     method: 'POST',
-    body: JSON.stringify(info), 
+    body: JSON.stringify(info),
     headers: {
       'Content-Type': 'application/json'
     }
   })
-  let data = await response.json()
-  if(data.message && data.message.includes('Error')) {
-    throw new Error(`${data.message} -- Please try again`)
+
+  if (!response.ok) {
+    console.log(response.statusText)
+    throw new Error(response.statusText)
   }
+
+  let data = await response.json()
   return data;
 }
 
 export { postNewForm, apiCall }
-export type { PostInfo }
-

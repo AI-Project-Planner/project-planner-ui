@@ -24,5 +24,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "types": ["cypress","cypress-xpath","node","mocha"],
 }

@@ -1,49 +1,16 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
 
-
-declare namespace Cypress {
-  interface Chainable {
-    stubSingleFetch(endpoints:string, fixture:string, status:number):Chainable<JQuery<HTMLElement>>
-    checkBadRoute(path: string): Chainable<JQuery<HTMLElement>>
-  }
-}
-
+Cypress.Commands.add('loadHomepage', () => {
+  return cy.visit('http://localhost:3000/')
+  .intercept(
+    "GET",
+    "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
+    {
+      statusCode: 200,
+      fixture: 'savedProjects'
+    }
+  )
+});
 
 Cypress.Commands.add('stubSingleFetch', (endpoints, fixture, status) => {
   cy.intercept('GET', `https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/${endpoints}`, {
@@ -58,4 +25,15 @@ Cypress.Commands.add('checkBadRoute', (route) => {
   .get('.empty-page > img').should('be.visible')
   .get('a[href="/"').contains('Take Me Back!').click()
   .url().should('eq', 'http://localhost:3000/')
+})
+
+Cypress.Commands.add('completeForm', () => {
+  cy.get(':nth-child(1) > .form-type-text').click()
+  .get('.form-button').click()
+  .get('.form-input').type('react')
+  .get('.form-tech-input-container > .form-icon').click()
+  .get('.form-button').click()
+  .get('input.form-input').type('1')
+  .get('.form-button').click()
+  .get('input.form-input').type('1')
 })

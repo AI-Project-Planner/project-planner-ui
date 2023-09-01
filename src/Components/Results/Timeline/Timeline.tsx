@@ -1,5 +1,6 @@
 import { Chrono } from 'react-chrono'
 import './Timeline.css'
+import React from 'react'
 
 interface TimelineProps {
   steps: string[],
@@ -11,18 +12,9 @@ const Timeline = ({ steps, timeframe, timeframeAmt}: TimelineProps) => {
   const stepsPerSlide = Math.round(timeframeAmt/ steps.length)
   console.log('stepsPerSlide', stepsPerSlide)
 
-  const timelineArray = []
-
-    for (let i = 0; i < timeframeAmt; i += stepsPerSlide) {
-      const slice = steps.slice(i, i + stepsPerSlide);
-      timelineArray.push(slice);
-    }
-
 
   const timelineItems = steps.map((step, i) => {
-    // console.log('step', step.map(piece => <p>{piece}</p>))
     return {
-      // title: `${timeframe.replaceAll('s', '')} ${i + 1}`,
       title: `Step ${i + 1}`,
       cardDetailedText: step,
     }
