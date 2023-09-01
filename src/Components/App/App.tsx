@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar'
 import Menu from '../Menu/Menu';
@@ -14,6 +14,7 @@ import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
 import Empty from '../Empty/Empty';
 import Tutorial from '../Tutorial/Tutorial';
+import React from 'react';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,6 +46,14 @@ const App = () => {
 
     return () => setAppError(null)
   }, [requestNeeded])
+
+  useEffect(() => {
+    if (allProjects) {
+      console.log('allProjects', allProjects)
+      updateSavedProjects(allProjects)
+    }
+  }, [allProjects])
+
 
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result)

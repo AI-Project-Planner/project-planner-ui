@@ -3,6 +3,7 @@ import light from '../../images/lightbulb.png'
 import './HomePage.css';
 import homepageLogo from '../../images/drawing.png';
 import projectPlanner from '../../images/project-planner.png';
+import React from 'react';
 
 const HomePage = ({ smallScreen }: { smallScreen: boolean }) => {
   return (

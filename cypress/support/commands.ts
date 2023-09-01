@@ -4,7 +4,7 @@ Cypress.Commands.add('loadHomepage', () => {
   return cy.visit('http://localhost:3000/')
   .intercept(
     "GET",
-    "https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects",
+    "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects",
     {
       statusCode: 200,
       fixture: 'savedProjects'
@@ -13,7 +13,7 @@ Cypress.Commands.add('loadHomepage', () => {
 });
 
 Cypress.Commands.add('stubSingleFetch', (endpoints, fixture, status) => {
-  cy.intercept('GET', `https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/${endpoints}`, {
+  cy.intercept('GET', `https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/${endpoints}`, {
     statusCode: status, 
     fixture: fixture
   }).as(fixture)
