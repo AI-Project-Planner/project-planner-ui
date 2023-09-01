@@ -10,3 +10,8 @@ declare namespace Cypress {
     checkBadRoute(path: string): Chainable<JQuery<HTMLElement>>
   }
 }
+declare namespace Cypress {
+  interface Chainable {
+    completeForm() : void
+  }
+}

@@ -53,8 +53,8 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   const errorConditions: ErrorConditions = {
     1: [!stack, "Please select stack!"],
     2: [technologies.length < 1, "Please add technologies!"],
-    3: [timeframe.amount < 1, "Please select aount of time!"],
-    4: [numPeople < 1, "Please select number of collaborators!"]
+    3: [timeframe.amount < 1, "Please select amount of time!"],
+    4: [numPeople < 1, "Please enter number of collaborators!"]
   }
 
   const chooseStack = (stack: string): void => {

@@ -72,7 +72,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       setLoading(true)
       try {
         const newResult = await postNewForm(formData)
-        if (updateCurrentResult) updateCurrentResult(newResult)
+        if (updateCurrentResult) updateCurrentResult(newResult.data)
         setLoading(false)
       } catch(error) {
         console.log(error)

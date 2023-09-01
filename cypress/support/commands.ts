@@ -26,3 +26,14 @@ Cypress.Commands.add('checkBadRoute', (route) => {
   .get('a[href="/"').contains('Take Me Back!').click()
   .url().should('eq', 'http://localhost:3000/')
 })
+
+Cypress.Commands.add('completeForm', () => {
+  cy.get(':nth-child(1) > .form-type-text').click()
+  .get('.form-button').click()
+  .get('.form-input').type('react')
+  .get('.form-tech-input-container > .form-icon').click()
+  .get('.form-button').click()
+  .get('input.form-input').type('1')
+  .get('.form-button').click()
+  .get('input.form-input').type('1')
+})
