@@ -99,6 +99,12 @@
     justify-content: space-between;
   }
 
+  .home h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0 15px;
+  }
+
   .light-section {
     height: 33%;
   }
