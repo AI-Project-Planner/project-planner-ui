@@ -29,18 +29,18 @@ const Timeline = ({ steps, timeframe, timeframeAmt}: TimelineProps) => {
   })
 
   const theme =  {
-    primary: '#BBA9A9',
-    secondary: '#EEE4E1',
+    primary: '#DBD5D5',
+    secondary: '#FFBCD7',
     cardBgColor: '#ffffff80',
     titleColor: 'black',
-    titleColorActive: 'black',
+    titleColorActive: 'white',
   }
   return (
     <div style={{fontSize: '40px'}} className='timeline'>
-      <h2 className='summary-header'>Project Timeline</h2>
+      <h2 className='summary-header' id='timelineHeader'>Project Timeline</h2>
       <Chrono
         theme={theme}
-        fontSizes={{ cardText: '20px', title: '20px' }}
+        // fontSizes={{ cardText: '25px', title: '20px' }}
         slideShow={true}
         items={timelineItems}
         mode="HORIZONTAL"

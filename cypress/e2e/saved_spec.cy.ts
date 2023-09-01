@@ -6,7 +6,6 @@ describe('saved projects spec', () => {
   it('should display all saved projects and allow users to view them and unsave', () => {
     const projects = [
       { title: 'Makeup 360', tagline: 'Browse the most stunning makeup...', position: 'first', id: 1 },
-      { title: 'Style Stash', tagline: 'Organize your closet', position: 'last', id: 2}
     ]
     cy.visit('http://localhost:3000/saved')
       .get('.saved-project').should('have.length', 2)

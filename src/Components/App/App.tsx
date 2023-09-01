@@ -46,11 +46,12 @@ const App = () => {
     return () => setAppError(null)
   }, [requestNeeded])
 
-  // useEffect(() => {
-  //   if (allProjects) {
-  //     updateSavedProjects(allProjects)
-  //   }
-  // }, [allProjects])
+  useEffect(() => {
+    if (allProjects) {
+      console.log('allProjects', allProjects)
+      updateSavedProjects(allProjects)
+    }
+  }, [allProjects])
 
 
   const updateCurrentResult = (result: Project) => {

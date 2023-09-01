@@ -14,18 +14,54 @@
 
 .my-card-text {
   text-align: center;
-  /* height: 100%;
-  margin: auto; */
-}
-/* .ixHIV.show-less {
-  margin: auto;
 }
 
-#timeline-card-c9f83109a4e3 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100%; 
-} */
+.jROSZr {
+  background: #fbdfea9f!important;
+}
 
+
+.fIQQCU:not(.using-icon) {
+  background: #FBDFEA!important;
+  height: 30px!important; 
+  width: 30px!important;
+}
   
+.TimelineNavButton-sc-1apb8f9-2 {
+  height: 35px!important;
+  width: 35px!important;
+  margin-left: 10px!important;
+  margin-right: 10px!important;
+}
+
+.TimelineContentDetails-sc-d7qjm1-5 {
+  font-size: 20px!important;
+  margin: auto!important;
+}
+
+
+.ePNegp {
+  justify-content: center!important;
+  border-radius: 25px!important;
+}
+
+#timelineHeader {
+  background: #dbd5d58a;
+  width: 40vw;
+  margin: 20px 0px;
+}
+
+.fIQQCU:not(.using-icon).active {
+  background: #FFBCD7!important;
+}
+
+@media screen and (max-width: 1170px){
+  #timelineHeader {
+    width: 90vw;
+  }
+
+  .gnbPOC.horizontal {
+    justify-content: flex-start;
+  }
+  
+}
