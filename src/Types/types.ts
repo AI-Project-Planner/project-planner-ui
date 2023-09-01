@@ -11,6 +11,7 @@ export type Project = {
       saved: boolean,
       steps: string,
       tagline: string,
+      technologies: string,
       timeline: string,
       timeline_int: number,
       user_id: number
