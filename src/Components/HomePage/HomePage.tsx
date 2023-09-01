@@ -20,7 +20,7 @@ const HomePage = ({ smallScreen }: { smallScreen: boolean }) => {
           </p>
         </div>
         <section className='popup-buttons-container'>
-          <button className='popup-button' >View Tutorial</button>
+          <Link to='/tutorial' className='popup-button' >View Tutorial</Link>
           <Link className='popup-button' to='/form'>Generate New Project Plan</Link>
         </section>
       </section>
