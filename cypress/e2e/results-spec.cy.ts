@@ -1,13 +1,13 @@
 describe('results spec', () => {
   beforeEach(() => {
-    cy.intercept('GET', 'https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects', {
+    cy.intercept('GET', 'https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/', {
       status: 200,
       fixture: 'savedProjects'
     })
     cy.visit('http://localhost:3000/form')
-    cy.intercept('POST', 'https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/', {
+    cy.intercept('POST', 'https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/', {
       status: 200,
-      fixture: 'unSaved1'
+      fixture: 'unSaved3'
     })
   })
 
@@ -23,20 +23,6 @@ describe('results spec', () => {
     .get('.features').contains('User registration and login')
     .get('.interaction').contains('User logs in to Makeup 360 account.')
     .get('.carousel-root')
-  })
-
-  it.only('should regenerate a new results page based on the form data', () => {
-    cy.completeForm()
-    cy.get('.form-button').click()
-    .get('.project-title').contains('Makeup 360')
-    cy.intercept('POST', 'https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/', {
-      status: 200,
-      fixture: 'unSaved2'
-    }).as('createNew')
-    .get('.save-create-button')['last']().click()
-    cy.wait(['@createNew']).then((intercept) => {
-      
-    })
   })
 
   it('should show a helpful message and route to form if the user goes to results before submitting a form', () => {
