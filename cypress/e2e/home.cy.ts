@@ -7,9 +7,9 @@ describe('Users can visit the homepage and navigate', () => {
     cy.url().should("include", "/")
     .get('.app-logo > img').should('be.visible')
     .get('.light').should('be.visible')
-    .get('h1').should('have.text', 'Welcome to Project Planner')
-    .get('button.popup-button').should('have.text', 'View Tutorial')
-    .get('a.popup-button').should('have.text', 'Generate New Project Plan')
+    .get('h1').should('have.text', ' Welcome to Project Planner')
+    .get('[href="/tutorial"]').should('have.text', 'View Tutorial')
+    .get('[href="/form"]').should('have.text', 'Generate New Project Plan')
   })
 
   it('Should be able to navigate to other pages', () => {
