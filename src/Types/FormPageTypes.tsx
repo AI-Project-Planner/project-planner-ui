@@ -33,8 +33,8 @@ export interface ErrorMsg {
 }
 
 export interface FormData {
-  stack: string,
+  type: string,
   technologies: string,
-  timeFrame: string,
+  time: string,
   collaborators: number
 }

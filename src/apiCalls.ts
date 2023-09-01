@@ -1,16 +1,11 @@
+import { FormData } from "./Types/FormPageTypes"
+
 type options = {
   method: string,
   body: string,
   headers: {
     'Content-Type': string
   }
-}
-
-type PostInfo = {
-  collaborators: number,
-  stack: string,
-  technologies: string, 
-  timeFrame: string
 }
 
 const apiCall = (userID: number, endpoint: string, optionsObj: options | {},) => {
@@ -24,7 +19,7 @@ const apiCall = (userID: number, endpoint: string, optionsObj: options | {},) =>
   }
 }
 
-const postNewForm = async (info: PostInfo) => {
+const postNewForm = async (info: FormData) => {
   let response = await fetch(`https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects`, {
     method: 'POST',
     body: JSON.stringify(info),
@@ -43,5 +38,3 @@ const postNewForm = async (info: PostInfo) => {
 }
 
 export { postNewForm, apiCall }
-export type { PostInfo }
-

@@ -1,11 +1,12 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
+import { postNewForm, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import { Link } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
+import { FormData } from '../../Types/FormPageTypes';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -13,7 +14,7 @@ interface ResultsProps {
   updateCurrentResult?: (result: Project) => void
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
-  formData?: PostInfo | null
+  formData?: FormData | null
   onSavedPage?: boolean
 }
 

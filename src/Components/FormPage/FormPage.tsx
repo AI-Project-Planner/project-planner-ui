@@ -75,9 +75,9 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   const submitFormData = async () => {
     setLoading(true);
     const formData: FormData = {
-      stack, 
+      type: stack, 
       technologies: technologies.join(', '),
-      timeFrame: `${timeframe.amount} ${timeframe.type}`,
+      time: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
     };
 
