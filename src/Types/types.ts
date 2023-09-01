@@ -12,6 +12,7 @@ export type Project = {
       steps: string,
       tagline: string,
       timeline: string,
+      timeline_int: number,
       user_id: number
     }
 }

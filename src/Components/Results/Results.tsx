@@ -6,7 +6,10 @@ import Loader from '../Loader/Loader';
 import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
+import Timeline from './Timeline/Timeline';
+import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
+import React from 'react';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -28,7 +31,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     if (projectToSave) {
       const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
         method: 'PATCH', 
-        body: JSON.stringify(projectToSave),
+        body: JSON.stringify({saved: projectToSave.attributes.saved}),
         headers: {
           "Content-Type": "application/json"
         }
@@ -36,7 +39,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       const callAPI = async () => {
         setSaveLoading(true)
         try {
-          await patchSaved()
+          const newProject = await patchSaved()
+          console.log(newProject)
           requestAllProjects()
           setSaveLoading(false)
         } catch (error) {
@@ -55,7 +59,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   }
 
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
-    return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
+    return (<p key={feature} className='feature underlined'>&#x2022;{feature}</p>)
   })
 
   const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {
@@ -98,25 +102,30 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     {loading ? <Loader /> :
     <section className='results-page'>
       <h1 className='project-title'>Your Project: <span className='project-title-name'>{currentResult.attributes.name}</span></h1>
-      <div className='summary-collab-container'>
-        <div className='summary'>
-          <div className='summary-header'>
-            <h2>Summary</h2>
+        <div className='summary-collab-container'>
+          <div className='collab-buttons'>
+            <div className='collab'>
+              <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
+            </div>
+              {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
+              {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
+              {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+              {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
           </div>
-          <div className='summary-text-container'>
-            <p className='summary-text'>{currentResult.attributes.description}</p>
+          <div className='summary'>
+            <div className='summary-header'>
+              <h2>Summary</h2>
+            </div>
+            <div className='summary-text-container'>
+              <div className='summary-text-wrapper'>
+                <p className='summary-text'>{currentResult.attributes.description}</p>
+              </div>
+            </div>
+            <img className='results-sticker' src={idea} alt='hands holding up a lightbulb' />
           </div>
+
         </div>
-        <div className='collab-buttons'>
-          <div className='collab'>
-            <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
-          </div>
-            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
-            {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
-            {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
-            {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
-        </div>
-      </div>
+        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} />
       <div className='design-features-container'>
         <div className='design'>
           <div className='design-header-container'>
@@ -125,7 +134,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             </div>
           </div>
           <div className='palette-header'>
-            <h2>Color Palette</h2>
+            <h2 style={{paddingLeft: '20px'}}>Color Palette</h2>
           </div>
           <div className='palette-container'>
             {hexCodes}
@@ -153,8 +162,10 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             {interactions}
           </div>
         </div>
-      </div>
-    </section>}
+        </div>
+        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
+      </section>
+    }
   </>)
 }
 
