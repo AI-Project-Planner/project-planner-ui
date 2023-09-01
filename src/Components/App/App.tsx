@@ -8,7 +8,7 @@ import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { Project } from '../../Types/types';
 import Results from '../Results/Results';
-import { PostInfo, apiCall } from '../../apiCalls';
+import { apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
@@ -23,7 +23,7 @@ const App = () => {
   const [appError, setAppError] = useState<Error | null>(null)
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
-  const [userFormData, setUserFormData] = useState<null | PostInfo>(null);
+  const [userFormData, setUserFormData] = useState<null | FormData>(null);
 
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);

@@ -83,17 +83,15 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
 
     updateFormData(formData);
 
-    setTimeout(() => {
      postNewForm(formData).then(data => {
       console.log(data)
-      updateCurrentResult(data);
+      updateCurrentResult(data.data);
       setLoading(false);
       navigate('/results');
      })
      .catch(err => {
       setAppError(err)
      })
-    }, 3000)
   }
 
   const nextQuestion = () => {
