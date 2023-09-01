@@ -24,4 +24,9 @@ describe('results spec', () => {
     .get('.interaction').contains('User logs in to Makeup 360 account.')
     .get('.carousel-root')
   })
+
+  it('should show a helpful message and route to form if the user goes to results before submitting a form', () => {
+    cy.visit('http://localhost:3000/results')
+    .get('h2').contains('Just like the void of space, there\'s nothing to see here!')
+  })
 })
