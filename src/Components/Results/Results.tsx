@@ -3,7 +3,7 @@ import './Results.css';
 import { postNewForm, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
 import { FormData } from '../../Types/FormPageTypes';
@@ -22,6 +22,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  const location = useLocation().pathname;
   
   useEffect(() => { 
     if (projectToSave) {
@@ -111,9 +112,9 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
           </div>
             {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
-            {onSavedPage
-              ? <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>
-              : <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+            {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
+            {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+            {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
         </div>
       </div>
       <div className='design-features-container'>
