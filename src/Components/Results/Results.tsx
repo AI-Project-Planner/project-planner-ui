@@ -1,13 +1,15 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
 import { TechVideoLinks } from '../../Types/types';
-import { postNewForm, PostInfo, apiCall } from '../../apiCalls';
+import { postNewForm, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
 import { Link } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
+import { FormData } from '../../Types/FormPageTypes';
+import React from 'react';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -15,7 +17,7 @@ interface ResultsProps {
   updateCurrentResult?: (result: Project) => void
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
-  formData?: PostInfo | null
+  formData?: FormData | null
   onSavedPage?: boolean
 }
 
@@ -42,7 +44,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         } catch (error) {
           if (error instanceof Error) setAppError(error)
           setSaveLoading(false)
-        }
+        } 
       }
       callAPI()
     }
@@ -62,16 +64,18 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
   }
 
-  const videos = formData?.technologies.map(tech => {
+  console.log(formData?.technologies)
+
+  const splitDataString = (data:string) => {
+    return data.split('\n')
+  }
+
+  const videos = formData!.technologies.split(', ').map(tech => {
     return (
     <div className='individual-video'>
       <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
     </div>)
   })
-
-  const splitDataString = (data:string) => {
-    return data.split('\n')
-  }
 
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
     return (<p key={feature} className='feature'>&#x2022;{feature}</p>)
@@ -92,10 +96,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       setLoading(true)
       try {
         const newResult = await postNewForm(formData)
-        if (updateCurrentResult) updateCurrentResult(newResult)
+        if (updateCurrentResult) updateCurrentResult(newResult.data)
         setLoading(false)
       } catch(error) {
         console.log(error)
+        if (error instanceof Error) setAppError(error)
         setLoading(false)
       }
     }

@@ -66,7 +66,7 @@
 
 .save-create-button, .save-create-div {
   background-color: #eee4e1;
-  border: none;
+  border: 3px solid #eee4e1;
   width: 14vw;
   min-width: 210px;
   height: 4.5vh;
@@ -98,7 +98,7 @@
 }
 
 .save-create-button:hover {
-  border: 3px solid #efaf9b;
+  border: 3px solid #FFBCD7;
 }
 
 .design-features-container {

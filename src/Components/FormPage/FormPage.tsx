@@ -10,13 +10,15 @@ import {QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, Fo
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { Project } from '../../Types/types';
+import form from '../../images/form.png';
 
 interface FormPageProps {
   updateCurrentResult: (result: Project) => void,
-  updateFormData: (formData: FormData) => void
+  updateFormData: (formData: FormData) => void,
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
 }
 
-const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData }) => {
+const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, updateFormData }) => {
 
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [stack, setStack] = useState<string>("");
@@ -51,8 +53,8 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   const errorConditions: ErrorConditions = {
     1: [!stack, "Please select stack!"],
     2: [technologies.length < 1, "Please add technologies!"],
-    3: [timeframe.amount < 1, "Please select aount of time!"],
-    4: [numPeople < 1, "Please select number of collaborators!"]
+    3: [timeframe.amount < 1, "Please select amount of time!"],
+    4: [numPeople < 1, "Please enter number of collaborators!"]
   }
 
   const chooseStack = (stack: string): void => {
@@ -73,15 +75,14 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
   const submitFormData = async () => {
     setLoading(true);
     const formData: FormData = {
-      stack, 
-      technologies,
-      timeFrame: `${timeframe.amount} ${timeframe.type}`,
+      type: stack, 
+      technologies: technologies.join(', '),
+      time: `${timeframe.amount} ${timeframe.type}`,
       collaborators: numPeople
     };
 
     updateFormData(formData);
 
-    setTimeout(() => {
      postNewForm(formData).then(data => {
       console.log(data)
       updateCurrentResult(data);
@@ -89,9 +90,8 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
       navigate('/results');
      })
      .catch(err => {
-      setError({error:true, message: err.message})
+      setAppError(err)
      })
-    }, 3000)
   }
 
   const nextQuestion = () => {
@@ -115,8 +115,18 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
     setTechnologies([]);
   },[stack])
 
+  useEffect(() => {
+    setAppError(null)
+  },[])
+
   return (
     <div className='form-page'>
+      {window.innerWidth >= 850 && <section className='form-left'>
+        <img className='form-logo' src={form} alt='pencil logo for form' />
+        <div className='form-left-question'>
+          
+        </div>
+      </section>}
       <section className='form-backdrop'>
         {loading ?
         <Loader /> :
@@ -126,7 +136,7 @@ const FormPage: React.FC<FormPageProps> = ({ updateCurrentResult, updateFormData
               <div className='form-icon-container'>
                 <img className='form-icon' src={arrow} alt='back button' onClick={prevQuestion} />
               </div>}
-            <p className='form-question'>{questions[currentQuestion]}</p>
+              <p className='form-question'>{questions[currentQuestion]}</p>
           </div>
           <div className='form-input-container'>
             {questionInputs()}

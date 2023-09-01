@@ -1,6 +1,7 @@
 import { Link} from 'react-router-dom'
 import emptySpace from '../../images/woman.png'
 import './NoResults.css'
+import React from 'react'
 
 const NoResults = () => {
   return (

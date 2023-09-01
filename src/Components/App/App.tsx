@@ -8,12 +8,14 @@ import SavedPage from '../SavedPage/SavedPage';
 import logo from '../../images/logo.png';
 import { Project } from '../../Types/types';
 import Results from '../Results/Results';
-import { PostInfo, apiCall } from '../../apiCalls';
+import { apiCall } from '../../apiCalls';
 import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
 import Empty from '../Empty/Empty';
 import NoResults from '../NoResults/NoResults';
+import Tutorial from '../Tutorial/Tutorial';
+import React from 'react';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +25,7 @@ const App = () => {
   const [appError, setAppError] = useState<Error | null>(null)
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
-  const [userFormData, setUserFormData] = useState<null | PostInfo>(null);
+  const [userFormData, setUserFormData] = useState<null | FormData>(null);
 
   const location = useLocation().pathname
   const changeScreenSize = () => window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false);
@@ -79,11 +81,15 @@ const App = () => {
             <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
           </header>
           <main className={location === '/form' ? 'form-height' : ''}>
-            {appError && <p></p>}
+            {appError && <p className='app-error'>An error occured, please try again later!</p>}
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/form' element={<FormPage updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/tutorial' element={<Tutorial />}/>
+              <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
+              <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
+
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
               <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
