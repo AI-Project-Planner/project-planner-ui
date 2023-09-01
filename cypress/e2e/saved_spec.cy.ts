@@ -10,7 +10,7 @@ describe('saved projects spec', () => {
     cy.visit('http://localhost:3000/saved')
       .get('.saved-project').should('have.length', 2)
     projects.forEach((project, i) => {
-      cy.intercept('PATCH',`https://8c3a0c1f-6f70-4e2c-82aa-c8e6de99ae51.mock.pstmn.io/api/v1/users/1/projects/${project.id}`, {
+      cy.intercept('PATCH',`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/${project.id}`, {
         statusCode: 200, 
         fixture: `unSaved${project.id}`
       }).as(`unSaved${project.id}`) 
