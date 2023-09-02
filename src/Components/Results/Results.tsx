@@ -5,6 +5,8 @@ import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
+import add from '../../images/add.png'
+import deleteBtn from '../../images/delete.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
 import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
@@ -22,9 +24,18 @@ interface ResultsProps {
 }
 
 const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
+  const splitDataString = (data:string) => {
+    return data.split('\n')
+  }
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedTitle, setEditedTitle] = useState(currentResult.attributes.name)
+  const [editedFeatures, setEditedFeatures] = useState(splitDataString(currentResult.attributes.features))
+  const [editedInteractions, setEditedInteractions] = useState(splitDataString(currentResult.attributes.interactions))
+  const [featInput, setFeatInput] = useState('');
+  const [interactionInput, setInteractionInput] = useState('');
   const location = useLocation().pathname;
   
   useEffect(() => { 
@@ -54,16 +65,30 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     return () => setAppError(null)
   }, [projectToSave])
 
-  const splitDataString = (data:string) => {
-    return data.split('\n')
+  const deleteFeature = (feature: string) => {
+    setEditedFeatures(prev => prev.filter(feat => feat !== feature))
   }
-
-  const features =  splitDataString(currentResult.attributes.features).map(feature => {
-    return (<p key={feature} className='feature underlined'>&#x2022;{feature}</p>)
+  
+  const features =  editedFeatures.map(feature => {
+    return (
+      <div className='feat-interaction-container underlined' key={feature}>
+        <p className='feature'>&#x2022;{feature}</p>
+        {isEditing && <button onClick={() => deleteFeature(feature)}><img className='editing-add-button' src={deleteBtn}  alt='delete button'/></button>}
+      </div>
+    )
   })
 
-  const interactions = splitDataString(currentResult.attributes.interactions).map(interaction => {
-    return (<p key={interaction} className='feature'>&#x2022;{interaction}</p>)
+  const deleteInteraction = (interaction: string) => {
+    setEditedInteractions(prev => prev.filter(inter => inter !== interaction))
+  }
+
+  const interactions = editedInteractions.map(interaction => {
+    return (
+      <div className='feat-interaction-container' key={interaction} >
+        <p className='feature'>&#x2022;{interaction}</p>
+        {isEditing && <button onClick={() => deleteInteraction(interaction)}><img className='editing-add-button' src={deleteBtn}  alt='delete button'/></button>}
+      </div>
+    )
   })
 
   const hexCodes = splitDataString(currentResult.attributes.colors).map(color => {
@@ -98,16 +123,40 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     }
   }
 
+  const handleEditClick = () => {
+    if (isEditing) {
+      //put request here
+      const putData = {
+        name: editedTitle,
+        features: editedFeatures, 
+        interactions: editedInteractions
+      }
+      console.log('put request', putData)
+    }
+    setIsEditing(prev => !prev)
+  }
+
+  const addFeature = (feature: string) =>  {
+    setEditedFeatures(prev => [feature, ...prev])
+    setFeatInput('')
+  }
+
+  const addInteraction = (interaction: string) => {
+    setEditedInteractions(prev => [interaction, ...prev])
+    setInteractionInput('')
+  }
+
   return (<>
     {loading ? <Loader /> :
-    <section className='results-page'>
-      <h1 className='project-title'>Your Project: <span className='project-title-name'>{currentResult.attributes.name}</span></h1>
+      <section className='results-page'>
+        <h1 className='project-title'>Your Project: {isEditing ? <input type='text' value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} /> : <span className='project-title-name'>{editedTitle}</span>}</h1>
         <div className='summary-collab-container'>
           <div className='collab-buttons'>
             <div className='collab'>
               <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
             </div>
               {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
+              <button onClick={handleEditClick} className='save-create-button'>{isEditing ? 'Save Changes' : 'Edit Plan'}</button>
               {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
               {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
               {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
@@ -142,10 +191,16 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         </div>
         <div className='features'>
           <div className='feat-inter-header'>
-            <h3>Features</h3>
+              <h3 className={isEditing ? 'editing-header' : ''}>Features</h3>
+              {isEditing &&
+                <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
+                  <input type='text' placeholder='add a feature' value={featInput} onChange={(e) => setFeatInput(e.target.value)} />
+                  <button onClick={() => addFeature(featInput)}><img className='editing-add-button' src={add}  alt='add button'/></button>
+                </form>
+              }
           </div>
           <div className='feat-inter-text'>
-            {features}
+              {features}
           </div>
         </div>
       </div>
@@ -156,7 +211,13 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
-            <h3>Example Interaction</h3>
+              <h3 className={isEditing ? 'editing-header' : ''}>Example Interaction</h3>
+              {isEditing &&
+                <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
+                  <input type='text' placeholder='add an interaction' value={interactionInput} onChange={(e) => setInteractionInput(e.target.value)} />
+                    <button onClick={() => addInteraction(interactionInput)}><img className='editing-add-button' src={add}  alt='add button'/></button>
+                </form>
+              } 
           </div>
           <div className='feat-inter-text'>
             {interactions}
