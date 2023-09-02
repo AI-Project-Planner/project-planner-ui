@@ -107,8 +107,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <div className='collab'>
               <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
             </div>
-              {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
-              {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
+              {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unfavorite' : 'Favorite'} Plan</button>}
+              {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Favorited</Link>}
               {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
               {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
           </div>
