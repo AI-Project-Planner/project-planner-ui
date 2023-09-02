@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, apiCall } from '../../apiCalls';
+import { postNewForm, apiCall, postLogo } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import { Link, useLocation } from 'react-router-dom';
@@ -89,14 +89,25 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   }
 
   const handleSave = (project: Project | null) => {
-    console.log('clicked')
     if (project) {
-    console.log('clicked in if')
-
       const newProject = JSON.parse(JSON.stringify(project))
       newProject.attributes.saved = !newProject.attributes.saved
       setProjectToSave(newProject)
     }
+  }
+
+  const generateLogo = () => {
+    setLoading(true);
+    const postInfo = {
+      tagline: currentResult.attributes.tagline,
+      name: currentResult.attributes.name,
+      project_id: currentResult.id
+    }
+
+    postLogo(postInfo).then(data => {
+      setLoading(false);
+      if (updateCurrentResult) updateCurrentResult(data.data)
+    })
   }
 
   return (<>
@@ -168,7 +179,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
           <img src={logosBlur} alt='blurred logos background' className='logo-background' />
           <div className='logo-text-box'>
             <p className='logo-text'>Want a custom AI generated logo?</p>
-            <button className='logo-button'>Generate logo</button>
+            <button className='logo-button' onClick={generateLogo}>Generate logo</button>
           </div>
           </>
           {/* } */}

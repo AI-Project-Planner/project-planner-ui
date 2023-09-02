@@ -16,3 +16,9 @@ export type Project = {
       user_id: number
     }
 }
+
+export interface PostLogo {
+  tagline: string,
+  name: string,
+  project_id: string
+}
