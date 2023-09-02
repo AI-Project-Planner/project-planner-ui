@@ -13,6 +13,7 @@ import FormPage from '../FormPage/FormPage';
 import { FormData } from '../../Types/FormPageTypes';
 import SingleProject from '../SingleProject/SingleProject';
 import Empty from '../Empty/Empty';
+import NoResults from '../NoResults/NoResults';
 import Tutorial from '../Tutorial/Tutorial';
 import ProjectsAll from '../ProjectsAll/ProjectsAll';
 import React from 'react';
@@ -96,7 +97,10 @@ const App = () => {
               <Route path='/history' element={<ProjectsAll allProjects={allProjects}/>} />
               <Route path='/history/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
+              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
+              <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
+
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
               <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}

@@ -1,0 +1,28 @@
+.no-results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100vw;
+}
+
+.no-results-container a {
+  background-color: #eee4e1;
+  width: 200px; 
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.no-results-container h2 {
+  font-size: 25px;
+}
+
+.no-results-container a:hover {
+  box-shadow: inset 1px 1px 10px #bf8a7a;
+}
