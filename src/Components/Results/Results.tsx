@@ -1,17 +1,19 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, apiCall } from '../../apiCalls';
+import { postNewForm, apiCall, getColorPalette } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import add from '../../images/add.png'
+import regenerate from '../../images/regenerate.png'
 import deleteBtn from '../../images/delete.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
 import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
+import { createHexCode } from '../../helpers';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -31,6 +33,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
   const [isEditing, setIsEditing] = useState(false)
+  const [loadingPalette, setLoadingPalette] = useState(false)
+  const [editedPalette, setEditedPalette] = useState(splitDataString(currentResult.attributes.colors))
   const [editedTitle, setEditedTitle] = useState(currentResult.attributes.name)
   const [editedFeatures, setEditedFeatures] = useState(splitDataString(currentResult.attributes.features))
   const [editedInteractions, setEditedInteractions] = useState(splitDataString(currentResult.attributes.interactions))
@@ -68,7 +72,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const deleteFeature = (feature: string) => {
     setEditedFeatures(prev => prev.filter(feat => feat !== feature))
   }
-  
+
   const features =  editedFeatures.map(feature => {
     return (
       <div className='feat-interaction-container underlined' key={feature}>
@@ -91,7 +95,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     )
   })
 
-  const hexCodes = splitDataString(currentResult.attributes.colors).map(color => {
+  const hexCodes = editedPalette.map(color => {
     return (
       <div key={color} className='color' style={{backgroundColor: `${color}`}}>
         <p className='hex-code'>{color}</p>
@@ -146,10 +150,22 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     setInteractionInput('')
   }
 
+  const regenerateColors = async () => {
+    setLoadingPalette(true)
+    try {
+      const newColors = await getColorPalette(createHexCode())
+      setEditedPalette(newColors.colors.map(color => color.hex.value))
+      setLoadingPalette(false)
+    } catch (error) {
+      if(error instanceof Error) setAppError(error)
+      setLoadingPalette(false)
+    }
+  }
+
   return (<>
     {loading ? <Loader /> :
       <section className='results-page'>
-        <h1 className='project-title'>Your Project: {isEditing ? <input type='text' value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} /> : <span className='project-title-name'>{editedTitle}</span>}</h1>
+        <h1 className='project-title'>Your Project: {isEditing ? <input className='proj-title-input' type='text' value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} /> : <span className='project-title-name'>{editedTitle}</span>}</h1>
         <div className='summary-collab-container'>
           <div className='collab-buttons'>
             <div className='collab'>
@@ -183,10 +199,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             </div>
           </div>
           <div className='palette-header'>
-            <h2 style={{paddingLeft: '20px'}}>Color Palette</h2>
+              <h2 style={{ paddingLeft: '20px' }}>Color Palette</h2>
+              {isEditing && <button onClick={regenerateColors}><img src={regenerate} alt='regenerate color palette button' /></button>}
           </div>
           <div className='palette-container'>
-            {hexCodes}
+              {loadingPalette ? <img className='loadingSpinner' src={loadingSpinner}  alt='loading spinner'/> : hexCodes}
           </div>
         </div>
         <div className='features'>

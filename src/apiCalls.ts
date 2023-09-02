@@ -38,4 +38,15 @@ const postNewForm = async (info: FormData) => {
   return data;
 }
 
-export { postNewForm, apiCall }
+const getColorPalette = async (givenHex: string): Promise<{colors: { hex: { value: string } }[]} > => {
+  const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${givenHex}&count=6`)
+  if (!response.ok) {
+    console.log(response.statusText)
+    throw new Error(response.statusText)
+  }
+
+  let data = await response.json()
+  return data;
+}
+
+export { postNewForm, apiCall, getColorPalette }

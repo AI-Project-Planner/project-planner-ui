@@ -176,10 +176,15 @@
   top: 22px;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: #fbdfea8d;
   height: 35px;
+}
 
+.palette-header button {
+  border: none;
+  background: none;
 }
 
 .palette-container {
@@ -236,11 +241,14 @@
   width: 50%;
 }
 
-.results-editing-form input {
-  width: 90%;
+.results-editing-form input, .proj-title-input {
   border-radius: 25px;
   border: 2px solid #FFBCD7;
   text-align: center;
+}
+
+.results-editing-form input {
+  width: 90%;
 }
 
 .feat-interaction-container {
@@ -252,6 +260,10 @@
 .feat-interaction-container button {
   background: none; 
   border: none;
+}
+
+.loadingSpinner {
+  border-radius: 50%;
 }
 
 .feat-inter-text {
