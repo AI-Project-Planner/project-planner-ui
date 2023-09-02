@@ -11,8 +11,26 @@ export type Project = {
       saved: boolean,
       steps: string,
       tagline: string,
+      technologies: string,
       timeline: string,
       timeline_int: number,
       user_id: number
     }
+}
+
+export interface Indexable {
+  [key: string]: any;
+}
+
+export type TechVideoLinks = Indexable & {
+  'react': string,
+  'typescript': string,
+  'javascript': string,
+  'vue': string,
+  'angular': string,
+  'ruby/rails': string,
+  'postgresql': string,
+  'node': string,
+  'sidekiq': string,
+  'devise': string
 }
