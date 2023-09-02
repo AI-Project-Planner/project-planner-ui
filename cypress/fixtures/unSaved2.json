@@ -11,6 +11,7 @@
     "timeline": "weeks",
     "timeline_int": 1,
     "tagline": "Organize your closet",
+    "technologies": "react, typescript",
     "collaborators": 2,
     "saved": false,
     "user_id": 1
