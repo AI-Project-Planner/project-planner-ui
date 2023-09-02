@@ -82,8 +82,10 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         setLoading(false)
       } catch(error) {
         console.log(error)
-        if (error instanceof Error) setAppError(error)
-        setLoading(false)
+        if (error instanceof Error) {
+          setAppError(error)
+          setLoading(false)
+        }
       }
     }
   }
@@ -103,11 +105,19 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       name: currentResult.attributes.name,
       project_id: currentResult.id
     }
+    try {
+      postLogo(postInfo).then(data => {
+        setLoading(false);
+        if (updateCurrentResult) updateCurrentResult(data.data)
+      })
+    } catch (error) {
+      console.log(error)
+      if (error instanceof Error) {
+        setAppError(error)
+        setLoading(false)
+      }
+    }
 
-    postLogo(postInfo).then(data => {
-      setLoading(false);
-      if (updateCurrentResult) updateCurrentResult(data.data)
-    })
   }
 
   return (<>
@@ -171,6 +181,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <div className='palette-header '>
               <h3 style={{paddingLeft: '20px'}}>Logo</h3>
             </div>
+            {loading ?  <Loader /> :
+            <>
             {/* {currentResult.logo_url ?
           <img src={currentResult.logo_url} className='logo-background' alt='ai generated logo for project' />
           : */}
@@ -182,7 +194,10 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <button className='logo-button' onClick={generateLogo}>Generate logo</button>
           </div>
           </>
+          
           {/* } */}
+          </>
+        }
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>

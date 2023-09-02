@@ -40,7 +40,7 @@ const postNewForm = async (info: FormData | PostLogo) => {
 }
 
 const postLogo = async (info: PostLogo) => {
-  let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/`, {
+  let response = await fetch(``, {
     method: 'POST',
     body: JSON.stringify(info),
     headers: {
