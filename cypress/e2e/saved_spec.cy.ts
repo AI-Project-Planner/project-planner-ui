@@ -22,7 +22,7 @@ describe('saved projects spec', () => {
         i === projects.length - 1 ? cy.stubSingleFetch('/users/1/projects', 'unSavedProjects', 200) : cy.stubSingleFetch('/users/1/projects', 'unSavedProj1', 200)
         cy.get('button').contains('Unfavorite Plan').click()
       cy.wait(`@unSavedProj${i === projects.length - 1 ? 'ects' : '1'}`).then((interception) => { 
-        cy.get('button').contains('Favorite Plan').should('be.visible')
+        cy.get('button').contains('Add to Favorites').should('be.visible')
         cy.get('a').contains('Return to Favorites').click()
         if (i === projects.length - 1) {
           cy.get('.saved-project').should('have.length', 0) 
