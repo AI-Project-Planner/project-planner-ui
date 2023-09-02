@@ -10,6 +10,7 @@ import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
+import logosBlur from '../../images/blur-logos.jpg';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -149,10 +150,28 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
           </div>
         </div>
       </div>
-      <div className='video-interaction-container'>
-        <div className='video'>
-          <h3>YouTube Video will go here</h3>
-          <p>thumbnail for video</p>
+        <div className='custom-logo-container'>
+          <div className='custom-logo-box'>
+          <div className='design-header-container'>
+            <div className='design-header-background'>
+              <h2 className='design-header'>Exclusive Feature</h2>
+            </div>
+          </div>
+            <div className='palette-header '>
+              <h3 style={{paddingLeft: '20px'}}>Logo</h3>
+            </div>
+            {/* {currentResult.logo_url ?
+          <img src={currentResult.logo_url} className='logo-background' alt='ai generated logo for project' />
+          : */}
+            {/* <img src='https://api.freelogodesign.org/assets/thumb/logo/a17b07eb64d341ffb1e09392aa3a1698_400.png' className='logo-image' alt='ai generated logo for project' /> */}
+          <> 
+          <img src={logosBlur} alt='blurred logos background' className='logo-background' />
+          <div className='logo-text-box'>
+            <p className='logo-text'>Want a custom AI generated logo?</p>
+            <button className='logo-button'>Generate logo</button>
+          </div>
+          </>
+          {/* } */}
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
@@ -163,7 +182,6 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
           </div>
         </div>
         </div>
-        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
       </section>
     }
   </>)

@@ -137,7 +137,7 @@
   justify-content: space-evenly;
 }
 
-.design, .video {
+.design, .video, .custom-logo-box {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -179,7 +179,6 @@
   align-items: center;
   background-color: #fbdfea8d;
   height: 35px;
-
 }
 
 .palette-container {
@@ -189,7 +188,6 @@
   gap: 25px;
   padding: 10px;
   overflow-y: auto;
-  /* max-height: 350px; */
 }
 
 .color {
@@ -258,6 +256,64 @@
  align-items: center;
 }
 
+.custom-logo-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+
+.custom-logo-box {
+  display: flex;
+  /* align-items: flex-end; */
+  align-items: center;
+  position: relative;
+  /* height: 100% */
+}
+
+.logo-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-image {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  position: absolute;
+  bottom: 0;
+}
+
+.logo-button {
+  background-color: #FBDFEA;
+  width: 80%;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  border: 3px solid #FBDFEA;
+}
+
+.logo-button:hover {
+  border: 3px solid #FFBCD7;
+}
+
+.logo-text {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  margin: 10px;
+}
+
+.logo-text-box {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .features, .interaction {
   height: 400px;
 }
@@ -299,14 +355,21 @@
     font-size: 14px;
   }
 
-  .video-interaction-container{
+  .video-interaction-container {
     display: flex;
     flex-direction: column-reverse;
     width: auto;
     gap: 20px;
   }
 
-  .collab, .save-create-button, .palette-header, .design, .feat-inter-header, .feat-inter-text, .video, .save-create-div {
+  .custom-logo-container {
+    display: flex;
+    flex-direction: column-reverse;
+    width: auto;
+    gap: 20px;
+  }
+
+  .collab, .save-create-button, .palette-header, .design, .feat-inter-header, .feat-inter-text, .video, .custom-logo-box, .save-create-div {
     width: 90vw;
   }
 
