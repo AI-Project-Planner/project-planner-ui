@@ -20,13 +20,13 @@ describe('saved projects spec', () => {
         .get(`[href="/saved/${project.id}"] > .saved-project`).click()
         .url().should('eq', `http://localhost:3000/saved/${project.id}`)
         i === projects.length - 1 ? cy.stubSingleFetch('/users/1/projects', 'unSavedProjects', 200) : cy.stubSingleFetch('/users/1/projects', 'unSavedProj1', 200)
-        cy.get('button').contains('Unsave Plan').click()
+        cy.get('button').contains('Unfavorite Plan').click()
       cy.wait(`@unSavedProj${i === projects.length - 1 ? 'ects' : '1'}`).then((interception) => { 
-        cy.get('button').contains('Save Plan').should('be.visible')
-        cy.get('a').contains('Return to Saved').click()
+        cy.get('button').contains('Favorite Plan').should('be.visible')
+        cy.get('a').contains('Return to Favorites').click()
         if (i === projects.length - 1) {
           cy.get('.saved-project').should('have.length', 0) 
-            .get('p').contains('No saved projects yet! Generate a project and save it to view it here!')
+            .get('p').contains('No favorite projects yet! Generate a project and save it to view it here!')
             .get('a[href="/form"]').contains('Generate a new plan').click()
             .url().should('eq', 'http://localhost:3000/form')
         } else {
