@@ -42,7 +42,6 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         setSaveLoading(true)
         try {
           const newProject = await patchSaved()
-          console.log(newProject)
           requestAllProjects()
           setSaveLoading(false)
         } catch (error) {
@@ -109,10 +108,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   }
 
   const handleSave = (project: Project | null) => {
-    console.log('clicked')
     if (project) {
-    console.log('clicked in if')
-
       const newProject = JSON.parse(JSON.stringify(project))
       newProject.attributes.saved = !newProject.attributes.saved
       setProjectToSave(newProject)

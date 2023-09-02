@@ -10,8 +10,6 @@ interface TimelineProps {
 
 const Timeline = ({ steps, timeframe, timeframeAmt}: TimelineProps) => {
   const stepsPerSlide = Math.round(timeframeAmt/ steps.length)
-  console.log('stepsPerSlide', stepsPerSlide)
-
 
   const timelineItems = steps.map((step, i) => {
     return {
