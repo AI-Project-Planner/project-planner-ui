@@ -11,6 +11,7 @@
     "timeline": "weeks",
     "timeline_int": 4,
     "tagline": "Browse the most stunning makeup looks",
+    "technologies": "react, typescript",
     "collaborators": 2,
     "saved": false,
     "user_id": 1

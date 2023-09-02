@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom"
 import { Project } from "../../Types/types"
 import Empty from "../Empty/Empty"
 import spinner from '../../images/spinner.gif'
+import React from "react"
 
 interface SingleProjectProps {
   allProjects: Project[]
