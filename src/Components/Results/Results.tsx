@@ -1,8 +1,10 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
+import { TechVideoLinks } from '../../Types/types';
 import { postNewForm, apiCall } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
+import DemoCarousel from './DemoCarousel';
 import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
@@ -50,13 +52,32 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       }
       callAPI()
     }
-
     return () => setAppError(null)
   }, [projectToSave])
+
+  const techVideoLinks: TechVideoLinks = {
+    'react': 'https://www.youtube.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
+    'typescript': 'https://www.youtube.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
+    'javascript': 'https://www.youtube.com/embed/PkZNo7MFNFg?si=2TQ_gCU97qCntsJo',
+    'vue': 'https://www.youtube.com/embed/qZXt1Aom3Cs?si=-RnxLRaaHhwCes2S',
+    'angular': 'https://www.youtube.com/embed/k5E2AVpwsko?si=dwkbm16HjsBxjNyb',
+    'ruby/rails': 'https://www.youtube.com/embed/fmyvWz5TUWg?si=KiOc18KdsQaiBe9V',
+    'postgresql': 'https://www.youtube.com/embed/zw4s3Ey8ayo?si=-O_3SibqwOFagLQO',
+    'node': 'https://www.youtube.com/embed/TlB_eWDSMt4?si=im0pUXj67QsSqpDC',
+    'sidekiq': 'https://www.youtube.com/embed/fUVTtTVJ_QY?si=O4H0Laru4fqHzyp-',
+    'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
+  }
 
   const splitDataString = (data:string) => {
     return data.split('\n')
   }
+
+  const videos = currentResult.attributes.technologies.split(', ').map(tech => {
+    return (
+    <div className='individual-video' key={techVideoLinks[tech]}>
+      <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
+    </div>)
+  })
 
   const features =  splitDataString(currentResult.attributes.features).map(feature => {
     return (<p key={feature} className='feature underlined'>&#x2022;{feature}</p>)
@@ -151,8 +172,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       </div>
       <div className='video-interaction-container'>
         <div className='video'>
-          <h3>YouTube Video will go here</h3>
-          <p>thumbnail for video</p>
+          <h3>Logos will go here</h3>
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
@@ -162,10 +182,9 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             {interactions}
           </div>
         </div>
-        </div>
-        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
-      </section>
-    }
+      </div>
+      <DemoCarousel videos={videos} />
+    </section>}
   </>)
 }
 
