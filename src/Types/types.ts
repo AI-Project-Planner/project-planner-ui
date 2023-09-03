@@ -21,7 +21,6 @@ export type Project = {
 export interface PostLogo {
   tagline: string,
   name: string,
-  project_id: string
 }
 
 export interface Indexable {

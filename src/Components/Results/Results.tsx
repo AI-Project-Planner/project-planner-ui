@@ -124,10 +124,9 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     const postInfo = {
       tagline: currentResult.attributes.tagline,
       name: currentResult.attributes.name,
-      project_id: currentResult.id
     }
     try {
-      postLogo(postInfo).then(data => {
+      postLogo(postInfo, currentResult.id).then(data => {
         setLoading(false);
         if (updateCurrentResult) updateCurrentResult(data.data)
       })

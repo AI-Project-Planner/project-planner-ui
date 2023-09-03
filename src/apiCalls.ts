@@ -39,8 +39,8 @@ const postNewForm = async (info: FormData | PostLogo) => {
   return data;
 }
 
-const postLogo = async (info: PostLogo) => {
-  let response = await fetch(``, {
+const postLogo = async (info: PostLogo, projectID: string) => {
+  let response = await fetch(`/api/v1/users/1/projects/${projectID}`, {
     method: 'POST',
     body: JSON.stringify(info),
     headers: {
