@@ -15,7 +15,7 @@ const NavBar = ({ smallScreen, openOrCloseMenu }: NavBarProps) => {
         <>
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/form'>New Project</NavLink>
-          <NavLink to='/saved'>Saved Projects</NavLink>
+          <NavLink to='/saved'>Favorite Projects</NavLink>
           <NavLink to='/history'>All Projects</NavLink>
         </>
     }
