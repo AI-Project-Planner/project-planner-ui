@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
 import { TechVideoLinks } from '../../Types/types';
-import { postNewForm, apiCall } from '../../apiCalls';
+import { postNewForm, apiCall, deleteProject } from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
@@ -12,6 +12,7 @@ import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
+import close from '../../images/close.png'
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -27,6 +28,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null)
   const location = useLocation().pathname;
   
   useEffect(() => { 
@@ -55,6 +57,15 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     return () => setAppError(null)
   }, [projectToSave])
 
+  useEffect(() => {
+    if (projectToDelete) {
+      setLoading(true)
+      requestAllProjects()
+      setLoading(false)
+    }
+ 
+  }, [projectToDelete])
+    
   const techVideoLinks: TechVideoLinks = {
     'react': 'https://www.youtube.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
     'typescript': 'https://www.youtube.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
@@ -119,6 +130,24 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     }
   }
 
+  const handleDelete = (project: Project) => {
+    console.log(currentResult)
+    setProjectToDelete(project)
+    deleteProject(project)
+    setProjectToDelete(null)
+
+    // setProjectToDelete(currentResult)
+    // fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${currentResult.attributes.user_id}/projects/${currentResult.id}/`, { 
+    //     method: 'DELETE',
+    //   })
+    //   .then(res => res.json())
+      // requestAllProjects()
+    // apiCall(currentResult.attributes.user_id, `projects/${currentResult.id}`, { 
+    //   method: 'DELETE',
+    // })
+    // setProjectToDelete(project)
+  }
+
   return (<>
     {loading ? <Loader /> :
     <section className='results-page'>
@@ -131,6 +160,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
               {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
               {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
               {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+              {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history' onClick={() => handleDelete(currentResult)}><img src={close} alt='delete project button' />Delete From History</Link>}
               {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
           </div>
           <div className='summary'>
