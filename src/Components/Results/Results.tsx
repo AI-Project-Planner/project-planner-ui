@@ -13,6 +13,62 @@ import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
 import logosBlur from '../../images/blur-logos.jpg';
+import { logoImages, fonts } from '../../images/logos/logodata';
+import a from '../../images/logos/a.png';
+import a2 from '../../images/logos/a2.png';
+import b from '../../images/logos/b.png';
+import b2 from '../../images/logos/b2.png';
+import c from '../../images/logos/c.png';
+import c2 from '../../images/logos/c2.png';
+import d from '../../images/logos/d.png';
+import d2 from '../../images/logos/d2.png';
+import e from '../../images/logos/e.png';
+import e2 from '../../images/logos/e2.png';
+import f from '../../images/logos/f.png';
+import f2 from '../../images/logos/f2.png';
+import g from '../../images/logos/g.png';
+import g2 from '../../images/logos/g2.png';
+import h from '../../images/logos/h.png';
+import h2 from '../../images/logos/h2.png';
+import i from '../../images/logos/i.png';
+import i2 from '../../images/logos/i2.png';
+import j from '../../images/logos/j.png';
+import j2 from '../../images/logos/j2.png';
+import k from '../../images/logos/k.png';
+import k2 from '../../images/logos/k2.png';
+import l from '../../images/logos/l.png';
+import l2 from '../../images/logos/l2.png';
+import m from '../../images/logos/m.png';
+import m2 from '../../images/logos/m2.png';
+import n from '../../images/logos/n.png';
+import n2 from '../../images/logos/n2.png';
+import o from '../../images/logos/o.png';
+import o2 from '../../images/logos/o2.png';
+import p from '../../images/logos/p.png';
+import p2 from '../../images/logos/p2.png';
+import q from '../../images/logos/q.png';
+import q2 from '../../images/logos/q2.png';
+import r from '../../images/logos/r.png';
+import r2 from '../../images/logos/r2.png';
+import s from '../../images/logos/s.png';
+import s2 from '../../images/logos/s2.png';
+import t from '../../images/logos/t.png';
+import t2 from '../../images/logos/t2.png';
+import u from '../../images/logos/u.png';
+import u2 from '../../images/logos/u2.png';
+import v from '../../images/logos/v.png';
+import v2 from '../../images/logos/v2.png';
+import w from '../../images/logos/w.png';
+import w2 from '../../images/logos/w2.png';
+import x from '../../images/logos/x.png';
+import x2 from '../../images/logos/x2.png';
+import y from '../../images/logos/y.png';
+import y2 from '../../images/logos/y2.png';
+import z from '../../images/logos/z.png';
+import z2 from '../../images/logos/z2.png';
+import logoContainer from '../../images/logos/logo-container.png';
+
+
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -27,9 +83,16 @@ interface ResultsProps {
 const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
-  const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  const [projectToSave, setProjectToSave] = useState<Project | null>(null);
+  const [logoImage, setLogoImage] = useState(currentResult.attributes.logo_url);
+  const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
   const location = useLocation().pathname;
-  
+  const imports = [a, a2, b, b2, c, c2, d, d2, e, e2, f, f2, g, g2, h, h2, i, i2, j, j2, k, k2, l, l2, m, m2, n, n2, o, o2, p, p2, q, q2, r, r2, s, s2, t, t2, u, u2, v, v2, w, w2, x, x2, y, y2, z, z2]
+
+  const getRandomIndex = (array: string[]) => {
+    return Math.floor(Math.random() * array.length)
+  }
+
   useEffect(() => { 
     if (projectToSave) {
       const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
@@ -119,25 +182,27 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   }
 
   const generateLogo = () => {
-    setLoading(true);
+    setLogoImage(imports[getRandomIndex(imports)]);
+    setLogoFont(fonts[getRandomIndex(fonts)]);
+    // setLoading(true);
 
     
-    const postInfo = {
-      tagline: currentResult.attributes.tagline,
-      name: currentResult.attributes.name,
-    }
-    try {
-      postLogo(postInfo, currentResult.id).then(data => {
-        setLoading(false);
-        if (updateCurrentResult) updateCurrentResult(data.data)
-      })
-    } catch (error) {
-      console.log(error)
-      if (error instanceof Error) {
-        setAppError(error)
-        setLoading(false)
-      }
-    }
+    // const postInfo = {
+    //   tagline: currentResult.attributes.tagline,
+    //   name: currentResult.attributes.name,
+    // }
+    // try {
+    //   postLogo(postInfo, currentResult.id).then(data => {
+    //     setLoading(false);
+    //     if (updateCurrentResult) updateCurrentResult(data.data)
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    //   if (error instanceof Error) {
+    //     setAppError(error)
+    //     setLoading(false)
+    //   }
+    // }
 
   }
 
@@ -203,14 +268,14 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
               <h3 style={{paddingLeft: '20px'}}>Logo</h3>
             </div>
             {loading ?  <p>...loading </p> :
-              currentResult.attributes.logo_url ?
-              <>
-              <img src={currentResult.attributes.logo_url} className='logo-background' alt='ai generated logo for project' />
-              <p>title</p>
-              </>
+              logoImage.length?
+                <div className='project-logo'>
+                  <img className='logo-img-container' src={logoContainer} alt='decorative logo container' /> 
+                  <img src={logoImage} className='logo-image' alt='generated logo for project' />
+                  <p style={{fontFamily: logoFont}}>{currentResult.attributes.name}</p>
+              </div>
               :
               <>
-              <img src='https://api.freelogodesign.org/assets/thumb/logo/a17b07eb64d341ffb1e09392aa3a1698_400.png' className='logo-image' alt='ai generated logo for project' />
               <img src={logosBlur} alt='blurred logos background' className='logo-background' />
               <div className='logo-text-box'>
                 <p className='logo-text'>Want a custom AI generated logo?</p>
