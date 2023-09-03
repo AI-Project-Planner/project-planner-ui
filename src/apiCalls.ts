@@ -1,4 +1,5 @@
 import { FormData } from "./Types/FormPageTypes"
+import { Project } from "./Types/types"
 
 type options = {
   method: string,
@@ -38,4 +39,18 @@ const postNewForm = async (info: FormData) => {
   return data;
 }
 
-export { postNewForm, apiCall }
+const deleteProject = async (project: Project) => {
+  let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${project.attributes.user_id}/projects/${project.id}/`, {
+    method: 'DELETE'
+  })
+
+  if (!response.ok) {
+    console.log(response.statusText)
+    throw new Error(response.statusText)
+  }
+
+  let data = await response.json()
+  return data;
+}
+
+export { postNewForm, apiCall, deleteProject }
