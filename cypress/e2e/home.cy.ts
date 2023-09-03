@@ -16,7 +16,7 @@ describe('Users can visit the homepage and navigate', () => {
     cy.get('.clear-bg-btn > img').click()
     cy.get('[href="/"] > .clear-bg-btn').should('have.text', 'Home')
     cy.get('[href="/form"] > .clear-bg-btn').should('have.text', 'New Project')
-    cy.get('[href="/saved"] > .clear-bg-btn').should('have.text', 'Saved Projects')
+    cy.get('[href="/saved"] > .clear-bg-btn').should('have.text', 'Favorite Projects')
     cy.get('[href="/form"] > .clear-bg-btn').click()
     cy.url().should("include", "/form")
     cy.get('.clear-bg-btn > img').click()
