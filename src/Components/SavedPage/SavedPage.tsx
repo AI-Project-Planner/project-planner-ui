@@ -21,12 +21,12 @@ const SavedPage = ({allProjects, savedProjects, updateSavedProjects}: SavedPageP
   
   return (
     <section className='saved-page'>
-      <h1 className='saved-page-title'>Saved Projects</h1>
+      <h1 className='saved-page-title'>Favorite Projects</h1>
       <section className='saved-projects-container'>
         {savedProjects.length
           ? savedProjectEls
           : <section className='empty-saved'>
-            <p style={{fontWeight: 'bold', textAlign: 'center'}}>No saved projects yet! Generate a project and save it to view it here!</p>
+            <p style={{fontWeight: 'bold', textAlign: 'center'}}>No favorite projects yet! Generate a project and save it to view it here!</p>
             <Link to='/form'>Generate a new plan</Link>
             </section>
           }

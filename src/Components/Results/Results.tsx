@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, apiCall, getColorPalette } from '../../apiCalls';
+import { postNewForm, apiCall, getColorPalette, postLogo, putProject } from '../../apiCalls';
 import { Project, TechVideoLinks } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
@@ -15,6 +15,63 @@ import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
 import { createHexCode } from '../../helpers';
+import logosBlur from '../../images/blur-logos.jpg';
+import { logoImages, fonts } from '../../images/logos/logodata';
+import a from '../../images/logos/a.png';
+import a2 from '../../images/logos/a2.png';
+import b from '../../images/logos/b.png';
+import b2 from '../../images/logos/b2.png';
+import c from '../../images/logos/c.png';
+import c2 from '../../images/logos/c2.png';
+import d from '../../images/logos/d.png';
+import d2 from '../../images/logos/d2.png';
+import e from '../../images/logos/e.png';
+import e2 from '../../images/logos/e2.png';
+import f from '../../images/logos/f.png';
+import f2 from '../../images/logos/f2.png';
+import g from '../../images/logos/g.png';
+import g2 from '../../images/logos/g2.png';
+import h from '../../images/logos/h.png';
+import h2 from '../../images/logos/h2.png';
+import i from '../../images/logos/i.png';
+import i2 from '../../images/logos/i2.png';
+import j from '../../images/logos/j.png';
+import j2 from '../../images/logos/j2.png';
+import k from '../../images/logos/k.png';
+import k2 from '../../images/logos/k2.png';
+import l from '../../images/logos/l.png';
+import l2 from '../../images/logos/l2.png';
+import m from '../../images/logos/m.png';
+import m2 from '../../images/logos/m2.png';
+import n from '../../images/logos/n.png';
+import n2 from '../../images/logos/n2.png';
+import o from '../../images/logos/o.png';
+import o2 from '../../images/logos/o2.png';
+import p from '../../images/logos/p.png';
+import p2 from '../../images/logos/p2.png';
+import q from '../../images/logos/q.png';
+import q2 from '../../images/logos/q2.png';
+import r from '../../images/logos/r.png';
+import r2 from '../../images/logos/r2.png';
+import s from '../../images/logos/s.png';
+import s2 from '../../images/logos/s2.png';
+import t from '../../images/logos/t.png';
+import t2 from '../../images/logos/t2.png';
+import u from '../../images/logos/u.png';
+import u2 from '../../images/logos/u2.png';
+import v from '../../images/logos/v.png';
+import v2 from '../../images/logos/v2.png';
+import w from '../../images/logos/w.png';
+import w2 from '../../images/logos/w2.png';
+import x from '../../images/logos/x.png';
+import x2 from '../../images/logos/x2.png';
+import y from '../../images/logos/y.png';
+import y2 from '../../images/logos/y2.png';
+import z from '../../images/logos/z.png';
+import z2 from '../../images/logos/z2.png';
+import logoContainer from '../../images/logos/logo-container.png';
+
+
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -26,8 +83,8 @@ interface ResultsProps {
   onSavedPage?: boolean
 }
 
-const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
-  const splitDataString = (data:string) => {
+const Results = ({ onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError }: ResultsProps) => {
+  const splitDataString = (data: string) => {
     return data.split('\n')
   }
   const [loading, setLoading] = useState(false)
@@ -41,13 +98,21 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const [editedInteractions, setEditedInteractions] = useState(splitDataString(currentResult.attributes.interactions))
   const [featInput, setFeatInput] = useState('');
   const [interactionInput, setInteractionInput] = useState('');
+  const [logoImage, setLogoImage] = useState(currentResult.attributes.logo_url);
+  const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
+
   const location = useLocation().pathname;
-  
-  useEffect(() => { 
+  const imports = [a, a2, b, b2, c, c2, d, d2, e, e2, f, f2, g, g2, h, h2, i, i2, j, j2, k, k2, l, l2, m, m2, n, n2, o, o2, p, p2, q, q2, r, r2, s, s2, t, t2, u, u2, v, v2, w, w2, x, x2, y, y2, z, z2]
+
+  const getRandomIndex = (array: string[]) => {
+    return Math.floor(Math.random() * array.length)
+  }
+
+  useEffect(() => {
     if (projectToSave) {
       const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
-        method: 'PATCH', 
-        body: JSON.stringify({saved: projectToSave.attributes.saved}),
+        method: 'PATCH',
+        body: JSON.stringify({ saved: projectToSave.attributes.saved }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -56,13 +121,12 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
         setSaveLoading(true)
         try {
           const newProject = await patchSaved()
-          console.log(newProject)
           requestAllProjects()
           setSaveLoading(false)
         } catch (error) {
           if (error instanceof Error) setAppError(error)
           setSaveLoading(false)
-        } 
+        }
       }
       callAPI()
     }
@@ -98,9 +162,9 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
 
   const videos = currentResult.attributes.technologies.split(', ').map(tech => {
     return (
-    <div className='individual-video' key={techVideoLinks[tech]}>
-      <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer"/> 
-    </div>)
+      <div className='individual-video' key={techVideoLinks[tech]}>
+        <iframe src={techVideoLinks[tech]} allowFullScreen title="Embedded youtube trailer" />
+      </div>)
   })
 
 
@@ -112,49 +176,50 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     return (
       <div className='feat-interaction-container' key={interaction} >
         <p className='feature'>&#x2022;{interaction}</p>
-        {isEditing && <button onClick={() => deleteInteraction(interaction)}><img className='editing-add-button' src={deleteBtn}  alt='delete button'/></button>}
+        {isEditing && <button onClick={() => deleteInteraction(interaction)}><img className='editing-add-button' src={deleteBtn} alt='delete button' /></button>}
       </div>
     )
   })
 
   const hexCodes = editedPalette.map(color => {
     return (
-      <div key={color} className='color' style={{backgroundColor: `${color}`}}>
+      <div key={color} className='color' style={{ backgroundColor: `${color}` }}>
         <p className='hex-code'>{color}</p>
-      </div>)})
+      </div>)
+  })
 
-  const createNewProject = async() => {
+  const createNewProject = async () => {
     if (formData) {
       setLoading(true)
       try {
         const newResult = await postNewForm(formData)
         if (updateCurrentResult) updateCurrentResult(newResult.data)
         setLoading(false)
-      } catch(error) {
+      } catch (error) {
         console.log(error)
-        if (error instanceof Error) setAppError(error)
-        setLoading(false)
+        if (error instanceof Error) {
+          setAppError(error)
+          setLoading(false)
+        }
       }
     }
   }
 
   const handleSave = (project: Project | null) => {
-    console.log('clicked')
     if (project) {
-    console.log('clicked in if')
-
       const newProject = JSON.parse(JSON.stringify(project))
       newProject.attributes.saved = !newProject.attributes.saved
       setProjectToSave(newProject)
     }
   }
 
+
   const handleEditClick = () => {
     if (isEditing) {
       //put request here
       const putData = {
         name: editedTitle,
-        features: editedFeatures, 
+        features: editedFeatures,
         interactions: editedInteractions
       }
       console.log('put request', putData)
@@ -162,7 +227,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     setIsEditing(prev => !prev)
   }
 
-  const addFeature = (feature: string) =>  {
+  const addFeature = (feature: string) => {
     setEditedFeatures(prev => [feature, ...prev])
     setFeatInput('')
   }
@@ -179,9 +244,34 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
       setEditedPalette(newColors.colors.map(color => color.hex.value))
       setLoadingPalette(false)
     } catch (error) {
-      if(error instanceof Error) setAppError(error)
+      if (error instanceof Error) setAppError(error)
       setLoadingPalette(false)
     }
+  }
+
+  const generateLogo = () => {
+    setLogoImage(imports[getRandomIndex(imports)]);
+    setLogoFont(fonts[getRandomIndex(fonts)]);
+    // setLoading(true);
+
+  
+    // const postInfo = {
+    //   tagline: currentResult.attributes.tagline,
+    //   name: currentResult.attributes.name,
+    // }
+    // try {
+    //   postLogo(postInfo, currentResult.id).then(data => {
+    //     setLoading(false);
+    //     if (updateCurrentResult) updateCurrentResult(data.data)
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    //   if (error instanceof Error) {
+    //     setAppError(error)
+    //     setLoading(false)
+    //   }
+    // }
+
   }
 
   return (<>
@@ -193,11 +283,11 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <div className='collab'>
               <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
             </div>
-              {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
-              <button onClick={handleEditClick} className='save-create-button'>{isEditing ? 'Save Changes' : 'Edit Plan'}</button>
-              {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
-              {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
-              {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
+            {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div> : <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unsave' : 'Save'} Plan</button>}
+            <button onClick={handleEditClick} className='save-create-button'>{isEditing ? 'Save Changes' : 'Edit Plan'}</button>
+            {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Saved</Link>}
+            {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+            {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
           </div>
           <div className='summary'>
             <div className='summary-header'>
@@ -213,58 +303,83 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
 
         </div>
         <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} />
-      <div className='design-features-container'>
-        <div className='design'>
-          <div className='design-header-container'>
-            <div className='design-header-background'>
-              <h2 className='design-header'>Design</h2>
+        <div className='design-features-container'>
+          <div className='design'>
+            <div className='design-header-container'>
+              <div className='design-header-background'>
+                <h2 className='design-header'>Design</h2>
+              </div>
             </div>
-          </div>
-          <div className='palette-header'>
+            <div className='palette-header'>
               <h2 style={{ paddingLeft: '20px' }}>Color Palette</h2>
               {isEditing && <button onClick={regenerateColors}><img src={regenerate} alt='regenerate color palette button' /></button>}
+            </div>
+            <div className='palette-container'>
+              {loadingPalette ? <img className='loadingSpinner' src={loadingSpinner} alt='loading spinner' /> : hexCodes}
+            </div>
           </div>
-          <div className='palette-container'>
-              {loadingPalette ? <img className='loadingSpinner' src={loadingSpinner}  alt='loading spinner'/> : hexCodes}
-          </div>
-        </div>
-        <div className='features'>
-          <div className='feat-inter-header'>
+          <div className='features'>
+            <div className='feat-inter-header'>
               <h3 className={isEditing ? 'editing-header' : ''}>Features</h3>
               {isEditing &&
                 <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
                   <input type='text' placeholder='add a feature' value={featInput} onChange={(e) => setFeatInput(e.target.value)} />
-                  <button onClick={() => addFeature(featInput)}><img className='editing-add-button' src={add}  alt='add button'/></button>
+                  <button onClick={() => addFeature(featInput)}><img className='editing-add-button' src={add} alt='add button' /></button>
                 </form>
               }
-          </div>
-          <div className='feat-inter-text'>
+            </div>
+            <div className='feat-inter-text'>
               {features}
+            </div>
           </div>
         </div>
-      </div>
-      <div className='video-interaction-container'>
-        <div className='video'>
-          <h3>Logos will go here</h3>
-        </div>
-        <div className='interaction'>
-          <div className='feat-inter-header'>
+        <div className='custom-logo-container'>
+          <div className='custom-logo-box'>
+            <div className='design-header-container'>
+              <div className='design-header-background'>
+                <h2 className='design-header'>Exclusive Feature</h2>
+              </div>
+            </div>
+            <div className='palette-header '>
+              <h3 style={{ paddingLeft: '20px' }}>Logo</h3>
+            </div>
+            {loading ? <p>...loading </p> :
+              logoImage.length ?
+                <div className='project-logo'>
+                  <img className='logo-img-container' src={logoContainer} alt='decorative logo container' />
+                  <img src={logoImage} className='logo-image' alt='generated logo for project' />
+                  <p style={{ fontFamily: logoFont }}>{currentResult.attributes.name}</p>
+                </div>
+                :
+                <>
+                  <img src={logosBlur} alt='blurred logos background' className='logo-background' />
+                  <div className='logo-text-box'>
+                    <p className='logo-text'>Want a custom AI generated logo?</p>
+                    <button className='logo-button' onClick={generateLogo}>Generate logo</button>
+                  </div>
+                </>
+            }
+          </div>
+          <div className='interaction'>
+            <div className='feat-inter-header'>
               <h3 className={isEditing ? 'editing-header' : ''}>Example Interaction</h3>
               {isEditing &&
                 <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
                   <input type='text' placeholder='add an interaction' value={interactionInput} onChange={(e) => setInteractionInput(e.target.value)} />
-                    <button onClick={() => addInteraction(interactionInput)}><img className='editing-add-button' src={add}  alt='add button'/></button>
+                  <button onClick={() => addInteraction(interactionInput)}><img className='editing-add-button' src={add} alt='add button' /></button>
                 </form>
-              } 
-          </div>
-          <div className='feat-inter-text'>
-            {interactions}
+              }
+            </div>
+            <div className='feat-inter-text'>
+              {interactions}
+            </div>
           </div>
         </div>
-      </div>
-      <DemoCarousel videos={videos} />
-    </section>}
-  </>)
+        <DemoCarousel videos={videos} />
+      </section>}
+  </>
+  )
 }
+
 
 export default Results
