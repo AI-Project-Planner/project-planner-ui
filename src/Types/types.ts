@@ -15,6 +15,8 @@ export type Project = {
       timeline: string,
       timeline_int: number,
       user_id: number
+      logo_url: string,
+      logo_font: string
     }
 }
 

@@ -41,7 +41,7 @@ const postNewForm = async (info: FormData | PostLogo) => {
 
 const postLogo = async (info: PostLogo, projectID: string) => {
   let response = await fetch(`/api/v1/users/1/projects/${projectID}`, {
-    method: 'POST',
+    method: 'PUT',
     body: JSON.stringify(info),
     headers: {
       'Content-Type': 'application/json'

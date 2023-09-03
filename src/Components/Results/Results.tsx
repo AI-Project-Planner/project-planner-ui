@@ -121,6 +121,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
 
   const generateLogo = () => {
     setLoading(true);
+
+    
     const postInfo = {
       tagline: currentResult.attributes.tagline,
       name: currentResult.attributes.name,
@@ -201,23 +203,22 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
             <div className='palette-header '>
               <h3 style={{paddingLeft: '20px'}}>Logo</h3>
             </div>
-            {loading ?  <Loader /> :
-            <>
-            {/* {currentResult.logo_url ?
-          <img src={currentResult.logo_url} className='logo-background' alt='ai generated logo for project' />
-          : */}
-            {/* <img src='https://api.freelogodesign.org/assets/thumb/logo/a17b07eb64d341ffb1e09392aa3a1698_400.png' className='logo-image' alt='ai generated logo for project' /> */}
-          <> 
-          <img src={logosBlur} alt='blurred logos background' className='logo-background' />
-          <div className='logo-text-box'>
-            <p className='logo-text'>Want a custom AI generated logo?</p>
-            <button className='logo-button' onClick={generateLogo}>Generate logo</button>
-          </div>
-          </>
-          
-          {/* } */}
-          </>
-        }
+            {loading ?  <p>...loading </p> :
+              currentResult.attributes.logo_url ?
+              <>
+              <img src={currentResult.attributes.logo_url} className='logo-background' alt='ai generated logo for project' />
+              <p>title</p>
+              </>
+              :
+              <>
+              <img src='https://api.freelogodesign.org/assets/thumb/logo/a17b07eb64d341ffb1e09392aa3a1698_400.png' className='logo-image' alt='ai generated logo for project' />
+              <img src={logosBlur} alt='blurred logos background' className='logo-background' />
+              <div className='logo-text-box'>
+                <p className='logo-text'>Want a custom AI generated logo?</p>
+                <button className='logo-button' onClick={generateLogo}>Generate logo</button>
+              </div>
+              </>
+            }
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
