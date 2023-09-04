@@ -2,7 +2,8 @@
 <h1> Project Planner</h1>
 Unlock Creativity with AI: Your Infinite Source of Innovative Project Ideas
 
-[DEPLOYED LINK](https://project-planner-ui.vercel.app/)
+[DEPLOYED LINK](https://project-planner-ui.vercel.app/)<br>
+[Link to Back-End Repo](https://project-planner-ui.vercel.app/)
 
 Technologies used:<br>
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
@@ -23,11 +24,11 @@ Our Project Planning app is a groundbreaking solution, powered by advanced AI te
 # Preview of App:
  <div align='center'> 
   <h2>Filling Out the Form </h2>
-
+  <img src="./src/images/project1.gif" alt="gif showing form being filled out" />
   <h2>Viewing & Favoriting the Results</h2>
-
+    <img src="./src/images/project2.gif" alt="gif showing view and favoriting of results" />
   <h2>Editing the Results</h2>
-
+    <img src="./src/images/project3.gif" alt="gif showing editing of results" />
  </div>
 
 ## Installation Instructions:
