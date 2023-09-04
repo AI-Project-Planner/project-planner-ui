@@ -1,0 +1,26 @@
+{
+	"data": 
+	[
+		{
+			"id": "2",
+			"type": "project",
+			"attributes": {
+				"name": "Style Stash",
+				"steps": "Project Setup: Create Git repository and define project structure\nBackend Setup: Develop Express.js application, set up API routes\nDatabase Design: Design and implement database schema",
+				"description": "Style Stash is an all-inclusive task management application designed to optimize team collaboration and productivity.",
+        "features": "User registration and login\nCreate, assign, update, and track tasks\nReal-time collaboration and updates\nPriority-based task categorization",
+				"interactions": "User logs in to Style Stash account.\nDashboard displays tasks by priority: High, Medium, Low.\nUser adds a task, assigns it, and sets a due date.\nTask appears under the respective priority category.\nAssigned user starts task, status updates in real-time.\nUpon completion, task is marked as done and updates for all.",
+        "technologies": "react, typescript",
+        "colors": "#FAE8EB\n#F6CACA\n#E4C2C6\n#F0F3F4\n#D8BFAA\n#DCCCBB",
+        "timeline": "weeks",
+		    "timeline_int": 1,
+        "saved": false,
+        "tagline": "Organize your closet",
+        "collaborators": 2,
+				"user_id": 1,
+        "logo_font": "",
+				"logo_url": ""
+			}
+		}
+	]
+}
