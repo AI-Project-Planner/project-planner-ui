@@ -1,6 +1,5 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { TechVideoLinks } from '../../Types/types';
 import { postNewForm, apiCall, deleteProject, addLogo} from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
@@ -17,6 +16,7 @@ import logosBlur from '../../images/blur-logos.jpg';
 import { fonts, logoURLs } from '../../data/data';
 import logoContainer from '../../images/logos/logo-container.png';
 import { techVideoLinks } from '../../data/data';
+import Timelines from '../Timelines/Timelines';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -170,6 +170,7 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
           </div>
 
         </div>
+        <Timelines steps={splitDataString(currentResult.attributes.steps)}/>
         {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
       <div className='design-features-container'>
         <div className='design'>
