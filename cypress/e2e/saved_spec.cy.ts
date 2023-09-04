@@ -14,7 +14,10 @@ describe('saved projects spec', () => {
         .get(`[href="/saved/1"] > .saved-project`).click()
         .url().should('eq', `http://localhost:3000/saved/1`)
       cy.stubSingleFetch('/users/1/projects', 'unSavedProj1', 200)
-      cy.get('button').contains('Unfavorite Plan')
+      cy.get('button').contains('Unfavorite Plan').click()
+    cy.wait('@unSavedProj1').then((interception) => { 
+      cy.get('button').contains('Favorite Plan')
+    })
   })
   
   it('should display a helpful message when there are no saved projects', () => {

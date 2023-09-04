@@ -1,20 +1,23 @@
 import { Chrono } from 'react-chrono'
 import './Timeline.css'
 import React from 'react'
+import { useEffect } from 'react'
 
 interface TimelineProps {
   steps: string[],
-  timeframe: string,
-  timeframeAmt: number
 }
 
-const Timeline = ({ steps, timeframe, timeframeAmt}: TimelineProps) => {
-  const stepsPerSlide = Math.round(timeframeAmt/ steps.length)
+const Timeline = ({ steps }: TimelineProps) => {
+  useEffect(() => {
+    console.log('steps', steps)
+  }, [])
+  // const stepsPerSlide = Math.round(timeframeAmt/ steps.length)
 
   const timelineItems = steps.map((step, i) => {
     return {
       title: `Step ${i + 1}`,
       cardDetailedText: step,
+      // timelineContent: <p>{step}</p>
     }
   })
 

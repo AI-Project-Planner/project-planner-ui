@@ -23,6 +23,7 @@ const SingleProject = ({ getAllProjects, allProjects, requestAllProjects, setApp
     setLoading(true)
     try {
       const projectList = await getAllProjects()
+      // console.log('fetched Projects', projectList)
       const projectInParams = projectList.find(project => project.id === projectID)  
       if (projectInParams) {
         setProjectToDisplay(projectInParams)
