@@ -21,10 +21,12 @@ interface ResultsProps {
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData?: FormData | null
-  onSavedPage?: boolean
+  onSavedPage?: boolean,
+  getAllProjects: () => Promise<Project[]>
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
-const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAllProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
@@ -131,21 +133,18 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   }
 
   const handleDelete = (project: Project) => {
-    console.log(currentResult)
     setProjectToDelete(project)
-    deleteProject(project)
-    setProjectToDelete(null)
-
-    // setProjectToDelete(currentResult)
-    // fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${currentResult.attributes.user_id}/projects/${currentResult.id}/`, { 
-    //     method: 'DELETE',
-    //   })
-    //   .then(res => res.json())
-      // requestAllProjects()
-    // apiCall(currentResult.attributes.user_id, `projects/${currentResult.id}`, { 
-    //   method: 'DELETE',
-    // })
-    // setProjectToDelete(project)
+    try {
+      deleteProject(project).then(() => {
+        getAllProjects().then(data => {
+          console.log('here', data)
+          setAllProjects(data)
+        })
+      })
+      setProjectToDelete(null)
+    } catch (error) {
+      if (error instanceof Error) setAppError(error)
+    }
   }
 
   return (<>

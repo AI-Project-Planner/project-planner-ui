@@ -7,9 +7,8 @@ interface ProjectsAllProps {
 }
 
 const ProjectsAll: React.FC<ProjectsAllProps> = ({allProjects}) => {
-  console.log(allProjects)
 
-  const allProjectEls =allProjects.map(project => <SavedProject key={project.id} project={project} />)
+  const allProjectEls = allProjects.map(project => <SavedProject key={project.id} project={project} />)
 
   return (
     <section className='history-page'>
