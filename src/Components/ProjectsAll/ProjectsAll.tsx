@@ -14,7 +14,7 @@ const ProjectsAll: React.FC<ProjectsAllProps> = ({setAllProjects, getAllProjects
     getAllProjects().then(data => {
       setAllProjects(data)
     })
-  },[allProjects])
+  }, [])
   
   const allProjectEls = allProjects.map(project => <SavedProject key={project.id} project={project} />)
 
