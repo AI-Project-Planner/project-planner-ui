@@ -14,8 +14,14 @@
     "technologies": "react, typescript",
     "collaborators": 2,
     "saved": false,
+<<<<<<< HEAD
     "logo_url": "", 
     "logo_font": "",
     "user_id": 1
+=======
+    "user_id": 1,
+    "logo_url": "",
+		"logo_font": ""
+>>>>>>> main
   }
 }

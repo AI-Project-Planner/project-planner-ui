@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, apiCall, getColorPalette, postLogo, putProject } from '../../apiCalls';
-import { Project, TechVideoLinks } from '../../Types/types';
+import { TechVideoLinks, Project } from '../../Types/types';
+import { postNewForm, apiCall, getColorPalette, putProject, deleteProject, addLogo} from '../../apiCalls';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,63 +16,11 @@ import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
 import { putData as putDataType } from '../../Types/types';
 import { createHexCode } from '../../helpers';
+import close from '../../images/close.png'
 import logosBlur from '../../images/blur-logos.jpg';
-import { logoImages, fonts } from '../../images/logos/logodata';
-import a from '../../images/logos/a.png';
-import a2 from '../../images/logos/a2.png';
-import b from '../../images/logos/b.png';
-import b2 from '../../images/logos/b2.png';
-import c from '../../images/logos/c.png';
-import c2 from '../../images/logos/c2.png';
-import d from '../../images/logos/d.png';
-import d2 from '../../images/logos/d2.png';
-import e from '../../images/logos/e.png';
-import e2 from '../../images/logos/e2.png';
-import f from '../../images/logos/f.png';
-import f2 from '../../images/logos/f2.png';
-import g from '../../images/logos/g.png';
-import g2 from '../../images/logos/g2.png';
-import h from '../../images/logos/h.png';
-import h2 from '../../images/logos/h2.png';
-import i from '../../images/logos/i.png';
-import i2 from '../../images/logos/i2.png';
-import j from '../../images/logos/j.png';
-import j2 from '../../images/logos/j2.png';
-import k from '../../images/logos/k.png';
-import k2 from '../../images/logos/k2.png';
-import l from '../../images/logos/l.png';
-import l2 from '../../images/logos/l2.png';
-import m from '../../images/logos/m.png';
-import m2 from '../../images/logos/m2.png';
-import n from '../../images/logos/n.png';
-import n2 from '../../images/logos/n2.png';
-import o from '../../images/logos/o.png';
-import o2 from '../../images/logos/o2.png';
-import p from '../../images/logos/p.png';
-import p2 from '../../images/logos/p2.png';
-import q from '../../images/logos/q.png';
-import q2 from '../../images/logos/q2.png';
-import r from '../../images/logos/r.png';
-import r2 from '../../images/logos/r2.png';
-import s from '../../images/logos/s.png';
-import s2 from '../../images/logos/s2.png';
-import t from '../../images/logos/t.png';
-import t2 from '../../images/logos/t2.png';
-import u from '../../images/logos/u.png';
-import u2 from '../../images/logos/u2.png';
-import v from '../../images/logos/v.png';
-import v2 from '../../images/logos/v2.png';
-import w from '../../images/logos/w.png';
-import w2 from '../../images/logos/w2.png';
-import x from '../../images/logos/x.png';
-import x2 from '../../images/logos/x2.png';
-import y from '../../images/logos/y.png';
-import y2 from '../../images/logos/y2.png';
-import z from '../../images/logos/z.png';
-import z2 from '../../images/logos/z2.png';
+import { fonts, logoURLs } from '../../data/data';
 import logoContainer from '../../images/logos/logo-container.png';
-
-
+import { techVideoLinks } from '../../data/data';
 
 interface ResultsProps {
   currentResult: Project
@@ -80,10 +28,15 @@ interface ResultsProps {
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData?: FormData | null
-  onSavedPage?: boolean
+  onSavedPage?: boolean,
+  getAllProjects: () => Promise<Project[]>
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
-const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, requestAllProjects, setAppError }: ResultsProps) => {
+
+
+
+const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const splitDataString = (data: string) => {
     return data.split('\n')
   }
@@ -102,7 +55,6 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
   const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
 
   const location = useLocation().pathname;
-  const imports = [a, a2, b, b2, c, c2, d, d2, e, e2, f, f2, g, g2, h, h2, i, i2, j, j2, k, k2, l, l2, m, m2, n, n2, o, o2, p, p2, q, q2, r, r2, s, s2, t, t2, u, u2, v, v2, w, w2, x, x2, y, y2, z, z2]
 
   const getRandomIndex = (array: string[]) => {
     return Math.floor(Math.random() * array.length)
@@ -147,19 +99,6 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
     )
   })
   
-  const techVideoLinks: TechVideoLinks = {
-    'react': 'https://www.youtube-nocookie.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
-    'typescript': 'https://www.youtube-nocookie.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
-    'javascript': 'https://www.youtube-nocookie.com/embed/PkZNo7MFNFg?si=2TQ_gCU97qCntsJo',
-    'vue': 'https://www.youtube-nocookie.com/embed/qZXt1Aom3Cs?si=-RnxLRaaHhwCes2S',
-    'angular': 'https://www.youtube-nocookie.com/embed/k5E2AVpwsko?si=dwkbm16HjsBxjNyb',
-    'ruby/rails': 'https://www.youtube-nocookie.com/embed/fmyvWz5TUWg?si=KiOc18KdsQaiBe9V',
-    'postgresql': 'https://www.youtube-nocookie.com/embed/zw4s3Ey8ayo?si=-O_3SibqwOFagLQO',
-    'node': 'https://www.youtube-nocookie.com/embed/TlB_eWDSMt4?si=im0pUXj67QsSqpDC',
-    'sidekiq': 'https://www.youtube-nocookie.com/embed/fUVTtTVJ_QY?si=O4H0Laru4fqHzyp-',
-    'devise': 'https://www.youtube-nocookie.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
-  }
-
 
   const videos = currentResult.attributes.technologies.split(', ').map(tech => {
     return (
@@ -215,6 +154,7 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
   }
 
 
+
   const handleEditClick = async() => {
     if (isEditing) {
       const putData: putDataType = JSON.parse(JSON.stringify(currentResult))
@@ -256,30 +196,31 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
     }
   }
 
-  const generateLogo = () => {
-    setLogoImage(imports[getRandomIndex(imports)]);
-    setLogoFont(fonts[getRandomIndex(fonts)]);
-    // setLoading(true);
-
   
-    // const postInfo = {
-    //   tagline: currentResult.attributes.tagline,
-    //   name: currentResult.attributes.name,
-    // }
-    // try {
-    //   postLogo(postInfo, currentResult.id).then(data => {
-    //     setLoading(false);
-    //     if (updateCurrentResult) updateCurrentResult(data.data)
-    //   })
-    // } catch (error) {
-    //   console.log(error)
-    //   if (error instanceof Error) {
-    //     setAppError(error)
-    //     setLoading(false)
-    //   }
-    // }
-
+  const handleDelete = (project: Project) => {
+    try {
+      deleteProject(project)
+    } catch (error) {
+      if (error instanceof Error) setAppError(error)
+    }
   }
+
+  const generateLogo = () => {
+    setLogoImage(logoURLs[getRandomIndex(logoURLs)]);
+    setLogoFont(fonts[getRandomIndex(fonts)]);
+  }
+
+  useEffect(()=> {
+    const updatedAttributes = {
+      ...currentResult.attributes,
+      logo_url: logoImage,
+      logo_font: logoFont
+    }
+    if(updatedAttributes.logo_url.length) {
+      addLogo(updatedAttributes, currentResult.id)
+      console.log(updatedAttributes)
+    }
+  },[logoImage])
 
   return (<>
     {loading ? <Loader /> :
@@ -290,11 +231,13 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
             <div className='collab'>
               <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
             </div>
+
             {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div> : <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unfavorite' : 'Favorite'} Plan</button>}
             <button onClick={handleEditClick} className='save-create-button'>{isEditing ? 'Save Changes' : 'Edit Plan'}</button>
             {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Favorites</Link>}
             {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
-            {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
+            {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history' onClick={() => handleDelete(currentResult)}><img src={close} alt='delete project button' />Delete From History</Link>}
+            { location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link> }
           </div>
           <div className='summary'>
             <div className='summary-header'>
@@ -356,16 +299,16 @@ const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, req
                 <div className='project-logo'>
                   <img className='logo-img-container' src={logoContainer} alt='decorative logo container' />
                   <img src={logoImage} className='logo-image' alt='generated logo for project' />
-                  <p style={{ fontFamily: logoFont }}>{currentResult.attributes.name}</p>
-                </div>
-                :
-                <>
-                  <img src={logosBlur} alt='blurred logos background' className='logo-background' />
-                  <div className='logo-text-box'>
-                    <p className='logo-text'>Want a custom AI generated logo?</p>
-                    <button className='logo-button' onClick={generateLogo}>Generate logo</button>
-                  </div>
-                </>
+                  <p style={{textShadow: `0px 2px 5px ${splitDataString(currentResult.attributes.colors)[getRandomIndex(splitDataString(currentResult.attributes.colors))]}`, fontFamily: logoFont}}>{currentResult.attributes.name}</p>
+              </div>
+              :
+              <>
+              <img src={logosBlur} alt='blurred logos background' className='logo-background' />
+              <div className='logo-text-box'>
+                <p className='logo-text'>Want a custom generated logo?</p>
+                <button className='logo-button' onClick={generateLogo}>Generate logo</button>
+              </div>
+              </>
             }
           </div>
           <div className='interaction'>
