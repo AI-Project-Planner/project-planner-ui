@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
 import { TechVideoLinks } from '../../Types/types';
-import { postNewForm, apiCall, deleteProject } from '../../apiCalls';
+import { postNewForm, apiCall, deleteProject, addLogo} from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
@@ -13,6 +13,10 @@ import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
 import close from '../../images/close.png'
+import logosBlur from '../../images/blur-logos.jpg';
+import { fonts, logoURLs } from '../../data/data';
+import logoContainer from '../../images/logos/logo-container.png';
+import { techVideoLinks } from '../../data/data';
 
 interface ResultsProps {
   allProjects?: Project[]
@@ -29,9 +33,15 @@ interface ResultsProps {
 const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAllProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
-  const [projectToSave, setProjectToSave] = useState<Project | null>(null)
+  const [projectToSave, setProjectToSave] = useState<Project | null>(null);
+  const [logoImage, setLogoImage] = useState(currentResult.attributes.logo_url);
+  const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
   const location = useLocation().pathname;
-  
+
+  const getRandomIndex = (array: string[]) => {
+    return Math.floor(Math.random() * array.length)
+  }
+
   useEffect(() => { 
     if (projectToSave) {
       const patchSaved: () => Promise<Project> = apiCall(projectToSave.attributes.user_id, `projects/${projectToSave.id}`, {
@@ -56,20 +66,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
     }
     return () => setAppError(null)
   }, [projectToSave])
-
-    
-  const techVideoLinks: TechVideoLinks = {
-    'react': 'https://www.youtube.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
-    'typescript': 'https://www.youtube.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
-    'javascript': 'https://www.youtube.com/embed/PkZNo7MFNFg?si=2TQ_gCU97qCntsJo',
-    'vue': 'https://www.youtube.com/embed/qZXt1Aom3Cs?si=-RnxLRaaHhwCes2S',
-    'angular': 'https://www.youtube.com/embed/k5E2AVpwsko?si=dwkbm16HjsBxjNyb',
-    'ruby/rails': 'https://www.youtube.com/embed/fmyvWz5TUWg?si=KiOc18KdsQaiBe9V',
-    'postgresql': 'https://www.youtube.com/embed/zw4s3Ey8ayo?si=-O_3SibqwOFagLQO',
-    'node': 'https://www.youtube.com/embed/TlB_eWDSMt4?si=im0pUXj67QsSqpDC',
-    'sidekiq': 'https://www.youtube.com/embed/fUVTtTVJ_QY?si=O4H0Laru4fqHzyp-',
-    'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
-  }
 
   const splitDataString = (data:string) => {
     return data.split('\n')
@@ -105,8 +101,10 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
         setLoading(false)
       } catch(error) {
         console.log(error)
-        if (error instanceof Error) setAppError(error)
-        setLoading(false)
+        if (error instanceof Error) {
+          setAppError(error)
+          setLoading(false)
+        }
       }
     }
   }
@@ -126,6 +124,23 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
       if (error instanceof Error) setAppError(error)
     }
   }
+
+  const generateLogo = () => {
+    setLogoImage(logoURLs[getRandomIndex(logoURLs)]);
+    setLogoFont(fonts[getRandomIndex(fonts)]);
+  }
+
+  useEffect(()=> {
+    const updatedAttributes = {
+      ...currentResult.attributes,
+      logo_url: logoImage,
+      logo_font: logoFont
+    }
+    if(updatedAttributes.logo_url.length) {
+      addLogo(updatedAttributes, currentResult.id)
+      console.log(updatedAttributes)
+    }
+  },[logoImage])
 
   return (<>
     {loading ? <Loader /> :
@@ -179,9 +194,32 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
           </div>
         </div>
       </div>
-      <div className='video-interaction-container'>
-        <div className='video'>
-          <h3>Logos will go here</h3>
+        <div className='custom-logo-container'>
+          <div className='custom-logo-box'>
+          <div className='design-header-container'>
+            <div className='design-header-background'>
+              <h2 className='design-header'>Exclusive Feature</h2>
+            </div>
+          </div>
+            <div className='palette-header '>
+              <h3 style={{paddingLeft: '20px'}}>Logo</h3>
+            </div>
+            {loading ?  <p>...loading </p> :
+              logoImage.length?
+                <div className='project-logo'>
+                  <img className='logo-img-container' src={logoContainer} alt='decorative logo container' /> 
+                  <img src={logoImage} className='logo-image' alt='generated logo for project' />
+                  <p style={{textShadow: `0px 2px 5px ${splitDataString(currentResult.attributes.colors)[getRandomIndex(splitDataString(currentResult.attributes.colors))]}`, fontFamily: logoFont}}>{currentResult.attributes.name}</p>
+              </div>
+              :
+              <>
+              <img src={logosBlur} alt='blurred logos background' className='logo-background' />
+              <div className='logo-text-box'>
+                <p className='logo-text'>Want a custom generated logo?</p>
+                <button className='logo-button' onClick={generateLogo}>Generate logo</button>
+              </div>
+              </>
+            }
         </div>
         <div className='interaction'>
           <div className='feat-inter-header'>
@@ -194,7 +232,8 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
       </div>
       <DemoCarousel videos={videos} />
     </section>}
-  </>)
+  </>
+  )
 }
 
 export default Results

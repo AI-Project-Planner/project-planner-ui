@@ -7,7 +7,7 @@ import spinner from '../../images/spinner.gif'
 import React from "react"
 
 interface SingleProjectProps {
-  allProjects: Project[]
+  allProjects: Project[],
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   getAllProjects: () => Promise<Project[]>
