@@ -250,8 +250,8 @@ const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, fo
             </div>
             <img className='results-sticker' src={idea} alt='hands holding up a lightbulb' />
           </div>
-
         </div>
+        <Timelines steps={splitDataString(currentResult.attributes.steps)}/>
         <div className='design-features-container'>
           <div className='design'>
             <div className='design-header-container'>
