@@ -30,7 +30,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null)
-  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null)
   const location = useLocation().pathname;
   
   useEffect(() => { 
@@ -58,14 +57,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
     return () => setAppError(null)
   }, [projectToSave])
 
-  useEffect(() => {
-    if (projectToDelete) {
-      setLoading(true)
-      requestAllProjects()
-      setLoading(false)
-    }
- 
-  }, [projectToDelete])
     
   const techVideoLinks: TechVideoLinks = {
     'react': 'https://www.youtube.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
@@ -129,14 +120,8 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
   }
 
   const handleDelete = (project: Project) => {
-    setProjectToDelete(project)
     try {
-      deleteProject(project).then(() => {
-        getAllProjects().then(data => {
-          setAllProjects(data)
-        })
-      })
-      setProjectToDelete(null)
+      deleteProject(project)
     } catch (error) {
       if (error instanceof Error) setAppError(error)
     }
@@ -170,7 +155,7 @@ const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAl
           </div>
 
         </div>
-        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} />
+        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
       <div className='design-features-container'>
         <div className='design'>
           <div className='design-header-container'>
