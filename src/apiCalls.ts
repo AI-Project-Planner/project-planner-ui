@@ -1,6 +1,6 @@
 import { FormData } from "./Types/FormPageTypes"
-import { Project } from "./Types/types"
-import { Attributes } from "./Types/types";
+import { Attributes, Project, putData } from "./Types/types"
+
 
 type options = {
   method: string,
@@ -39,11 +39,22 @@ const postNewForm = async (info: FormData) => {
   return data;
 }
 
+
+const getColorPalette = async (givenHex: string): Promise<{colors: { hex: { value: string } }[]} > => {
+  const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${givenHex}&count=6`)
+  if (!response.ok) {
+    console.log(response.statusText)
+    throw new Error(response.statusText)
+  }
+
+  let data = await response.json()
+  return data;
+}
+
 const deleteProject = async (project: Project) => {
   let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${project.attributes.user_id}/projects/${project.id}/`, {
     method: 'DELETE'
   })
-
   if (!response.ok) {
     console.log(response.statusText)
     throw new Error(response.statusText)
@@ -71,4 +82,26 @@ const addLogo = async (info: Attributes, projectID: string) => {
   return data;
 }
 
-export { postNewForm, apiCall, deleteProject, addLogo }
+
+const putProject = async (info: putData, projectID: string) => {
+  console.log('info', JSON.stringify(info.attributes))
+  let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/${projectID}/`, {
+    method: 'PUT',
+    body: JSON.stringify(info.attributes),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (!response.ok) {
+    console.log(response)
+    throw new Error(response.statusText)
+  }
+
+  let data = await response.json()
+  return data;
+}
+
+
+
+export { postNewForm, apiCall, getColorPalette, deleteProject, addLogo, putProject }

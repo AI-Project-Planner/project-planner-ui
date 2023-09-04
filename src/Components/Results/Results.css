@@ -95,7 +95,7 @@
   background-color: #FBDFEA;
   border: 3px solid #FBDFEA;
   width: 14vw;
-  min-width: 210px;
+  min-width: 240px;
   height: 43px;
   border-radius: 10px;
   cursor: pointer;
@@ -174,9 +174,15 @@
   top: 22px;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: #fbdfea8d;
   height: 35px;
+}
+
+.palette-header button {
+  border: none;
+  background: none;
 }
 
 .palette-container {
@@ -201,7 +207,7 @@
 .hex-code {
   background-color: #FAF4EE;
   margin-bottom: 0;
-  border-radius: 3px;
+  border-radius: 3px 3px 0px 0px;
 }
 
 .feat-inter-header {
@@ -212,6 +218,49 @@
   height: 35px;
   width: 30vw;
   border-radius: 3px 3px 0 0;
+}
+
+.editing-header {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.feat-inter-header button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+} 
+
+.results-editing-form {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.results-editing-form input, .proj-title-input {
+  border-radius: 25px;
+  border: 2px solid #FFBCD7;
+  text-align: center;
+}
+
+.results-editing-form input {
+  width: 90%;
+}
+
+.feat-interaction-container {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feat-interaction-container button {
+  background: none; 
+  border: none;
+}
+
+.loadingSpinner {
+  border-radius: 50%;
 }
 
 .feat-inter-text {
@@ -339,6 +388,12 @@ iframe {
   height: 450px;
   max-width: 75vw;
   min-width: 75vw;
+}
+
+.dot {
+  width: 20px!important; 
+  height: 20px!important; 
+  background: pink!important;
 }
 
 
