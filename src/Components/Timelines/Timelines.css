@@ -46,6 +46,8 @@
 .timeline-detail {
   margin-top: 20px;
   width: 20%;
+  min-width: 300px; 
+  max-width: 90vw;
   height: auto;
   min-height: 120px;
   border-radius: 10px;
@@ -59,6 +61,15 @@
 
 .timeline-detail p {
   animation: fadeIn 0.4s ease-in;
+}
+
+.slideshow-line {
+  width: 300px; 
+  max-width: 90vw;
+  height: 5px;
+  border-radius: 50pxpx;
+  background-color:#FBDFEA;
+  margin-top: 5px;
 }
 
 .timeline-header {
