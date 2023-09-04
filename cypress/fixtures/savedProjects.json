@@ -17,6 +17,8 @@
 				"technologies": "react, typescript",
         "collaborators": 2,
         "saved": true,
+				"logo_url": "", 
+				"logo_font": "",
         "user_id": 1
 			}
     },
@@ -36,6 +38,8 @@
 				"technologies": "react, typescript",
         "collaborators": 2,
 				"saved": true,
+				"logo_url": "", 
+				"logo_font": "",
 				"user_id": 1
 			}
 		}

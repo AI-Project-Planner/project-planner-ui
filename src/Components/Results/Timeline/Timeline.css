@@ -8,9 +8,13 @@
 
 .gnbPOC.horizontal {
   justify-content: center;
-  min-width: 100vw;
+  min-width: 100vw!important;
   width: 100%;
   padding: 0;
+}
+
+.bFOvDf {
+  width: 100vw!important;
 }
 
 .my-card-text {

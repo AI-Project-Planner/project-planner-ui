@@ -14,6 +14,8 @@
     "technologies": "react, typescript",
     "collaborators": 2,
     "saved": false,
+    "logo_url": "", 
+    "logo_font": "",
     "user_id": 1
   }
 }
