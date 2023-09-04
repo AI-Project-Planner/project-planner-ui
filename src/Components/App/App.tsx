@@ -76,7 +76,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const ombreBackLocaion = location === '/' || location === '/form'
+    const ombreBackLocaion = location === '/' || location === '/form' || location === '/tutorial'
     ombreBackLocaion && !menuOpen && smallScreen
       ? document.querySelector('body')?.classList.add('ombre')
       : document.querySelector('body')?.classList.remove('ombre')

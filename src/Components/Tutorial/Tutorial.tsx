@@ -48,7 +48,7 @@ const Tutorial = ({ smallScreen }: { smallScreen: boolean }) => {
   return (
     <section className='home'>
       <section className='light-section'>
-        <img className='light' src={homepageLogo} alt='notepad with lightbulb logo for app'/>
+        {!smallScreen && <img className='light' src={homepageLogo} alt='notepad with lightbulb logo for app' />}
         {!smallScreen && <h1 className='homepage-title'>Welcome to the</h1>}
         {!smallScreen && <img src={projectPlanner} className='title-img' alt='project planner text' />}
       </section>
