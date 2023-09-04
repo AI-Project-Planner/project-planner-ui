@@ -24,7 +24,7 @@ describe('Users should be able to see a history of all projects generated', () =
       .get('[href="/history/1"] > .saved-project > .saved-project-details > .saved-project-title').should('have.text', 'Makeup 360')
       .get('[href="/history/2"] > .saved-project > .saved-project-details > .saved-project-title').should('have.text', 'Style Stash')
       .get('[href="/history/1"] > .saved-project').click()
-      .get('.save-create-link').should('have.text', 'Return to History')
+      .get('.save-create-link').should('have.text', 'Delete From HistoryReturn to History')
       .url().should('include', '/history/1')
   }) 
 })
