@@ -41,7 +41,6 @@ const App = () => {
 
   useEffect(() => {
     const apiRequest = async () => {
-      console.log('getting all projects')
       try {
         setAllProjects(await getAllProjects())
       } catch (error) {
@@ -96,13 +95,13 @@ const App = () => {
             {appError && <p className='app-error'>An error occured, please try again later!</p>}
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
-              <Route path='/tutorial' element={<Tutorial />}/>
-              <Route path='/history' element={<ProjectsAll setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects}/>} />
-              <Route path='/history/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/tutorial' element={<Tutorial smallScreen={smallScreen} />}/>
+              <Route path='/history' element={<ProjectsAll updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects}/>} />
+              <Route path='/history/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
-              <Route path='/results' element={currentResult ? <Results setAllProjects={setAllProjects} getAllProjects={getAllProjects} currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
-              <Route path='/saved' element={<SavedPage getAllProjects={getAllProjects} setAllProjects={setAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
-              <Route path='/saved/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
+              <Route path='/saved' element={<SavedPage getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/saved/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
             </Routes>
           </main>

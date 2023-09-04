@@ -29,14 +29,12 @@ interface ResultsProps {
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData?: FormData | null
   onSavedPage?: boolean,
-  getAllProjects: () => Promise<Project[]>
-  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
 
 
 
-const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const splitDataString = (data: string) => {
     return data.split('\n')
   }
@@ -136,7 +134,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, fo
         if (updateCurrentResult) updateCurrentResult(newResult.data)
         setLoading(false)
       } catch (error) {
-        console.log(error)
         if (error instanceof Error) {
           setAppError(error)
           setLoading(false)
@@ -218,7 +215,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, fo
     }
     if(updatedAttributes.logo_url.length) {
       addLogo(updatedAttributes, currentResult.id)
-      console.log(updatedAttributes)
     }
   },[logoImage])
 
