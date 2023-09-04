@@ -1,0 +1,50 @@
+.tutorial-btn {
+  min-width: 200px;
+}
+
+.tutorial-popup {
+  position: relative;
+}
+
+.tutorial-back-btn {
+  background: none; 
+  border: none; 
+  position: absolute; 
+  top: 0;
+  margin: 5px;
+}
+
+.directions {
+  margin: 10px;
+  text-align: center;
+}
+
+.step-circle {
+  height: 20px; 
+  width: 20px; 
+  margin: 5px;
+  border-radius: 50%;
+  background-color: #fbdfea;
+}
+
+.active {
+  background-color: #FFBCD7;
+}
+
+.step-circles {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.tutorial-gif {
+  max-height: 60%;
+  width: 100%;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+.tutorial-gif img {
+  height: 100%;
+  max-width:100%;
+}

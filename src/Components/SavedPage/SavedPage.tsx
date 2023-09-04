@@ -9,10 +9,10 @@ interface SavedPageProps {
   savedProjects: Project[]
   updateSavedProjects: (projects: Project[]) => void
   getAllProjects: () => Promise<Project[]>
-  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
+  updateAllProjects: (projects: Project[]) => void
 }
 
-const SavedPage = ({getAllProjects, setAllProjects, allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
+const SavedPage = ({getAllProjects, updateAllProjects, allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
   useEffect(() => {
     if (allProjects) {
       updateSavedProjects(allProjects)
@@ -21,7 +21,7 @@ const SavedPage = ({getAllProjects, setAllProjects, allProjects, savedProjects, 
 
   useEffect(() => {
     getAllProjects().then(data => {
-      setAllProjects(data)
+      updateAllProjects(data)
     })
   }, [])
 

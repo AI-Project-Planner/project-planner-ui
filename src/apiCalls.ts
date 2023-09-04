@@ -31,7 +31,6 @@ const postNewForm = async (info: FormData) => {
   })
 
   if (!response.ok) {
-    console.log(response.statusText)
     throw new Error(response.statusText)
   }
 
@@ -43,7 +42,6 @@ const postNewForm = async (info: FormData) => {
 const getColorPalette = async (givenHex: string): Promise<{colors: { hex: { value: string } }[]} > => {
   const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${givenHex}&count=6`)
   if (!response.ok) {
-    console.log(response.statusText)
     throw new Error(response.statusText)
   }
 
@@ -56,7 +54,6 @@ const deleteProject = async (project: Project) => {
     method: 'DELETE'
   })
   if (!response.ok) {
-    console.log(response.statusText)
     throw new Error(response.statusText)
   }
 
@@ -74,7 +71,6 @@ const addLogo = async (info: Attributes, projectID: string) => {
   })
 
   if (!response.ok) {
-    console.log(response.statusText)
     throw new Error(response.statusText)
   }
 
@@ -84,7 +80,6 @@ const addLogo = async (info: Attributes, projectID: string) => {
 
 
 const putProject = async (info: putData, projectID: string) => {
-  console.log('info', JSON.stringify(info.attributes))
   let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/${projectID}/`, {
     method: 'PUT',
     body: JSON.stringify(info.attributes),
@@ -94,7 +89,6 @@ const putProject = async (info: putData, projectID: string) => {
   })
 
   if (!response.ok) {
-    console.log(response)
     throw new Error(response.statusText)
   }
 
