@@ -51,7 +51,6 @@ const App = () => {
 
   useEffect(() => {
     if (allProjects) {
-      console.log('allProjects', allProjects)
       updateSavedProjects(allProjects)
     }
   }, [allProjects])
@@ -93,13 +92,11 @@ const App = () => {
             <Routes>
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
               <Route path='/tutorial' element={<Tutorial />}/>
-              <Route path='/history' element={<ProjectsAll allProjects={allProjects}/>} />
+              <Route path='/history' element={<ProjectsAll setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects}/>} />
               <Route path='/history/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results setAllProjects={setAllProjects} getAllProjects={getAllProjects} currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
-              {/* <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} /> */}
-
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
               <Route path='/saved/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
