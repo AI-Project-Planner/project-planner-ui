@@ -15,9 +15,9 @@
       "technologies": "react",
       "collaborators": 2,
       "saved": false,
-      "user_id": 1,
-      "logo_url": "",
-			"logo_font": ""
+      "logo_url": "", 
+      "logo_font": "",
+      "user_id": 1
     }
   }
 }

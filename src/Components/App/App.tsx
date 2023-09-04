@@ -35,8 +35,13 @@ const App = () => {
   const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved));
   const requestAllProjects = () => setRequestNeeded(prev => !prev)
 
+  const updateAllProjects = (projects: Project[]) => {
+    setAllProjects(projects)
+  }
+
   useEffect(() => {
     const apiRequest = async () => {
+      console.log('getting all projects')
       try {
         setAllProjects(await getAllProjects())
       } catch (error) {
@@ -96,7 +101,7 @@ const App = () => {
               <Route path='/history/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results setAllProjects={setAllProjects} getAllProjects={getAllProjects} currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
-              <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
+              <Route path='/saved' element={<SavedPage getAllProjects={getAllProjects} setAllProjects={setAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
               <Route path='/saved/:projectID' element={<SingleProject setAllProjects={setAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
             </Routes>

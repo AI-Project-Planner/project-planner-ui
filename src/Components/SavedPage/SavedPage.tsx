@@ -8,14 +8,22 @@ interface SavedPageProps {
   allProjects: Project[]
   savedProjects: Project[]
   updateSavedProjects: (projects: Project[]) => void
+  getAllProjects: () => Promise<Project[]>
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
-const SavedPage = ({allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
+const SavedPage = ({getAllProjects, setAllProjects, allProjects, savedProjects, updateSavedProjects}: SavedPageProps) => {
   useEffect(() => {
     if (allProjects) {
       updateSavedProjects(allProjects)
     }
   }, [allProjects])
+
+  useEffect(() => {
+    getAllProjects().then(data => {
+      setAllProjects(data)
+    })
+  }, [])
 
   const savedProjectEls = savedProjects.map(project => <SavedProject key={project.id} project={project} />)
   

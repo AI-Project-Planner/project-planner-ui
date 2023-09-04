@@ -20,6 +20,28 @@ export type Project = {
     }
 }
 
+export type putData = {
+  id: string,
+  type: string,
+  attributes: {
+    collaborators: number,
+    colors: string,
+    description: string,
+    features: string,
+    interactions: string,
+    name: string,
+    steps: string,
+    tagline: string,
+    technologies: string,
+    timeline: string,
+    timeline_int: number,
+    user_id: number
+    logo_url: string,
+    logo_font: string,
+    saved: boolean,
+  }
+}
+
 export interface Attributes {
     collaborators: number,
     colors: string,
@@ -36,7 +58,7 @@ export interface Attributes {
     user_id: number
     logo_url: string,
     logo_font: string
-}
+  }
 
 export interface Indexable {
   [key: string]: any;

@@ -42,16 +42,16 @@ export const logoURLs: string[] = [
 ]
 
 export const techVideoLinks: TechVideoLinks = {
-  'react': 'https://www.youtube.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
-  'typescript': 'https://www.youtube.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
-  'javascript': 'https://www.youtube.com/embed/PkZNo7MFNFg?si=2TQ_gCU97qCntsJo',
-  'vue': 'https://www.youtube.com/embed/qZXt1Aom3Cs?si=-RnxLRaaHhwCes2S',
-  'angular': 'https://www.youtube.com/embed/k5E2AVpwsko?si=dwkbm16HjsBxjNyb',
-  'ruby/rails': 'https://www.youtube.com/embed/fmyvWz5TUWg?si=KiOc18KdsQaiBe9V',
-  'postgresql': 'https://www.youtube.com/embed/zw4s3Ey8ayo?si=-O_3SibqwOFagLQO',
-  'node': 'https://www.youtube.com/embed/TlB_eWDSMt4?si=im0pUXj67QsSqpDC',
-  'sidekiq': 'https://www.youtube.com/embed/fUVTtTVJ_QY?si=O4H0Laru4fqHzyp-',
-  'devise': 'https://www.youtube.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
+  'react': 'https://www.youtube-nocookie.com/embed/Rh3tobg7hEo?si=oV2L4nXo1uezzkuj',
+  'typescript': 'https://www.youtube-nocookie.com/embed/BCg4U1FzODs?si=ja2o-7smlLJhpwBw',
+  'javascript': 'https://www.youtube-nocookie.com/embed/PkZNo7MFNFg?si=2TQ_gCU97qCntsJo',
+  'vue': 'https://www.youtube-nocookie.com/embed/qZXt1Aom3Cs?si=-RnxLRaaHhwCes2S',
+  'angular': 'https://www.youtube-nocookie.com/embed/k5E2AVpwsko?si=dwkbm16HjsBxjNyb',
+  'ruby/rails': 'https://www.youtube-nocookie.com/embed/fmyvWz5TUWg?si=KiOc18KdsQaiBe9V',
+  'postgresql': 'https://www.youtube-nocookie.com/embed/zw4s3Ey8ayo?si=-O_3SibqwOFagLQO',
+  'node': 'https://www.youtube-nocookie.com/embed/TlB_eWDSMt4?si=im0pUXj67QsSqpDC',
+  'sidekiq': 'https://www.youtube-nocookie.com/embed/fUVTtTVJ_QY?si=O4H0Laru4fqHzyp-',
+  'devise': 'https://www.youtube-nocookie.com/embed/9K5YvsrKBRk?si=TRrgI9eB4X_tqNEi'
 }
 
 export const fonts = [
