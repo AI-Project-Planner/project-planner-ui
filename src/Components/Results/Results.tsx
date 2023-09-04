@@ -10,7 +10,6 @@ import add from '../../images/add.png'
 import regenerate from '../../images/regenerate.png'
 import deleteBtn from '../../images/delete.png'
 import loadingSpinner from '../../images/loadingSpinner.gif'
-import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
@@ -252,7 +251,6 @@ const Results = ({onSavedPage, currentResult, setAllProjects, getAllProjects, fo
           </div>
 
         </div>
-        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} /> */}
         <div className='design-features-container'>
           <div className='design'>
             <div className='design-header-container'>

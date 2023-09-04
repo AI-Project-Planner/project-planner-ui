@@ -17,15 +17,9 @@
 				"technologies": "react, typescript",
         "collaborators": 2,
         "saved": true,
-<<<<<<< HEAD
 				"logo_url": "", 
 				"logo_font": "",
         "user_id": 1
-=======
-        "user_id": 1,
-				"logo_url": "",
-				"logo_font": ""
->>>>>>> main
 			}
     },
 		{
@@ -44,15 +38,9 @@
 				"technologies": "react, typescript",
         "collaborators": 2,
 				"saved": true,
-<<<<<<< HEAD
 				"logo_url": "", 
 				"logo_font": "",
 				"user_id": 1
-=======
-				"user_id": 1,
-				"logo_url": "",
-				"logo_font": ""
->>>>>>> main
 			}
 		}
 	]
