@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+<div align="center">
+<h1> Project Planner</h1>
+Unlock Creativity with AI: Your Infinite Source of Innovative Project Ideas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[DEPLOYED LINK](https://project-planner-ui.vercel.app/)
 
-## Available Scripts
+Technologies used:<br>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e" />
+  <br>
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"/>
+  <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white"/>
+</div>
 
-In the project directory, you can run:
+## Abstract: 
+Our Project Planning app is a groundbreaking solution, powered by advanced AI technology, designed to revolutionize the way you generate project ideas and plan them effectively. In a fast-paced world where innovation is paramount, finding the perfect project concept, assembling the right tech stack, and estimating timelines and resources can be an intimidating challenge. Our app simplifies this process by harnessing the power of AI to provide tailored project ideas based on the user's preferences and objectives.
 
-### `npm start`
+# Preview of App:
+ <div align='center'> 
+  <h2>Filling Out the Form </h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  <h2>Viewing & Favoriting the Results</h2>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  <h2>Editing the Results</h2>
 
-### `npm test`
+ </div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation Instructions:
+- Fork [this](https://github.com/AI-Project-Planner/project-planner-ui) repository. 
+- Clone it to your local machine using the command: `git clone git@github.com:AI-Project-Planner/project-planner-ui.git`.
+- Run the command: `cd project-planner-ui`
+- Run the command: `npm install`
+- Run the command: `npm start`
 
-### `npm run build`
+## Context:
+- All contributors are currently enrolled in the seven month long Front End Engineering program at Turing School of Software and Design. This project was created during the third module of the program, which has a total of four modules. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contributors:
+- [Laura Garcia Guerra](https://github.com/lauraguerra1)
+- [Fernando Robles](https://github.com/fernandorobles97)
+- [Saki Chatphatthanasiri](https://github.com/sakisandrac)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Learning Goals:
+- Improving communication and collaboration skills by working with a dedicated Back-End team.
+- Gain proficiency in leveraging AI technology for enhanced functionality and efficiency in a project.
+- Solidify knowledge and understanding of React and TypeScript fundamentals.
+- Understanding continuous deployment principles and incorporating CircleCI into our project.
