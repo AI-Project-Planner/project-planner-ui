@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Project } from '../../Types/types';
 import SavedProject from '../SavedPage/SavedProject/SavedProject';
 
 interface ProjectsAllProps {
-  allProjects: Project[]
+  allProjects: Project[],
+  getAllProjects: () => Promise<Project[]>
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
-const ProjectsAll: React.FC<ProjectsAllProps> = ({allProjects}) => {
-  const allProjectEls =allProjects.map(project => <SavedProject key={project.id} project={project} />)
+const ProjectsAll: React.FC<ProjectsAllProps> = ({setAllProjects, getAllProjects, allProjects}) => {
+
+  useEffect(() => {
+    getAllProjects().then(data => {
+      setAllProjects(data)
+    })
+  }, [])
+  
+  const allProjectEls = allProjects.map(project => <SavedProject key={project.id} project={project} />)
 
   return (
     <section className='history-page'>

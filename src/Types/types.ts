@@ -7,6 +7,8 @@ export type Project = {
       description: string,
       features: string,
       interactions: string, 
+      logo_font: string,
+      logo_url: string,
       name: string,
       saved: boolean,
       steps: string,
@@ -15,8 +17,6 @@ export type Project = {
       timeline: string,
       timeline_int: number,
       user_id: number
-      logo_url: string,
-      logo_font: string
     }
 }
 

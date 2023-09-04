@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react';
 import './Results.css';
-import { postNewForm, apiCall, addLogo } from '../../apiCalls';
+import { TechVideoLinks } from '../../Types/types';
+import { postNewForm, apiCall, deleteProject, addLogo} from '../../apiCalls';
 import { Project } from '../../Types/types';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
@@ -11,6 +12,7 @@ import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
+import close from '../../images/close.png'
 import logosBlur from '../../images/blur-logos.jpg';
 import { fonts, logoURLs } from '../../data/data';
 import logoContainer from '../../images/logos/logo-container.png';
@@ -23,10 +25,12 @@ interface ResultsProps {
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
   formData?: FormData | null
-  onSavedPage?: boolean
+  onSavedPage?: boolean,
+  getAllProjects: () => Promise<Project[]>
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
 }
 
-const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, setAllProjects, allProjects, getAllProjects, formData, updateCurrentResult, requestAllProjects, setAppError}: ResultsProps) => {
   const [loading, setLoading] = useState(false)
   const [saveLoading, setSaveLoading] = useState(false)
   const [projectToSave, setProjectToSave] = useState<Project | null>(null);
@@ -113,6 +117,14 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     }
   }
 
+  const handleDelete = (project: Project) => {
+    try {
+      deleteProject(project)
+    } catch (error) {
+      if (error instanceof Error) setAppError(error)
+    }
+  }
+
   const generateLogo = () => {
     setLogoImage(logoURLs[getRandomIndex(logoURLs)]);
     setLogoFont(fonts[getRandomIndex(fonts)]);
@@ -142,6 +154,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
               {saveLoading ? <div className='save-create-div' ><img src={loadingSpinner} alt='loading spinner' /></div>: <button className='save-create-button saving-button' onClick={() => handleSave(currentResult)} >{currentResult.attributes.saved ? 'Unfavorite Plan' : 'Add to Favorites'}</button>}
               {onSavedPage && <Link className='save-create-button save-create-link' to='/saved'><img src={arrow} alt='return to saved projets button' />Return to Favorites</Link>}
               {location === '/results' && <button className='save-create-button' onClick={createNewProject}>Create Another</button>}
+              {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history' onClick={() => handleDelete(currentResult)}><img src={close} alt='delete project button' />Delete From History</Link>}
               {location.includes('/history') && <Link className='save-create-button save-create-link' to='/history'><img src={arrow} alt='return to all projets button' />Return to History</Link>}
           </div>
           <div className='summary'>
@@ -157,7 +170,7 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
           </div>
 
         </div>
-        <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} />
+        {/* <Timeline steps={splitDataString(currentResult.attributes.steps)} timeframe={currentResult.attributes.timeline} timeframeAmt={currentResult.attributes.timeline_int} /> */}
       <div className='design-features-container'>
         <div className='design'>
           <div className='design-header-container'>

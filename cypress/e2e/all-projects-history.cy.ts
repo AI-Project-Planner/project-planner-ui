@@ -6,7 +6,15 @@ describe('Users should be able to see a history of all projects generated', () =
         "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects",
         {
           statusCode: 200,
-          fixture: 'savedProjects'
+          fixture: 'unSavedProjects'
+        }
+      )
+      .intercept(
+        "DELETE",
+        "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/1/",
+        {
+          statusCode: 200,
+          fixture: 'unSaved3'
         }
       )
   })
@@ -24,7 +32,24 @@ describe('Users should be able to see a history of all projects generated', () =
       .get('[href="/history/1"] > .saved-project > .saved-project-details > .saved-project-title').should('have.text', 'Makeup 360')
       .get('[href="/history/2"] > .saved-project > .saved-project-details > .saved-project-title').should('have.text', 'Style Stash')
       .get('[href="/history/1"] > .saved-project').click()
-      .get('.save-create-link').should('have.text', 'Return to History')
+      .get('.save-create-link').should('have.text', 'Delete From HistoryReturn to History')
       .url().should('include', '/history/1')
   }) 
+
+  it('Should be able to delete projects from history', () => {
+    cy.get('[href="/history/1"] > .saved-project').click()
+    cy.intercept(
+      "GET",
+      "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects",
+      {
+        statusCode: 200,
+        fixture: 'unSavedProjects1'
+      }
+    ).as('newHistory')
+    .get('.save-create-button').contains('Delete From History').click()
+    cy.wait('@newHistory').then((intercept) => {
+      cy.get('.saved-projects-container').should('have.length', 1)
+      .get('[href="/history/2"] > .saved-project > .saved-project-details > .saved-project-title').should('have.text', 'Style Stash')
+    })
+  })
 })
