@@ -5,14 +5,14 @@ import SavedProject from '../SavedPage/SavedProject/SavedProject';
 interface ProjectsAllProps {
   allProjects: Project[],
   getAllProjects: () => Promise<Project[]>
-  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>
+  updateAllProjects: (projects: Project[]) => void
 }
 
-const ProjectsAll: React.FC<ProjectsAllProps> = ({setAllProjects, getAllProjects, allProjects}) => {
+const ProjectsAll: React.FC<ProjectsAllProps> = ({updateAllProjects, getAllProjects, allProjects}) => {
 
   useEffect(() => {
     getAllProjects().then(data => {
-      setAllProjects(data)
+      updateAllProjects(data)
     })
   }, [])
   

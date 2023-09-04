@@ -2,6 +2,12 @@ export interface Indexable {
   [key: string]: any;
 }
 
+export type Directions = Indexable & {
+  1: string, 
+  2: string, 
+  3: string
+}
+
 export type QuestionComponents = Indexable & {
   1: JSX.Element,
   2: JSX.Element,
