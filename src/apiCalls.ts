@@ -1,5 +1,5 @@
 import { FormData } from "./Types/FormPageTypes"
-import { PostLogo, Project } from "./Types/types"
+import { PostLogo, Project, putData } from "./Types/types"
 
 type options = {
   method: string,
@@ -69,8 +69,9 @@ const postLogo = async (info: PostLogo, projectID: string) => {
 }
 
 
-const putProject = async (info: Project, projectID: string) => {
-  let response = await fetch(`/api/v1/users/1/projects/${projectID}`, {
+const putProject = async (info: putData, projectID: string) => {
+  console.log('info', JSON.stringify(info.attributes))
+  let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/${projectID}/`, {
     method: 'PUT',
     body: JSON.stringify(info.attributes),
     headers: {
@@ -79,7 +80,7 @@ const putProject = async (info: Project, projectID: string) => {
   })
 
   if (!response.ok) {
-    console.log(response.statusText)
+    console.log(response)
     throw new Error(response.statusText)
   }
 

@@ -14,6 +14,7 @@ import Timeline from './Timeline/Timeline';
 import idea from '../../images/idea.png'
 import { FormData } from '../../Types/FormPageTypes';
 import React from 'react';
+import { putData as putDataType } from '../../Types/types';
 import { createHexCode } from '../../helpers';
 import logosBlur from '../../images/blur-logos.jpg';
 import { logoImages, fonts } from '../../images/logos/logodata';
@@ -74,7 +75,6 @@ import logoContainer from '../../images/logos/logo-container.png';
 
 
 interface ResultsProps {
-  allProjects?: Project[]
   currentResult: Project
   updateCurrentResult?: (result: Project) => void
   requestAllProjects: () => void
@@ -83,7 +83,7 @@ interface ResultsProps {
   onSavedPage?: boolean
 }
 
-const Results = ({ onSavedPage, currentResult, allProjects, formData, updateCurrentResult, requestAllProjects, setAppError }: ResultsProps) => {
+const Results = ({onSavedPage, currentResult, formData, updateCurrentResult, requestAllProjects, setAppError }: ResultsProps) => {
   const splitDataString = (data: string) => {
     return data.split('\n')
   }
@@ -121,6 +121,7 @@ const Results = ({ onSavedPage, currentResult, allProjects, formData, updateCurr
         setSaveLoading(true)
         try {
           const newProject = await patchSaved()
+          if(updateCurrentResult) updateCurrentResult(newProject)
           requestAllProjects()
           setSaveLoading(false)
         } catch (error) {
@@ -214,15 +215,21 @@ const Results = ({ onSavedPage, currentResult, allProjects, formData, updateCurr
   }
 
 
-  const handleEditClick = () => {
+  const handleEditClick = async() => {
     if (isEditing) {
-      //put request here
-      const putData = {
-        name: editedTitle,
-        features: editedFeatures,
-        interactions: editedInteractions
+      const putData: putDataType = JSON.parse(JSON.stringify(currentResult))
+      putData.attributes.name = editedTitle;
+      putData.attributes.features = editedFeatures.join('\n');
+      putData.attributes.interactions = editedInteractions.join('\n');
+      putData.attributes.colors = editedPalette.join('\n');
+      putData.attributes.logo_url = logoImage;
+      putData.attributes.logo_font = logoFont
+     
+      try {
+        await putProject(putData, currentResult.id)
+      } catch (error) {
+        if (error instanceof Error) setAppError(error)
       }
-      console.log('put request', putData)
     }
     setIsEditing(prev => !prev)
   }
@@ -341,7 +348,8 @@ const Results = ({ onSavedPage, currentResult, allProjects, formData, updateCurr
               </div>
             </div>
             <div className='palette-header '>
-              <h3 style={{ paddingLeft: '20px' }}>Logo</h3>
+              <h2 style={{ paddingLeft: '20px' }}>Logo</h2>
+              {isEditing && logoImage !== '' && <button onClick={generateLogo}><img src={regenerate} alt='regenerate logo button' /></button>}
             </div>
             {loading ? <p>...loading </p> :
               logoImage.length ?

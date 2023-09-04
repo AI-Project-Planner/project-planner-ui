@@ -35,8 +35,13 @@ const App = () => {
   const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter(project => project.attributes.saved));
   const requestAllProjects = () => setRequestNeeded(prev => !prev)
 
+  const updateAllProjects = (projects: Project[]) => {
+    setAllProjects(projects)
+  }
+
   useEffect(() => {
     const apiRequest = async () => {
+      console.log('getting all projects')
       try {
         setAllProjects(await getAllProjects())
       } catch (error) {
@@ -94,14 +99,11 @@ const App = () => {
               <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
               <Route path='/tutorial' element={<Tutorial />}/>
               <Route path='/history' element={<ProjectsAll allProjects={allProjects}/>} />
-              <Route path='/history/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/history/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <NoResults />} />
-              <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={ updateCurrentResult} updateFormData={updateFormData}/>} />
-              <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError}/> : <div>no results here</div>} />
-
               <Route path='/saved' element={<SavedPage allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
-              <Route path='/saved/:projectID' element={<SingleProject allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/saved/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
               {['*', '/form/*', '/results/*'].map(path => <Route key={path} path={path} element={<Empty />} />)}
             </Routes>
           </main>

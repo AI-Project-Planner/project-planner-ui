@@ -20,6 +20,28 @@ export type Project = {
     }
 }
 
+export type putData = {
+  id: string,
+  type: string,
+  attributes: {
+    collaborators: number,
+    colors: string,
+    description: string,
+    features: string,
+    interactions: string, 
+    name: string,
+    saved: string,
+    steps: string,
+    tagline: string,
+    technologies: string,
+    timeline: string,
+    timeline_int: number,
+    user_id: number
+    logo_url: string,
+    logo_font: string
+  }
+}
+
 export interface PostLogo {
   tagline: string,
   name: string,

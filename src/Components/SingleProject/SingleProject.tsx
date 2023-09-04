@@ -10,20 +10,32 @@ interface SingleProjectProps {
   allProjects: Project[]
   requestAllProjects: () => void
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>
+  getAllProjects: () => Promise<Project[]>
 }
-const SingleProject = ({allProjects, requestAllProjects, setAppError}: SingleProjectProps) => {
+const SingleProject = ({ getAllProjects, allProjects, requestAllProjects, setAppError}: SingleProjectProps) => {
   const [projectToDisplay, setProjectToDisplay] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const location = useLocation().pathname
   const { projectID } = useParams()
-  
-  useEffect(() => {
+
+
+  const findProjectToDisplay = async () => {
     setLoading(true)
-    const projectInParams = allProjects?.find(project => project.id === projectID)  
-    if (projectInParams) {
-      setProjectToDisplay(projectInParams)
-    } 
-    setLoading(false)
+    try {
+      const projectList = await getAllProjects()
+      const projectInParams = projectList.find(project => project.id === projectID)  
+      if (projectInParams) {
+        setProjectToDisplay(projectInParams)
+      } 
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      if (error instanceof Error) setAppError(error)
+    }
+  }
+
+  useEffect(() => {
+    findProjectToDisplay()
   
   }, [allProjects, location, projectID])
 
@@ -31,7 +43,7 @@ const SingleProject = ({allProjects, requestAllProjects, setAppError}: SinglePro
     return <div style={{ height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img style={{ borderRadius: '50%' }} src={spinner}  alt='loading symbol' /></div>
   }
 
-  return projectToDisplay ? <Results onSavedPage={location.includes('saved')} currentResult={projectToDisplay} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <Empty />
+  return projectToDisplay ? <Results onSavedPage={location.includes('saved')} currentResult={projectToDisplay} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <Empty />
 }
 
 export default SingleProject
