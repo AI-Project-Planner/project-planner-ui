@@ -116,17 +116,6 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
   const generateLogo = () => {
     setLogoImage(logoURLs[getRandomIndex(logoURLs)]);
     setLogoFont(fonts[getRandomIndex(fonts)]);
-    
- 
-    //   addLogo(currentResult.attributes, currentResult.id).then(data => {
-    //     if (updateCurrentResult) updateCurrentResult(data.data)
-    //   })
-    // } catch (error) {
-    //   console.log(error)
-    //   if (error instanceof Error) {
-    //     setAppError(error)
-    //   }
-    // }
   }
 
   useEffect(()=> {
@@ -137,8 +126,8 @@ const Results = ({onSavedPage, currentResult, allProjects, formData, updateCurre
     }
     if(updatedAttributes.logo_url.length) {
       addLogo(updatedAttributes, currentResult.id)
+      console.log(updatedAttributes)
     }
-
   },[logoImage])
 
   return (<>

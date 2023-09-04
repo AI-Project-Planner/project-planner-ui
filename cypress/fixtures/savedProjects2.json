@@ -16,7 +16,7 @@
         "tagline": "Browse the most stunning makeup looks",
 				"technologies": "react, typescript",
         "collaborators": 2,
-        "saved": false,
+        "saved": true,
         "user_id": 1,
 				"logo_url": "",
 				"logo_font": ""
@@ -39,8 +39,8 @@
         "collaborators": 2,
 				"saved": true,
 				"user_id": 1,
-				"logo_url": "",
-				"logo_font": ""
+				"logo_url": "https://i.imgur.com/0W4rdC1.png",
+				"logo_font": "\"Modak\", cursive"
 			}
 		}
 	]
