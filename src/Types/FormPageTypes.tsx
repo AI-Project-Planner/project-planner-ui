@@ -8,6 +8,14 @@ export type Directions = Indexable & {
   3: string
 }
 
+export type Questions = Indexable & {
+  1: string, 
+  2: string, 
+  3: string,
+  4: string
+}
+
+
 export type QuestionComponents = Indexable & {
   1: JSX.Element,
   2: JSX.Element,
@@ -26,6 +34,13 @@ export type ErrorConditions = Indexable & {
   2: [boolean, string];
   3: [boolean, string];
   4: [boolean, string];
+}
+
+export type ErrorConditionsQ2 = Indexable & {
+  1: [boolean, () => void];
+  2: [boolean, () => void];
+  3: [boolean, () => void];
+  4: [boolean | string, () => void];
 }
 
 export interface TimeFrame {
