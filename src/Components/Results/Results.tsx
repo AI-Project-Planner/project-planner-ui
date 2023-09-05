@@ -1,26 +1,23 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Results.css';
-import { TechVideoLinks, Project } from '../../Types/types';
+import { fonts, logoURLs, techVideoLinks } from '../../data/data';
+import { FormData } from '../../Types/FormPageTypes';
+import { Project, putData as putDataType } from '../../Types/types';
 import { postNewForm, apiCall, getColorPalette, putProject, deleteProject, addLogo } from '../../apiCalls';
+import { createHexCode, getRandomIndex } from '../../helpers';
+import Timelines from '../Timelines/Timelines';
 import Loader from '../Loader/Loader';
 import DemoCarousel from './DemoCarousel';
-import { Link, useLocation } from 'react-router-dom';
 import arrow from '../../images/arrow.png';
-import add from '../../images/add.png';
 import regenerate from '../../images/regenerate.png';
-import deleteBtn from '../../images/delete.png';
 import loadingSpinner from '../../images/loadingSpinner.gif';
 import idea from '../../images/idea.png';
-import { FormData } from '../../Types/FormPageTypes';
-import React from 'react';
-import { putData as putDataType } from '../../Types/types';
-import { createHexCode } from '../../helpers';
 import close from '../../images/close.png';
 import logosBlur from '../../images/blur-logos.jpg';
-import { fonts, logoURLs } from '../../data/data';
 import logoContainer from '../../images/logos/logo-container.png';
-import { techVideoLinks } from '../../data/data';
-import Timelines from '../Timelines/Timelines';
+import List from './List/List';
 
 interface ResultsProps {
   currentResult: Project;
@@ -48,12 +45,22 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
   const [interactionInput, setInteractionInput] = useState('');
   const [logoImage, setLogoImage] = useState(currentResult.attributes.logo_url);
   const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
-
+  const [needColorPut, setNeedColorPut] = useState(false);
   const location = useLocation().pathname;
 
-  const getRandomIndex = (array: string[]) => {
-    return Math.floor(Math.random() * array.length);
-  };
+  useEffect(() => {
+    if (editedPalette.some((palette) => !palette.includes('#'))) {
+      regenerateColors();
+      setNeedColorPut(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (needColorPut) {
+      putAllData();
+      setNeedColorPut(false);
+    }
+  }, [needColorPut]);
 
   useEffect(() => {
     if (projectToSave) {
@@ -81,44 +88,10 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     return () => setAppError(null);
   }, [projectToSave]);
 
-  const deleteFeature = (feature: string) => {
-    setEditedFeatures((prev) => prev.filter((feat) => feat !== feature));
-  };
-
-  const features = editedFeatures.map((feature) => {
-    return (
-      <div className='feat-interaction-container underlined' key={feature}>
-        <p className='feature'>&#x2022;{feature}</p>
-        {isEditing && (
-          <button onClick={() => deleteFeature(feature)}>
-            <img className='delete-btn editing-add-button' src={deleteBtn} alt='delete button' />
-          </button>
-        )}
-      </div>
-    );
-  });
-
   const videos = currentResult.attributes.technologies.split(', ').map((tech) => {
     return (
       <div className='individual-video' key={techVideoLinks[tech]}>
         <iframe src={techVideoLinks[tech]} allowFullScreen title='Embedded youtube trailer' />
-      </div>
-    );
-  });
-
-  const deleteInteraction = (interaction: string) => {
-    setEditedInteractions((prev) => prev.filter((inter) => inter !== interaction));
-  };
-
-  const interactions = editedInteractions.map((interaction) => {
-    return (
-      <div className='feat-interaction-container' key={interaction}>
-        <p className='feature'>&#x2022;{interaction}</p>
-        {isEditing && (
-          <button onClick={() => deleteInteraction(interaction)}>
-            <img className='editing-add-button' src={deleteBtn} alt='delete button' />
-          </button>
-        )}
       </div>
     );
   });
@@ -155,33 +128,27 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     }
   };
 
-  const handleEditClick = async () => {
-    if (isEditing) {
-      const putData: putDataType = JSON.parse(JSON.stringify(currentResult));
-      putData.attributes.name = editedTitle;
-      putData.attributes.features = editedFeatures.join('\n');
-      putData.attributes.interactions = editedInteractions.join('\n');
-      putData.attributes.colors = editedPalette.join('\n');
-      putData.attributes.logo_url = logoImage;
-      putData.attributes.logo_font = logoFont;
+  const putAllData = async () => {
+    const putData: putDataType = JSON.parse(JSON.stringify(currentResult));
+    putData.attributes.name = editedTitle;
+    putData.attributes.features = editedFeatures.join('\n');
+    putData.attributes.interactions = editedInteractions.join('\n');
+    putData.attributes.colors = editedPalette.join('\n');
+    putData.attributes.logo_url = logoImage;
+    putData.attributes.logo_font = logoFont;
 
-      try {
-        await putProject(putData, currentResult.id);
-      } catch (error) {
-        if (error instanceof Error) setAppError(error);
-      }
+    try {
+      await putProject(putData, currentResult.id);
+    } catch (error) {
+      if (error instanceof Error) setAppError(error);
+    }
+  };
+
+  const handleEditClick = () => {
+    if (isEditing) {
+      putAllData();
     }
     setIsEditing((prev) => !prev);
-  };
-
-  const addFeature = (feature: string) => {
-    setEditedFeatures((prev) => [feature, ...prev]);
-    setFeatInput('');
-  };
-
-  const addInteraction = (interaction: string) => {
-    setEditedInteractions((prev) => [interaction, ...prev]);
-    setInteractionInput('');
   };
 
   const regenerateColors = async () => {
@@ -196,9 +163,9 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     }
   };
 
-  const handleDelete = (project: Project) => {
+  const handleDelete = async (project: Project) => {
     try {
-      deleteProject(project);
+      await deleteProject(project);
     } catch (error) {
       if (error instanceof Error) setAppError(error);
     }
@@ -232,7 +199,6 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
               <div className='collab'>
                 <h2>Collaborators: {currentResult.attributes.collaborators}</h2>
               </div>
-
               {saveLoading ? (
                 <div className='save-create-div'>
                   <img src={loadingSpinner} alt='loading spinner' />
@@ -299,20 +265,7 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
               </div>
               <div className='palette-container'>{loadingPalette ? <img className='loadingSpinner' src={loadingSpinner} alt='loading spinner' /> : hexCodes}</div>
             </div>
-            <div className='features'>
-              <div className='feat-inter-header'>
-                <h3 className={isEditing ? 'editing-header' : ''}>Features</h3>
-                {isEditing && (
-                  <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
-                    <input type='text' placeholder='add a feature' value={featInput} onChange={(e) => setFeatInput(e.target.value)} />
-                    <button onClick={() => addFeature(featInput)}>
-                      <img className='editing-add-button' src={add} alt='add button' />
-                    </button>
-                  </form>
-                )}
-              </div>
-              <div className='feat-inter-text'>{features}</div>
-            </div>
+            <List type='features' editedPieces={editedFeatures} setFeatInput={setFeatInput} featInput={featInput} setterToClear={setFeatInput} setter={setEditedFeatures} isEditing={isEditing} />
           </div>
           <div className='custom-logo-container'>
             <div className='custom-logo-box'>
@@ -349,20 +302,7 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
                 </>
               )}
             </div>
-            <div className='interaction'>
-              <div className='feat-inter-header'>
-                <h3 className={isEditing ? 'editing-header' : ''}>Example Interaction</h3>
-                {isEditing && (
-                  <form className='results-editing-form' onSubmit={(e) => e.preventDefault()}>
-                    <input type='text' placeholder='add an interaction' value={interactionInput} onChange={(e) => setInteractionInput(e.target.value)} />
-                    <button onClick={() => addInteraction(interactionInput)}>
-                      <img className='editing-add-button' src={add} alt='add button' />
-                    </button>
-                  </form>
-                )}
-              </div>
-              <div className='feat-inter-text'>{interactions}</div>
-            </div>
+            <List type='interaction' editedPieces={editedInteractions} featInput={interactionInput} setFeatInput={setInteractionInput} setter={setEditedInteractions} setterToClear={setInteractionInput} isEditing={isEditing} />
           </div>
           <DemoCarousel videos={videos} />
         </section>

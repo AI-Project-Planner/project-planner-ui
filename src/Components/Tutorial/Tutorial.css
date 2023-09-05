@@ -5,6 +5,7 @@
 
 .tutorial-popup {
   position: relative;
+  max-height: 80vh;
 }
 
 .tutorial-back-btn {
@@ -28,7 +29,7 @@
   background-color: #fbdfea;
 }
 
-.active {
+.activeTut {
   background-color: #FFBCD7;
 }
 

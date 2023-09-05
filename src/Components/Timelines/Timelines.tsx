@@ -5,7 +5,7 @@ import left from '../../images/keyboardleft.png';
 import right from '../../images/keyboardright.png';
 import doubleright from '../../images/keyboarddoubleright.png';
 import play from '../../images/play_arrow_FILL0_wght400_GRAD0_opsz24.png';
-import { useRef } from 'react';
+import { ControlButtons } from '../../Types/types';
 
 interface TimelineProps {
   steps: string[];
@@ -15,8 +15,6 @@ const Timelines = ({ steps }: TimelineProps) => {
   const [currentStep, setCurrentStep] = useState<string>(steps[0]);
   const [stepNum, setStepNum] = useState(0);
   const [slideShow, setSlideShow] = useState(false);
-  let timer = useRef<NodeJS.Timeout | number>(0);
-
   const showStep = (step: string, num: number) => {
     if (!slideShow) {
       setCurrentStep(step);
@@ -70,7 +68,7 @@ const Timelines = ({ steps }: TimelineProps) => {
         if (!i) {
           setStepNum(i);
         } else {
-          timer.current = setTimeout(() => {
+          setTimeout(() => {
             setStepNum(i);
             if (i === steps.length - 1) {
               setSlideShow(false);
@@ -85,6 +83,22 @@ const Timelines = ({ steps }: TimelineProps) => {
     setSlideShow(true);
   };
 
+  const buttonOptions:ControlButtons = {
+    0: { func: () => { if (!slideShow) setStepNum(0) }, step: 'first', image: doubleleft },
+    1: { func: goToPrevStep, step: 'previous', image: left },
+    2: { func: goToNextStep, step: 'next', image: right },
+    3: { func: () => { if (!slideShow) setStepNum(steps.length - 1) }, step: 'last', image: doubleright },
+    4: { func: playSlideShow, step: 'play slideshow of each', image: play }
+  };
+
+  const controlButtons = Object.keys(buttonOptions).map(i => {
+    return (
+      <button key={`button${buttonOptions[i].step}`} onClick={buttonOptions[i].func}>
+        <img src={buttonOptions[i].image} alt={`timeline control button to ${buttonOptions[i].step} step`} />
+      </button>
+    );
+  })
+
   return (
     <div className='timeline-main'>
       <p className='feat-inter-header timeline-header'>
@@ -95,29 +109,7 @@ const Timelines = ({ steps }: TimelineProps) => {
       <section className='controls'>
         {!slideShow ? (
           <>
-            <button
-              onClick={() => {
-                if (!slideShow) setStepNum(0);
-              }}
-            >
-              <img src={doubleleft} alt='timeline control button to first step' />
-            </button>
-            <button onClick={goToPrevStep}>
-              <img src={left} alt='timeline control button to previous step' />
-            </button>
-            <button onClick={goToNextStep}>
-              <img src={right} alt='timeline control button to next step' />
-            </button>
-            <button
-              onClick={() => {
-                if (!slideShow) setStepNum(steps.length - 1);
-              }}
-            >
-              <img src={doubleright} alt='timeline control button to last step' />
-            </button>
-            <button onClick={playSlideShow}>
-              <img src={play} alt='timeline control button to play slideshow' />
-            </button>
+            {controlButtons}
           </>
         ) : (
           <p>Step {stepNum + 1}</p>

@@ -36,7 +36,7 @@ const Tutorial = ({ smallScreen }: { smallScreen: boolean }) => {
 
   const stepCircles = [];
   for (let i = 0; i < 3; i++) {
-    stepCircles.push(<div key={`stepcircle${i + 1}`} className={`step-circle ${currentStep === i + 1 ? 'active' : ''}`}></div>);
+    stepCircles.push(<div key={`stepcircle${i + 1}`} className={`step-circle ${currentStep === i + 1 ? 'activeTut' : ''}`}></div>);
   }
 
   const gifs: Directions = {

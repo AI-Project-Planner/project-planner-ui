@@ -74,7 +74,7 @@ describe('results spec', () => {
     .get('[alt="timeline control button to first step"]').click()
     .get('.step-focus').should('have.text', 'Step1')
     .clock()
-    .get('[alt="timeline control button to play slideshow"]').click()
+    .get('[alt="timeline control button to play slideshow of each step"]').click()
     .get('.step-focus').should('have.text', 'Step1')
     .get('.timeline-detail').should('have.text', 'Project Setup: Create Git repository and define project structure')
     .tick(1500)
