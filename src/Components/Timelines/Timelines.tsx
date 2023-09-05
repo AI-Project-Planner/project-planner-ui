@@ -5,9 +5,7 @@ import left from '../../images/keyboardleft.png';
 import right from '../../images/keyboardright.png';
 import doubleright from '../../images/keyboarddoubleright.png';
 import play from '../../images/play_arrow_FILL0_wght400_GRAD0_opsz24.png';
-import pause from '../../images/stop_FILL0_wght400_GRAD0_opsz24.png';
 import { useRef } from 'react';
-// import { clearTimeout } from 'timers';
 
 interface TimelineProps {
   steps: string[];
@@ -18,9 +16,6 @@ const Timelines = ({ steps }: TimelineProps) => {
   const [stepNum, setStepNum] = useState(0);
   const [slideShow, setSlideShow] = useState(false);
   let timer = useRef<NodeJS.Timeout | number>(0);
-  useEffect(() => {
-    console.log(1, timer.current);
-  }, [timer]);
 
   const showStep = (step: string, num: number) => {
     if (!slideShow) {
@@ -81,7 +76,6 @@ const Timelines = ({ steps }: TimelineProps) => {
               setSlideShow(false);
             }
           }, 1500 * i);
-          console.log(2, timer.current);
         }
       });
     }
@@ -122,7 +116,7 @@ const Timelines = ({ steps }: TimelineProps) => {
               <img src={doubleright} alt='timeline control button to last step' />
             </button>
             <button onClick={playSlideShow}>
-              <img src={play} alt='timeline control button to last step' />
+              <img src={play} alt='timeline control button to play slideshow' />
             </button>
           </>
         ) : (
