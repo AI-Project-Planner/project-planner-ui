@@ -50,10 +50,10 @@ Front End Team
 - [Saki Chatphatthanasiri](https://github.com/sakisandrac)
 
 Back End Team
-- Amy Marie Spears [![LinkedIn][linkedin-shield]][linkedin-url-as] [![GitHub][github-shield]][github-url-as]
-- Michael Callahan [![LinkedIn][linkedin-shield]][linkedin-url-mc] [![GitHub][github-shield]][github-url-mc]
-- Javen Wilson [![LinkedIn][linkedin-shield]][linkedin-url-jw] [![GitHub][github-shield]][github-url-jw]
-- Garrett Gregor [![LinkedIn][linkedin-shield]][linkedin-url-gg] [![GitHub][github-shield]][github-url-gg]
+- <a href="https://github.com/amspears007">Amy Marie Spears</a>
+- <a href="https://github.com/calforcal">Michael Callahan </a>
+- <a href="https://github.com/javenb022">Javen Wilson</a>
+- <a href="https://github.com/garrettgregor">Garrett Gregor</a>
 
 ## Learning Goals:
 - Improving communication and collaboration skills by working with a dedicated Back-End team.
