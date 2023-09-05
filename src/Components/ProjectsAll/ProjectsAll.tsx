@@ -20,7 +20,7 @@ const ProjectsAll: React.FC<ProjectsAllProps> = ({ updateAllProjects, getAllProj
   return (
     <section className='history-page'>
       <h1 className='saved-page-title'>Generated Projects History</h1>
-      <section className='saved-projects-container'>{allProjects.length > 0 ? allProjectEls : <p>Error Loading Project History</p>}</section>
+      <section className='saved-projects-container'>{allProjects.length > 0 ? allProjectEls : <p>No Projects Generated Yet!</p>}</section>
     </section>
   );
 };

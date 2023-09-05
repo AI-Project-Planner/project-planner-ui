@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Menu from '../Menu/Menu';
@@ -39,25 +39,13 @@ const App = () => {
     setAllProjects(projects);
   };
 
-  useEffect(() => {
-    const apiRequest = async () => {
-      try {
-        setAllProjects(await getAllProjects());
-      } catch (error) {
-        if (error instanceof Error) setAppError(error);
-      }
-    };
-
-    apiRequest();
-
-    return () => setAppError(null);
-  }, [requestNeeded]);
-
-  useEffect(() => {
-    if (allProjects) {
-      updateSavedProjects(allProjects);
+  const apiRequestProjects = async () => {
+    try {
+      setAllProjects(await getAllProjects());
+    } catch (error) {
+      if (error instanceof Error) setAppError(error);
     }
-  }, [allProjects]);
+  };
 
   const updateCurrentResult = (result: Project) => {
     setCurrentResult(result);
@@ -66,6 +54,18 @@ const App = () => {
   const updateFormData = (formData: FormData) => {
     setUserFormData(formData);
   };
+
+  useEffect(() => {
+    apiRequestProjects();
+    
+    return () => setAppError(null);
+  }, [requestNeeded]);
+
+  useEffect(() => {
+    if (allProjects) {
+      updateSavedProjects(allProjects);
+    }
+  }, [allProjects]);
 
   useEffect(() => {
     changeScreenSize();

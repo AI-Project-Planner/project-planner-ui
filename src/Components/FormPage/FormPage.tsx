@@ -6,7 +6,7 @@ import Question1 from './Questions/Question1';
 import Question2 from './Questions/Question2';
 import Question3 from './Questions/Question3';
 import Question4 from './Questions/Question4';
-import { QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData } from '../../Types/FormPageTypes';
+import { QuestionComponents, TechStacks, ErrorConditions, TimeFrame, ErrorMsg, FormData, Questions } from '../../Types/FormPageTypes';
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { Project } from '../../Types/types';
@@ -29,7 +29,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const questions: Record<number, string> = {
+  const questions: Questions = {
     1: 'Choose Your Application Type',
     2: 'Which Technologies Would You Like to Use?',
     3: 'How Long Do You Have to Create This App?',
