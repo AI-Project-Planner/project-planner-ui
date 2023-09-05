@@ -5,9 +5,7 @@ import left from '../../images/keyboardleft.png';
 import right from '../../images/keyboardright.png';
 import doubleright from '../../images/keyboarddoubleright.png';
 import play from '../../images/play_arrow_FILL0_wght400_GRAD0_opsz24.png';
-import pause from '../../images/stop_FILL0_wght400_GRAD0_opsz24.png';
 import { useRef } from 'react';
-// import { clearTimeout } from 'timers';
 
 interface TimelineProps {
   steps: string[];
