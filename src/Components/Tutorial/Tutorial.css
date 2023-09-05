@@ -5,6 +5,7 @@
 
 .tutorial-popup {
   position: relative;
+  max-height: 75vh;
 }
 
 .tutorial-back-btn {
