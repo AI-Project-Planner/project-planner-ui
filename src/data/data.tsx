@@ -1,4 +1,4 @@
-import { TechVideoLinks } from "../Types/types"
+import { TechVideoLinks } from "../Types/types";
 
 export const logoURLs: string[] = [
   'https://i.imgur.com/0W4rdC1.png',

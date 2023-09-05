@@ -2,22 +2,21 @@ import React from 'react';
 import { TimeFrame } from '../../../Types/FormPageTypes';
 
 interface Question3Props {
-  setTimeframe: React.Dispatch<React.SetStateAction<TimeFrame>>,
-  timeframe: TimeFrame
+  setTimeframe: React.Dispatch<React.SetStateAction<TimeFrame>>;
+  timeframe: TimeFrame;
 }
 
-const Question3: React.FC<Question3Props> = ({setTimeframe, timeframe}) => {
-
+const Question3: React.FC<Question3Props> = ({ setTimeframe, timeframe }) => {
   const selectTime = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const name = (e.target as HTMLInputElement).name;
     const value = (e.target as HTMLInputElement).value;
-    setTimeframe(prev => {
+    setTimeframe((prev) => {
       return {
         ...prev,
-        [name]: value
-      }
-    })
-  }
+        [name]: value,
+      };
+    });
+  };
 
   return (
     <section className='form-search-container'>
@@ -30,7 +29,7 @@ const Question3: React.FC<Question3Props> = ({setTimeframe, timeframe}) => {
         </select>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Question3
+export default Question3;

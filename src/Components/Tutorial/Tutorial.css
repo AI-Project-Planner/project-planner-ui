@@ -1,5 +1,6 @@
 .tutorial-btn {
   min-width: 200px;
+  margin-top: 10px;
 }
 
 .tutorial-popup {
@@ -47,4 +48,10 @@
 .tutorial-gif img {
   height: 100%;
   max-width:100%;
+}
+
+@media screen and (max-width: 1170px) {
+  .tutorial-popup {
+    min-height: 95%;
+  }
 }

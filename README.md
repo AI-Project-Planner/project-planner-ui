@@ -37,6 +37,8 @@ Our Project Planning app is a groundbreaking solution, powered by advanced AI te
 - Run the command: `cd project-planner-ui`
 - Run the command: `npm install`
 - Run the command: `npm start`
+- To run Cypress e2e tests, run the command: `npm run cypress`
+Note about Cypress: There are unstubbed network requests in all result page components due to the YouTube videos being displayed- these network requests are coming directly from YouTube so we were unable to intercept them.
 
 ## Context:
 - All contributors are currently enrolled in the seven month long Front End Engineering program at Turing School of Software and Design. This project was created during the third module of the program, which has a total of four modules. 
