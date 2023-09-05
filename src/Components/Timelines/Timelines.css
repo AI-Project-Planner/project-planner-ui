@@ -70,7 +70,9 @@
   border-radius: 50pxpx;
   background-color:#FBDFEA;
   margin-top: 5px;
+  animation: shrink 1.5s ease-in;
 }
+
 
 .timeline-header {
   border-radius: 10px;
@@ -125,5 +127,14 @@
 
   .timeline-page {
     justify-content: flex-start;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 300px;
+  }
+  100% {
+    width: 2px;
   }
 }
