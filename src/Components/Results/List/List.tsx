@@ -18,7 +18,7 @@ const List = ({ type, isEditing, setter, setterToClear, featInput, setFeatInput,
   }
 
   const features = editedPieces.map((feature) => {
-    return (<ListItem listItem={feature} isEditing={isEditing} setter={setter} />);
+    return (<ListItem key={feature} listItem={feature} isEditing={isEditing} setter={setter} />);
   });
 
   return (
