@@ -3,7 +3,7 @@
 Unlock Creativity with AI: Your Infinite Source of Innovative Project Ideas
 
 [DEPLOYED LINK](https://project-planner-ui.vercel.app/)<br>
-[Link to Back-End Repo](https://project-planner-ui.vercel.app/)
+[Link to Back-End Repo](https://github.com/AI-Project-Planner/project_planner_be)
 
 Technologies used:<br>
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
@@ -44,9 +44,16 @@ Note about Cypress: There are unstubbed network requests in all result page comp
 - All contributors are currently enrolled in the seven month long Front End Engineering program at Turing School of Software and Design. This project was created during the third module of the program, which has a total of four modules. 
 
 ## Contributors:
+Front End Team
 - [Laura Garcia Guerra](https://github.com/lauraguerra1)
 - [Fernando Robles](https://github.com/fernandorobles97)
 - [Saki Chatphatthanasiri](https://github.com/sakisandrac)
+
+Back End Team
+- Amy Marie Spears [![LinkedIn][linkedin-shield]][linkedin-url-as] [![GitHub][github-shield]][github-url-as]
+- Michael Callahan [![LinkedIn][linkedin-shield]][linkedin-url-mc] [![GitHub][github-shield]][github-url-mc]
+- Javen Wilson [![LinkedIn][linkedin-shield]][linkedin-url-jw] [![GitHub][github-shield]][github-url-jw]
+- Garrett Gregor [![LinkedIn][linkedin-shield]][linkedin-url-gg] [![GitHub][github-shield]][github-url-gg]
 
 ## Learning Goals:
 - Improving communication and collaboration skills by working with a dedicated Back-End team.
