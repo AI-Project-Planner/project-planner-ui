@@ -15,7 +15,7 @@ const ListItem = ({ isEditing, listItem, setter }: ListProps) => {
     <div className='feat-interaction-container' key={listItem}>
       <p className='feature'>&#x2022;{listItem}</p>
       {isEditing && (
-        <button onClick={() => deleteFeatOrInter(setter, listItem)}>
+        <button className='delete-btn' onClick={() => deleteFeatOrInter(setter, listItem)}>
           <img className='editing-add-button' src={deleteBtn} alt='delete button' />
         </button>
       )}

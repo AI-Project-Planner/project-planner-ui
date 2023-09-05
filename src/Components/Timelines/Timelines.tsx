@@ -88,7 +88,7 @@ const Timelines = ({ steps }: TimelineProps) => {
     1: { func: goToPrevStep, step: 'previous', image: left },
     2: { func: goToNextStep, step: 'next', image: right },
     3: { func: () => { if (!slideShow) setStepNum(steps.length - 1) }, step: 'last', image: doubleright },
-    4: { func: playSlideShow, step: 'slideshow of each', image: play }
+    4: { func: playSlideShow, step: 'play slideshow of each', image: play }
   };
 
   const controlButtons = Object.keys(buttonOptions).map(i => {
