@@ -37,8 +37,8 @@ const postNewForm = async (info: FormData) => {
   return data;
 };
 
-const getColorPalette = async (givenHex: string): Promise<{ colors: { hex: { value: string } }[] }> => {
-  const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${givenHex}&count=6`);
+const getColorPalette = async (givenHex: string): Promise<{colors: { hex: { value: string } }[]} > => {
+  const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${givenHex}&mode=analogic&count=6`)
   if (!response.ok) {
     throw new Error(response.statusText);
   }

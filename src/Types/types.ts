@@ -1,3 +1,32 @@
+import { Indexable } from "./FormPageTypes"
+
+export type ControlButtons = Indexable & {
+  0: {
+    func: () => void;
+    step: string;
+    image: string;
+  },
+  1: {
+    func: () => void;
+    step: string;
+    image: string;
+  }, 
+  2: {
+    func: () => void;
+    step: string;
+    image: string;
+  }, 
+  3: {
+    func: () => void;
+    step: string;
+    image: string;
+  },
+  4: {
+    func: () => void;
+    step: string;
+    image: string;
+  }
+}
 export type Project = {
     id: string,
     type: string,
@@ -59,10 +88,6 @@ export interface Attributes {
     logo_url: string,
     logo_font: string
   }
-
-export interface Indexable {
-  [key: string]: any;
-}
 
 export type TechVideoLinks = Indexable & {
   'react': string,

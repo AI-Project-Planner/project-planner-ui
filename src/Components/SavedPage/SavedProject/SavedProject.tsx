@@ -1,7 +1,6 @@
 import { Project } from '../../../Types/types';
 import { Link, useLocation } from 'react-router-dom';
 import './SavedProject.css';
-import { useEffect } from 'react';
 import React from 'react';
 
 const SavedProject = ({ project }: { project: Project }) => {
