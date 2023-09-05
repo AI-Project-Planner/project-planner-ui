@@ -45,14 +45,22 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
   const [interactionInput, setInteractionInput] = useState('');
   const [logoImage, setLogoImage] = useState(currentResult.attributes.logo_url);
   const [logoFont, setLogoFont] = useState(currentResult.attributes.logo_font);
-
+  const [needColorPut, setNeedColorPut] = useState(false);
   const location = useLocation().pathname;
 
   useEffect(() => {
     if (editedPalette.some((palette) => !palette.includes('#'))) {
       regenerateColors();
+      setNeedColorPut(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (needColorPut) {
+      putAllData();
+      setNeedColorPut(false);
+    }
+  }, [needColorPut]);
 
   useEffect(() => {
     if (projectToSave) {
@@ -120,21 +128,25 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     }
   };
 
-  const handleEditClick = async () => {
-    if (isEditing) {
-      const putData: putDataType = JSON.parse(JSON.stringify(currentResult));
-      putData.attributes.name = editedTitle;
-      putData.attributes.features = editedFeatures.join('\n');
-      putData.attributes.interactions = editedInteractions.join('\n');
-      putData.attributes.colors = editedPalette.join('\n');
-      putData.attributes.logo_url = logoImage;
-      putData.attributes.logo_font = logoFont;
+  const putAllData = async () => {
+    const putData: putDataType = JSON.parse(JSON.stringify(currentResult));
+    putData.attributes.name = editedTitle;
+    putData.attributes.features = editedFeatures.join('\n');
+    putData.attributes.interactions = editedInteractions.join('\n');
+    putData.attributes.colors = editedPalette.join('\n');
+    putData.attributes.logo_url = logoImage;
+    putData.attributes.logo_font = logoFont;
 
-      try {
-        await putProject(putData, currentResult.id);
-      } catch (error) {
-        if (error instanceof Error) setAppError(error);
-      }
+    try {
+      await putProject(putData, currentResult.id);
+    } catch (error) {
+      if (error instanceof Error) setAppError(error);
+    }
+  };
+
+  const handleEditClick = () => {
+    if (isEditing) {
+      putAllData();
     }
     setIsEditing((prev) => !prev);
   };
