@@ -1,4 +1,4 @@
-const getRandomIndex = (array: string[]) => {
+export const getRandomIndex = (array: string[]) => {
   return Math.floor(Math.random() * array.length);
 }
 

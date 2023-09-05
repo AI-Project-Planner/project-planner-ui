@@ -1,7 +1,7 @@
 .timeline-page {
  width: 100%;
  display: flex;
- justify-content: space-around;
+ /* justify-content: space-around; */
  overflow-x: hidden;
  max-width: 100vw;
 }
@@ -27,7 +27,8 @@
   justify-content: center;
   cursor: pointer;
   z-index: 2;
-  margin: 0 40px;
+  margin-right: 18vw;
+  margin-left: 25px;
 }
 
 .timeline-line {
@@ -110,7 +111,6 @@
   .timeline-circle {
     height: 35px;
     width: 35px;
-    margin-right: 20vw;
   }
 
   .timeline-line {
@@ -125,9 +125,6 @@
     width: 70%;
   }
 
-  .timeline-page {
-    justify-content: flex-start;
-  }
 }
 
 @keyframes shrink {
