@@ -29,7 +29,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   const [error, setError] = useState<ErrorMsg>({ error: false, message: '' });
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const [aiError, setAiError] = useState<boolean>(true);
+  const [aiError, setAiError] = useState<boolean>(false);
 
   const questions: Record<number, string> = {
     1: 'Choose Your Application Type',

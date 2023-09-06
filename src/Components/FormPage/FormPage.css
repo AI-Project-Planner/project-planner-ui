@@ -24,7 +24,7 @@
 }
 
 .form-backdrop {
-  height: 70%;
+  height: 70vh;
   width: 50%;
   background-color: white;
   border-radius: 30px;
