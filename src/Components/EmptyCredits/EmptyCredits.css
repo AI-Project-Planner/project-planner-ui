@@ -1,0 +1,29 @@
+.credits-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+}
+
+.credits-page h1 {
+  font-size: 1.6rem;
+}
+.credits-btn {
+  background-color: #FBDFEA;
+  width: 60%;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sticker {
+  height: 240px;
+  margin-top: 20px;
+}
