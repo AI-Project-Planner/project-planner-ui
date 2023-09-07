@@ -11,6 +11,7 @@ import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { Project } from '../../Types/types';
 import form from '../../images/form.png';
+import EmptyCredits from '../EmptyCredits/EmptyCredits';
 
 interface FormPageProps {
   updateCurrentResult: (result: Project) => void;
@@ -28,6 +29,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
   const [error, setError] = useState<ErrorMsg>({ error: false, message: '' });
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [aiError, setAiError] = useState<boolean>(false);
 
   const questions: Questions = {
     1: 'Choose Your Application Type',
@@ -89,7 +91,8 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
         navigate('/results');
       })
       .catch((err) => {
-        setAppError(err);
+        setAiError(true)
+        setLoading(false)
       });
   };
 
@@ -129,7 +132,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
       <section className='form-backdrop'>
         {loading ? (
           <Loader />
-        ) : (
+        ) : aiError ? <EmptyCredits /> : (
           <div className='form-container'>
             <div className='form-question-container'>
               {currentQuestion !== 1 && (
@@ -141,11 +144,12 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
             </div>
             <div className='form-input-container'>{questionInputs()}</div>
             {error.error && <p className='form-error'>{error.message.toUpperCase()}</p>}
-            {!loading && (
+            {!loading && !aiError && (
               <button className='form-button' onClick={nextQuestion}>
                 {currentQuestion < 4 ? 'CONTINUE' : 'SUBMIT'}
               </button>
             )}
+  
           </div>
         )}
       </section>

@@ -40,7 +40,10 @@ describe('User will be able to error messages if form is filled out incorrectly'
       ).as("form-post")
       .get('.form-button').click()
       .wait('@form-post').then((intercept) => {
-        cy.get('.app-error').should('have.text', 'An error occured, please try again later!')
+        cy.get('.homepage-title').should('have.text', 'Oh No!')
+          .get('p').contains("We've run out of credits for the OpenAI API")
+          .get('p').contains('Visit our all projects page to see all of the previously generated projects!')
+          .get('a').contains('Go to All Projects')
       })
   })
 })
