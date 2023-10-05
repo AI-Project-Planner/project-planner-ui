@@ -19,7 +19,7 @@
   margin-top: 0;
 }
 
-.light-setion, .popup, .popup-buttons-container {
+.home section {
   display: flex;
   flex-direction: column;
   align-items: center;
