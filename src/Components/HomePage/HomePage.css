@@ -90,7 +90,7 @@
   }
 }
 
-@media screen and (max-width: 1170px) {
+@media screen and (max-width: 1300px) {
   .home {
     flex-direction: column;
     justify-content: space-between;

@@ -1,6 +1,18 @@
-.navBar a {
-  margin: 20px;
-  font-size: 21px;
+.navBar {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navBar a, .logout-btn{
+  margin: 15px;
+  font-size: 20px;
+}
+
+.logout-btn {
+  background-color: #FBDFEA;
+  border-radius: 5px;
+  border: none;
 }
 
 .navBar a.active {

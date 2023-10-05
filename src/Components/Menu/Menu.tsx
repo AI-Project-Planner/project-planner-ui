@@ -4,12 +4,13 @@ import './Menu.css';
 
 interface MenuProps {
   openOrCloseMenu: () => void;
+  logOut: () => void;
 }
 
-const Menu = ({ openOrCloseMenu }: MenuProps) => {
+const Menu = ({ openOrCloseMenu, logOut }: MenuProps) => {
   return (
     <nav className='menu-nav'>
-      <button className='clear-bg-btn' onClick={openOrCloseMenu}>
+      <button className='clear-bg-btn menu-close-btn' onClick={openOrCloseMenu}>
         <img src={close} alt='menu button' />
       </button>
       <Link className='menu-link' to='/'>
@@ -32,6 +33,7 @@ const Menu = ({ openOrCloseMenu }: MenuProps) => {
           All Projects
         </button>
       </Link>
+      <button onClick={logOut} className='logout-btn menu-logout'>LOG OUT</button>
     </nav>
   );
 };
