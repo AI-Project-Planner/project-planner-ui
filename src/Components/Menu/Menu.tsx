@@ -8,6 +8,11 @@ interface MenuProps {
 }
 
 const Menu = ({ openOrCloseMenu, logOut }: MenuProps) => {
+  const logOutFromMenu = () => {
+    logOut();
+    openOrCloseMenu();
+  }
+
   return (
     <nav className='menu-nav'>
       <button className='clear-bg-btn menu-close-btn' onClick={openOrCloseMenu}>
@@ -33,7 +38,7 @@ const Menu = ({ openOrCloseMenu, logOut }: MenuProps) => {
           All Projects
         </button>
       </Link>
-      <button onClick={logOut} className='logout-btn menu-logout'>LOG OUT</button>
+      <button onClick={logOutFromMenu} className='logout-btn menu-logout'>LOG OUT</button>
     </nav>
   );
 };
