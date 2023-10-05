@@ -1,0 +1,29 @@
+.demo-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.welcome-title {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 25px;
+}
+
+.demo-img {
+    height: 30px;
+}
+
+.user-button, .user-button img {
+    border: none;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    background-color: #00000000;
+    object-fit: cover;
+}
+
+.demo-users {
+    display: flex;
+    justify-content: space-around;
+}

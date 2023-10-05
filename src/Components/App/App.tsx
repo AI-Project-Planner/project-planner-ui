@@ -17,6 +17,7 @@ import NoResults from '../NoResults/NoResults';
 import Tutorial from '../Tutorial/Tutorial';
 import ProjectsAll from '../ProjectsAll/ProjectsAll';
 import React from 'react';
+import DemoPage from '../DemoPage/DemoPage';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +28,7 @@ const App = () => {
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
   const [userFormData, setUserFormData] = useState<null | FormData>(null);
+  const [user, setUser] = useState<boolean>(false);
 
   const location = useLocation().pathname;
   const changeScreenSize = () => (window.innerWidth < 1170 ? setSmallScreen(true) : setSmallScreen(false));
@@ -89,19 +91,19 @@ const App = () => {
             <Link className='app-logo' to='/'>
               <img src={logo} alt='project planner ai generator logo and home page button' />
             </Link>
-            <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />
+            {user && <NavBar smallScreen={smallScreen} openOrCloseMenu={openOrCloseMenu} />}
           </header>
           <main className={location === '/form' ? 'form-height' : ''}>
             {appError && <p className='app-error'>An error occured, please try again later!</p>}
             <Routes>
-              <Route path='/' element={<HomePage smallScreen={smallScreen} />} />
+              <Route path='/' element={user ? <HomePage smallScreen={smallScreen} /> : <DemoPage />} />
               <Route path='/tutorial' element={<Tutorial smallScreen={smallScreen} />} />
-              <Route path='/history' element={<ProjectsAll updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} />} />
-              <Route path='/history/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
-              <Route path='/form' element={<FormPage setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} />} />
+              <Route path='/history' element={user ? <ProjectsAll updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} /> : <DemoPage />} />
+              <Route path='/history/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage />} />
+              <Route path='/form' element={user ? <FormPage setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} /> : <DemoPage />} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <NoResults />} />
-              <Route path='/saved' element={<SavedPage getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} />} />
-              <Route path='/saved/:projectID' element={<SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} />} />
+              <Route path='/saved' element={user ? <SavedPage getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} /> : <DemoPage />} />
+              <Route path='/saved/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage />} />
               {['*', '/form/*', '/results/*'].map((path) => (
                 <Route key={path} path={path} element={<Empty />} />
               ))}

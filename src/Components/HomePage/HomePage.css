@@ -9,6 +9,9 @@
 .homepage-title {
   font-family: 'Petit Formal Script', cursive;
   margin-bottom: 0;
+  font-size: 40px;
+  text-align: center;
+  padding: 0 15px;
 }
 
 .title-img {
@@ -16,18 +19,12 @@
   margin-top: 0;
 }
 
-.home section {
+.light-setion, .popup, .popup-buttons-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-}
-
-.home h1 {
-  font-size: 40px;
-  text-align: center;
-  padding: 0 15px;
 }
 
 .light {
@@ -99,7 +96,7 @@
     justify-content: space-between;
   }
 
-  .home h1 {
+  .homepage-title {
     font-size: 1.5rem;
     text-align: center;
     padding: 0 15px;
