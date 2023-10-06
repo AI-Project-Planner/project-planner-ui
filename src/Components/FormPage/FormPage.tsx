@@ -84,7 +84,6 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
     };
 
     updateFormData(formData);
-
     postNewForm(formData, user)
       .then((data) => {
         updateCurrentResult(data.data);
