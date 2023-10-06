@@ -28,22 +28,22 @@ const App = () => {
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
   const [userFormData, setUserFormData] = useState<null | FormData>(null);
-  const [user, setUser] = useState<string>('');
+  const [user, setUser] = useState<number | null>(null);
   const navigate = useNavigate()
 
   const location = useLocation().pathname;
   const changeScreenSize = () => (window.innerWidth < 1300 ? setSmallScreen(true) : setSmallScreen(false));
   const openOrCloseMenu = () => setMenuOpen((prev) => !prev);
-  const getAllProjects: () => Promise<Project[]> = apiCall(1, 'projects', {});
+  const getAllProjects: () => Promise<Project[]> = apiCall(user, 'projects', {});
   const updateSavedProjects = (projects: Project[]) => setSavedProjects(projects.filter((project) => project.attributes.saved));
   const requestAllProjects = () => setRequestNeeded((prev) => !prev);
 
   const logIn = (userID: string) => {
-    setUser(userID);
+    if (user) setUser(userID);
   }
 
   const logOut = () => {
-    setUser('');
+    setUser(null);
     navigate('/');
   }
 
