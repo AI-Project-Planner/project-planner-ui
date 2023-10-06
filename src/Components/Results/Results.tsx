@@ -108,7 +108,7 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     if (formData) {
       setLoading(true);
       try {
-        const newResult = await postNewForm(formData);
+        const newResult = await postNewForm(formData, currentResult.attributes.user_id);
         if (updateCurrentResult) updateCurrentResult(newResult.data);
         setLoading(false);
       } catch (error) {
@@ -138,7 +138,7 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
     putData.attributes.logo_font = logoFont;
 
     try {
-      await putProject(putData, currentResult.id);
+      await putProject(putData, currentResult.id, currentResult.attributes.user_id);
     } catch (error) {
       if (error instanceof Error) setAppError(error);
     }
@@ -183,7 +183,7 @@ const Results = ({ onSavedPage, currentResult, formData, updateCurrentResult, re
       logo_font: logoFont,
     };
     if (updatedAttributes.logo_url.length) {
-      addLogo(updatedAttributes, currentResult.id);
+      addLogo(updatedAttributes, currentResult.id, currentResult.attributes.user_id);
     }
   }, [logoImage]);
 

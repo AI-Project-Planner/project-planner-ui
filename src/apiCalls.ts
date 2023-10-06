@@ -9,7 +9,7 @@ type options = {
   };
 };
 
-const apiCall = (userID: number, endpoint: string, optionsObj: options | {}) => {
+const apiCall = (userID: string | null | number, endpoint: string, optionsObj: options | {}) => {
   return async () => {
     let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${userID}/${endpoint}/`, optionsObj);
     let data = await response.json();
@@ -20,7 +20,7 @@ const apiCall = (userID: number, endpoint: string, optionsObj: options | {}) => 
   };
 };
 
-const postNewForm = async (info: FormData, id: number) => {
+const postNewForm = async (info: FormData, id: string | null | number) => {
   let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${id}/projects/`, {
     method: "POST",
     body: JSON.stringify(info),
@@ -59,7 +59,7 @@ const deleteProject = async (project: Project) => {
   return data;
 };
 
-const addLogo = async (info: Attributes, projectID: string, userID: number) => {
+const addLogo = async (info: Attributes, projectID: string, userID: string | null | number) => {
   let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${userID}/projects/${projectID}/`, {
     method: "PUT",
     body: JSON.stringify(info),
@@ -76,7 +76,7 @@ const addLogo = async (info: Attributes, projectID: string, userID: number) => {
   return data;
 };
 
-const putProject = async (info: putData, projectID: string, userID: number) => {
+const putProject = async (info: putData, projectID: string, userID: string | null | number) => {
   let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${userID}/projects/${projectID}/`, {
     method: "PUT",
     body: JSON.stringify(info.attributes),

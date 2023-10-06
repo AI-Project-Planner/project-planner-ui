@@ -28,7 +28,7 @@ const App = () => {
   const [requestNeeded, setRequestNeeded] = useState(false);
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
   const [userFormData, setUserFormData] = useState<null | FormData>(null);
-  const [user, setUser] = useState<number | null>(null);
+  const [user, setUser] = useState<string | null>(null);
   const navigate = useNavigate()
 
   const location = useLocation().pathname;
@@ -39,7 +39,8 @@ const App = () => {
   const requestAllProjects = () => setRequestNeeded((prev) => !prev);
 
   const logIn = (userID: string) => {
-    if (user) setUser(userID);
+    setUser(userID);
+    console.log(user)
   }
 
   const logOut = () => {
@@ -110,7 +111,7 @@ const App = () => {
               <Route path='/tutorial' element={<Tutorial smallScreen={smallScreen} />} />
               <Route path='/history' element={user ? <ProjectsAll updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} /> : <DemoPage logIn={logIn} />} />
               <Route path='/history/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage logIn={logIn} />} />
-              <Route path='/form' element={user ? <FormPage setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} /> : <DemoPage logIn={logIn} />} />
+              <Route path='/form' element={user ? <FormPage user={user} setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} /> : <DemoPage logIn={logIn} />} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <NoResults />} />
               <Route path='/saved' element={user ? <SavedPage getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} /> : <DemoPage logIn={logIn} />} />
               <Route path='/saved/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage logIn={logIn} />} />
