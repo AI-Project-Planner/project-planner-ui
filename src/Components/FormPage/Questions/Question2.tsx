@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import plus from '../../../images/add.png';
 import { TechStacks, ErrorMsg, ErrorConditionsQ2 } from '../../../Types/FormPageTypes';
-
+import minus from '../../../images/delete.png'
 interface Question2Props {
   searchTerm: string;
   techStacks: TechStacks;
@@ -62,7 +62,7 @@ const Question2: React.FC<Question2Props> = ({ searchTerm, techStacks, stack, se
     <section className='form-search-container' >
       <div className='form-tech-input-container'>
         <input className='form-input' type='text' placeholder='ADD TECHNOLOGY' onChange={(e) => searchTechnologies(e)} onFocus={() => setDropDownHidden(false)} value={searchTerm} />
-        <img src={plus} alt='plus icon to add technology' className='form-icon' onClick={() => { addTechnology(); resetForm();}} />
+        <button className='form-icon-button' onClick={() => { addTechnology(); resetForm(); }}><img src={plus} alt='plus icon to add technology' className='form-icon' /></button>
       </div>
       <div id='dropdown' className={dropDownHidden ? 'hidden form-dropdown' : 'form-dropdown'}>
         {filteredTech.map((tech: string) => (
@@ -74,8 +74,11 @@ const Question2: React.FC<Question2Props> = ({ searchTerm, techStacks, stack, se
       <p className='form-tech-text'>{technologies.length > 0 && 'Technologies chosen:'}</p>
       <div className='form-tech-stack-chosen'>
         {technologies.map((tech: string) => (
-          <div key={tech} className='form-tech-stack-chosen-single'>
-            {tech}
+          <div  key={tech} className='single-tech-container'>
+            <div className='form-tech-stack-chosen-single'>
+              {tech}
+            </div>
+            <button id={`${tech}-delete-btn`} onClick={() => setTechnologies(prev => prev.filter(technology => technology !== tech))}><img alt='delete button' src={minus}/></button>
           </div>
         ))}
       </div>

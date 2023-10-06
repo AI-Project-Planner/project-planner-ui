@@ -137,7 +137,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
             <div className='form-question-container'>
               {currentQuestion !== 1 && (
                 <div className='form-icon-container'>
-                  <img className='form-icon' src={arrow} alt='back button' onClick={prevQuestion} />
+                  <button className='form-icon-button' onClick={prevQuestion} ><img className='form-icon' src={arrow} alt='back button'/></button>
                 </div>
               )}
               <p className='form-question'>{questions[currentQuestion]}</p>
