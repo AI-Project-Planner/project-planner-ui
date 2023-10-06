@@ -183,12 +183,12 @@ select.form-input {
 .form-tech-stack-chosen {
   width: 40%;
   height: 60%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  margin: auto;
   padding: 0 10px;
 }
 
@@ -197,6 +197,9 @@ select.form-input {
   justify-content: center;
   align-items: center;
   height: 50px;
+  width: 100%;
+  max-width: 180px; 
+  margin: 5px;
 }
 
 .form-active-focus {
@@ -280,7 +283,7 @@ select.form-input {
 
   .form-tech-stack-chosen-single {
     font-size: 1.2rem;
-    width: 100%;
+    max-width: none;
     margin: 6px;
   }
 
