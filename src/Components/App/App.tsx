@@ -86,7 +86,6 @@ const App = () => {
   useEffect(() => {
     if (allProjects) {
       updateSavedProjects(allProjects);
-      console.log(allProjects)
     }
   }, [allProjects]);
 
