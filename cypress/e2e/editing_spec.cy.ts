@@ -2,6 +2,7 @@ describe('template spec', () => {
   it('should edit a project', () => {
     cy.stubSingleFetch('users/1/projects', "savedProjects", 200)
     cy.visit('http://localhost:3000/history/1')
+      .get('[src="/static/media/person1.e82800b7bd3a81edd244.png"]').click()
       .get('button').contains('Edit Plan').click()
       .get('input[type="text"]').first().should('have.value', 'Makeup 360').clear().type('Makeup Guru').should('have.value', 'Makeup Guru')
       .get('.features > .feat-inter-header > .results-editing-form > input').should('have.value', '').type('This new feature').should('have.value', 'This new feature')
