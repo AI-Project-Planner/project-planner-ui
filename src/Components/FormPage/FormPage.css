@@ -102,7 +102,7 @@
   width: 100%;
   display: flex;
   height: auto;
-  overflow: scroll;
+  overflow: auto;
   align-content: center;
   justify-content: center;
   margin-bottom: 20px;
