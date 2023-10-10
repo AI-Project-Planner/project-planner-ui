@@ -18,6 +18,7 @@ import Tutorial from '../Tutorial/Tutorial';
 import ProjectsAll from '../ProjectsAll/ProjectsAll';
 import React from 'react';
 import DemoPage from '../DemoPage/DemoPage';
+import { gapi } from 'gapi-script';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -77,6 +78,17 @@ const App = () => {
     setUserFormData(formData);
   };
 
+  const clientId ="530282796412-t7lmaaof23343sd8nc3flqege614asb3.apps.googleusercontent.com"
+  useEffect(() => {
+    const start = () => {
+      gapi.auth2.init({
+        client_id: clientId,
+        scope: ""
+      })
+    }
+    gapi.load('client:auth2', start)
+  },[])
+  
   useEffect(() => {
     if (user) apiRequestProjects();
     console.log('useeffect', user)
