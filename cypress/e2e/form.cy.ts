@@ -1,6 +1,7 @@
 describe('User can fill out form to generate a new plan ', () => {
   beforeEach(() => {
     return cy.visit('http://localhost:3000/form')
+      .get('[src="/static/media/person1.e82800b7bd3a81edd244.png"]').click()
       .intercept(
         "GET",
         "https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects",

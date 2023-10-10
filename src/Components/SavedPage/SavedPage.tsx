@@ -10,9 +10,10 @@ interface SavedPageProps {
   updateSavedProjects: (projects: Project[]) => void;
   getAllProjects: () => Promise<Project[]>;
   updateAllProjects: (projects: Project[]) => void;
+  filterUserProjects:  (projects: Project[]) => Project[];
 }
 
-const SavedPage = ({ getAllProjects, updateAllProjects, allProjects, savedProjects, updateSavedProjects }: SavedPageProps) => {
+const SavedPage = ({ filterUserProjects, getAllProjects, updateAllProjects, allProjects, savedProjects, updateSavedProjects }: SavedPageProps) => {
   useEffect(() => {
     if (allProjects) {
       updateSavedProjects(allProjects);
@@ -21,7 +22,7 @@ const SavedPage = ({ getAllProjects, updateAllProjects, allProjects, savedProjec
 
   useEffect(() => {
     getAllProjects().then((data) => {
-      updateAllProjects(data);
+      updateAllProjects(filterUserProjects(data));
     });
   }, []);
 

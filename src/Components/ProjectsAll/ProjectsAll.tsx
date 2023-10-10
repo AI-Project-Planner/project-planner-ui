@@ -6,12 +6,13 @@ interface ProjectsAllProps {
   allProjects: Project[];
   getAllProjects: () => Promise<Project[]>;
   updateAllProjects: (projects: Project[]) => void;
+  filterUserProjects:  (projects: Project[]) => Project[];
 }
 
-const ProjectsAll: React.FC<ProjectsAllProps> = ({ updateAllProjects, getAllProjects, allProjects }) => {
+const ProjectsAll: React.FC<ProjectsAllProps> = ({ filterUserProjects, updateAllProjects, getAllProjects, allProjects }) => {
   useEffect(() => {
     getAllProjects().then((data) => {
-      updateAllProjects(data);
+      updateAllProjects(filterUserProjects(data));
     });
   }, []);
 

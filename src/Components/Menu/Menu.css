@@ -8,7 +8,7 @@
   animation: fadeIn 0.5s ease-in;
 }
 
-.menu-link button {
+.menu-link button, .menu-logout {
   font-size: 25px;
   width: 250px;
   text-align: center;
@@ -16,7 +16,12 @@
   padding-bottom: 10px;
 }
 
-.menu-nav button {
+.menu-close-btn {
   align-self: flex-end;
   margin: 10px;
+}
+
+.menu-logout {
+  padding: 5px;
+  border-bottom: none;
 }

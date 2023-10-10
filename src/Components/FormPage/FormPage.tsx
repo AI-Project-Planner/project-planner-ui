@@ -17,9 +17,10 @@ interface FormPageProps {
   updateCurrentResult: (result: Project) => void;
   updateFormData: (formData: FormData) => void;
   setAppError: React.Dispatch<React.SetStateAction<Error | null>>;
+  user: string
 }
 
-const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, updateFormData }) => {
+const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, updateFormData, user }) => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [stack, setStack] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -83,8 +84,7 @@ const FormPage: React.FC<FormPageProps> = ({ setAppError, updateCurrentResult, u
     };
 
     updateFormData(formData);
-
-    postNewForm(formData)
+    postNewForm(formData, user)
       .then((data) => {
         updateCurrentResult(data.data);
         setLoading(false);

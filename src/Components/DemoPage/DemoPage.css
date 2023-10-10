@@ -1,0 +1,95 @@
+.demo-page {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.demo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.demo-text {
+  text-align: center;
+}
+
+.welcome-title {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.demo-img {
+  height: 30px;
+}
+
+.user-button {
+  border: none;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  background-color: #00000000;
+  object-fit: cover;
+  border: 5px solid #00000000;
+  cursor: pointer;
+}
+
+.user-button:hover {
+  border: 5px solid #FBDFEA;
+}
+
+.demo-users {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.divider {
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.divider-line {
+  width: 48%;
+  border-bottom: 1px solid black;
+}
+
+.login-button {
+  background-color: #FBDFEA;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+}
+
+@media screen and(min-height: 800px) {
+  .demo-page {
+    margin-top: 150px;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .demo-page {
+    margin-top: 0px;
+  }
+
+  .demo-users, .demo-title {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-title {
+    margin-bottom: 2px;
+    margin-right: 0px;
+  }
+
+  .user-button {
+    height: 150px;
+    width: 150px;
+  }
+}

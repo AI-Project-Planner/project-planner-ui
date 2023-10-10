@@ -5,9 +5,10 @@ import './NavBar.css';
 interface NavBarProps {
   smallScreen: boolean;
   openOrCloseMenu: () => void;
+  logOut: () => void;
 }
 
-const NavBar = ({ smallScreen, openOrCloseMenu }: NavBarProps) => {
+const NavBar = ({ smallScreen, openOrCloseMenu, logOut }: NavBarProps) => {
   return (
     <nav className='navBar'>
       {smallScreen ? (
@@ -20,6 +21,7 @@ const NavBar = ({ smallScreen, openOrCloseMenu }: NavBarProps) => {
           <NavLink to='/form'>New Project</NavLink>
           <NavLink to='/saved'>Favorite Projects</NavLink>
           <NavLink to='/history'>All Projects</NavLink>
+          <button onClick={logOut} className='logout-btn'>LOG OUT</button>
         </>
       )}
     </nav>

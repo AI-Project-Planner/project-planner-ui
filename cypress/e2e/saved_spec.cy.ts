@@ -3,6 +3,7 @@ describe('saved projects spec', () => {
   it('should display all saved projects and allow users to view them and unsave', () => {
     cy.stubSingleFetch('users/1/projects', "savedProjects", 200)
     cy.visit('http://localhost:3000/saved')
+      .get('[src="/static/media/person1.e82800b7bd3a81edd244.png"]').click()
       .get('.saved-project').should('have.length', 2)
     cy.intercept('PATCH',`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/1/projects/1`, {
         statusCode: 200, 
@@ -23,9 +24,10 @@ describe('saved projects spec', () => {
   it('should display a helpful message when there are no saved projects', () => {
     cy.stubSingleFetch('users/1/projects', "unSavedProjects", 200)
     cy.visit('http://localhost:3000/saved')
-    cy.get('.saved-project').should('have.length', 0) 
-      .get('p').contains('No favorite projects yet! Generate a project and save it to view it here!')
-      .get('a[href="/form"]').contains('Generate a new plan').click()
-      .url().should('eq', 'http://localhost:3000/form')
+    .get('[src="/static/media/person1.e82800b7bd3a81edd244.png"]').click()
+    .get('.saved-project').should('have.length', 0) 
+    .get('p').contains('No favorite projects yet! Generate a project and save it to view it here!')
+    .get('a[href="/form"]').contains('Generate a new plan').click()
+    .url().should('eq', 'http://localhost:3000/form')
   })
 })
