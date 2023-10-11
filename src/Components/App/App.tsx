@@ -128,14 +128,14 @@ const App = () => {
           <main className={location === '/form' ? 'form-height' : ''}>
             {appError && <p className='app-error'>An error occured, please try again later!</p>}
             <Routes>
-              <Route path='/' element={user ? <HomePage smallScreen={smallScreen} /> : <DemoPage logIn={logIn} />} />
+              <Route path='/' element={user ? <HomePage smallScreen={smallScreen} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
               <Route path='/tutorial' element={<Tutorial smallScreen={smallScreen} />} />
-              <Route path='/history' element={user ? <ProjectsAll filterUserProjects={filterUserProjects} updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} /> : <DemoPage logIn={logIn} />} />
-              <Route path='/history/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage logIn={logIn} />} />
-              <Route path='/form' element={user ? <FormPage user={user} setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} /> : <DemoPage logIn={logIn} />} />
+              <Route path='/history' element={user ? <ProjectsAll filterUserProjects={filterUserProjects} updateAllProjects={updateAllProjects} getAllProjects={getAllProjects} allProjects={allProjects} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
+              <Route path='/history/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
+              <Route path='/form' element={user ? <FormPage user={user} setAppError={setAppError} updateCurrentResult={updateCurrentResult} updateFormData={updateFormData} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
               <Route path='/results' element={currentResult ? <Results currentResult={currentResult} updateCurrentResult={updateCurrentResult} formData={userFormData} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <NoResults />} />
-              <Route path='/saved' element={user ? <SavedPage filterUserProjects={filterUserProjects} getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} /> : <DemoPage logIn={logIn} />} />
-              <Route path='/saved/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage logIn={logIn} />} />
+              <Route path='/saved' element={user ? <SavedPage filterUserProjects={filterUserProjects} getAllProjects={getAllProjects} updateAllProjects={updateAllProjects} allProjects={allProjects} savedProjects={savedProjects} updateSavedProjects={updateSavedProjects} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
+              <Route path='/saved/:projectID' element={user ? <SingleProject getAllProjects={getAllProjects} allProjects={allProjects} requestAllProjects={requestAllProjects} setAppError={setAppError} /> : <DemoPage setAppError={setAppError} logIn={logIn} />} />
               {['*', '/form/*', '/results/*'].map((path) => (
                 <Route key={path} path={path} element={<Empty />} />
               ))}
