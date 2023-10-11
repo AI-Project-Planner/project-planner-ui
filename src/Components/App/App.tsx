@@ -19,6 +19,7 @@ import ProjectsAll from '../ProjectsAll/ProjectsAll';
 import React from 'react';
 import DemoPage from '../DemoPage/DemoPage';
 import { gapi } from 'gapi-script';
+import { googleLogout } from '@react-oauth/google';
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -47,6 +48,7 @@ const App = () => {
   const logOut = () => {
     setUser(null);
     navigate('/');
+    googleLogout();
   }
 
   const filterUserProjects = (projects : Project[]) => {
