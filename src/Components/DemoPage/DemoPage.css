@@ -59,12 +59,15 @@
   border-bottom: 1px solid black;
 }
 
-.login-button {
-  background-color: #FBDFEA;
-  border-radius: 10px;
-  height: 50px;
-  font-size: 20px;
-  border: none;
+.login-container {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.S9gUrf-YoZ4jf, .S9gUrf-YoZ4jf *  {
+  width: 230px;
 }
 
 @media screen and(min-height: 800px) {

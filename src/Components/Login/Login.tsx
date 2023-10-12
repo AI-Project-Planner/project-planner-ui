@@ -6,6 +6,8 @@ const Login = ({ setAppError }: { setAppError: React.Dispatch<React.SetStateActi
     
     return (
         <GoogleLogin
+            shape='pill'
+            size='large'
             onSuccess={credentialResponse => {
                 console.log(credentialResponse); 
                 const decodedJwt = jwtDecode(credentialResponse.credential!)
