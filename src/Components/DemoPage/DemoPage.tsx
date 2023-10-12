@@ -6,7 +6,6 @@ import user2 from '../../images/person2.png'
 import user3 from '../../images/person3.png'
 import DemoUser from './DemoUser/DemoUser';
 import Login from '../Login/Login';
-import { googleLogout } from '@react-oauth/google';
 
 type DemoPageProps = {
   logIn: (userID: string) => void
@@ -30,8 +29,9 @@ const DemoPage = ({ logIn, setAppError }: DemoPageProps) => {
         <p style={{margin: '2%'}}>OR</p>
         <div className='divider-line'></div>
       </section>
-      <Login setAppError={setAppError} logIn={logIn}/>
-      <button onClick={googleLogout}>Logout</button>
+      <div className='login-container'>
+        <Login setAppError={setAppError} logIn={logIn} />
+      </div>
     </section>
   )
 }
