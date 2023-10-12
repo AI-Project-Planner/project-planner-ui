@@ -30,9 +30,8 @@ const DemoPage = ({ logIn, setAppError }: DemoPageProps) => {
         <p style={{margin: '2%'}}>OR</p>
         <div className='divider-line'></div>
       </section>
-      <Login setAppError={setAppError} />
+      <Login setAppError={setAppError} logIn={logIn}/>
       <button onClick={googleLogout}>Logout</button>
-      {/* <button onClick={() => logIn('1')} className='login-button'>LOGIN WITH GOOGLE</button> */}
     </section>
   )
 }

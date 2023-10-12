@@ -9,10 +9,13 @@ type options = {
   };
 };
 
-const apiCall = (userID: string | null | number, endpoint: string, optionsObj: options | {}) => {
+const apiCall = (userID: string | null | number, endpoint: string | null , optionsObj: options | {}) => {
+  const urlEnding = userID && endpoint ? `${userID}/${endpoint}/` : "";
+
   return async () => {
-    let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${userID}/${endpoint}/`, optionsObj);
+    let response = await fetch(`https://ai-project-planner-be-72e73912044c.herokuapp.com/api/v1/users/${urlEnding}`, optionsObj);
     let data = await response.json();
+
     if (data.message && data.message.includes("Error")) {
       throw new Error(`${data.message} -- Please try again`);
     }

@@ -30,6 +30,7 @@ const App = () => {
   const [currentResult, setCurrentResult] = useState<null | Project>(null);
   const [userFormData, setUserFormData] = useState<null | FormData>(null);
   const [user, setUser] = useState<string | null>(null);
+
   const navigate = useNavigate()
 
   const location = useLocation().pathname;
