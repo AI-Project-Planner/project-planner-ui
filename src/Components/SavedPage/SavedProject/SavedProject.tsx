@@ -5,7 +5,7 @@ import React from 'react';
 
 const SavedProject = ({ project }: { project: Project }) => {
   const projectPaletteEls = project.attributes.colors.split('\n').map((color) => {
-    return <div key={`${project.id}${color}`} className='mini-palette-color' style={{ backgroundColor: `${color}` }}></div>;
+    return <div key={`${project.id}${color}${Math.random()}`} className='mini-palette-color' style={{ backgroundColor: `${color}` }}></div>;
   });
 
   const wordsInDescription = project.attributes.tagline.split(' ');
