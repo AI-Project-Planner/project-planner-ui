@@ -5,11 +5,14 @@ import user1 from '../../images/person1.png'
 import user2 from '../../images/person2.png'
 import user3 from '../../images/person3.png'
 import DemoUser from './DemoUser/DemoUser';
+import Login from '../Login/Login';
+
 type DemoPageProps = {
   logIn: (userID: string) => void
+  setAppError: React.Dispatch<React.SetStateAction<Error | null>>
 }
 
-const DemoPage = ({ logIn }: DemoPageProps) => {
+const DemoPage = ({ logIn, setAppError }: DemoPageProps) => {
   const userBtns = [{ img: user1, id: '1' }, { img: user2, id: '2' }, { img: user3, id: '3' }].map(user => <DemoUser key={user.id} user={user.img} userID={user.id} logIn={logIn} />)
   return (
     <section className='demo-page'>
@@ -26,7 +29,9 @@ const DemoPage = ({ logIn }: DemoPageProps) => {
         <p style={{margin: '2%'}}>OR</p>
         <div className='divider-line'></div>
       </section>
-      <button onClick={() => logIn('1')} className='login-button'>LOGIN WITH GOOGLE</button>
+      <div className='login-container'>
+        <Login setAppError={setAppError} logIn={logIn} />
+      </div>
     </section>
   )
 }

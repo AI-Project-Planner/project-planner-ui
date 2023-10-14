@@ -190,6 +190,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
+  max-height: 280px;
   padding: 10px;
   overflow-y: auto;
 }
