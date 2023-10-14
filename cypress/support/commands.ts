@@ -36,7 +36,7 @@ Cypress.Commands.add('completeForm', () => {
   cy.get(':nth-child(1) > .form-type-text').click()
   .get('.form-button').click()
   .get('.form-input').type('react')
-  .get('.form-tech-input-container > .form-icon').click()
+  .get('.form-tech-input-container > .form-icon-button > .form-icon').click()
   .get('.form-button').click()
   .get('input.form-input').type('1')
   .get('.form-button').click()
